@@ -2,8 +2,8 @@ class SingleProductModel {
   String? productImage;
   String? productModel;
   String? productName;
-  int? productOldPrice;
-  int? productPrice;
+  double? productOldPrice;
+  double? productPrice;
   String? productFourImage;
   String? productSecondImage;
   String? productThirdImage;

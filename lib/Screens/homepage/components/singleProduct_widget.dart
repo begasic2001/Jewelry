@@ -1,37 +1,29 @@
-
 import 'package:app_trang_suc/components/appColors/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class SingleProductWidget extends StatefulWidget {
-  final String productImage;
-  final String productName;
-  final String productModel;
-  final double productPrice;
-  final double productOldPrice;
+class SingleProductWidget extends StatelessWidget {
+  final String? productImage;
+  final String? productName;
+  final String? productModel;
+  final double? productPrice;
+  final double? productOldPrice;
   final VoidCallback? onTap;
   SingleProductWidget({
-    required this.productImage,
-    required this.productName,
-    required this.productModel,
-    required this.productPrice,
-    required this.productOldPrice,
+    this.productImage,
+    this.productName,
+    this.productModel,
+    this.productPrice,
+    this.productOldPrice,
     this.onTap,
   });
 
   @override
-  _SingleProductWidgetState createState() => _SingleProductWidgetState();
-}
-
-class _SingleProductWidgetState extends State<SingleProductWidget> {
-  bool isFave = false;
-
-  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: widget.onTap,
+      onTap: onTap,
       child: Container(
         height: 250,
-        margin: EdgeInsets.all(10.0),
+        margin: EdgeInsets.all(20.0),
         decoration: BoxDecoration(
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(5),
@@ -45,13 +37,20 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
                 alignment: Alignment.topRight,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Colors.transparent,
+                  color: AppColors.baseGrey10Color,
+                  borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: NetworkImage(
-                      widget.productImage
-                    ),
+                    image: NetworkImage(productImage!),
                   ),
+                ),
+                child: IconButton(
+                  icon: Icon(
+                    Icons.favorite,
+                    size: 30,
+                    color: AppColors.baseDarkOrangeColor,
+                  ),
+                  onPressed: () {},
                 ),
               ),
             ),
@@ -64,8 +63,7 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
                     height: 5,
                   ),
                   Text(
-                    //widget.productName,
-                    "Product Name",
+                    productName!,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -75,8 +73,7 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
                     height: 5,
                   ),
                   Text(
-                    //widget.productModel,
-                    "Test",
+                    productModel!,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       color: AppColors.baseDarkPinkColor,
@@ -88,7 +85,7 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
                   Row(
                     children: [
                       Text(
-                        "\$ ${widget.productPrice}",
+                        "\$ ${productPrice}",
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
@@ -96,7 +93,7 @@ class _SingleProductWidgetState extends State<SingleProductWidget> {
                         width: 15,
                       ),
                       Text(
-                        "\$ ${widget.productOldPrice}",
+                        "\$ ${productOldPrice}",
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,

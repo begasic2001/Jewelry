@@ -36,6 +36,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^4.0.3
   flutter_svg: ^2.0.4
+  carousel_pro: ^1.0.0
+  custom_navigator: ^0.3.0
 
 dev_dependencies:
   flutter_test:
