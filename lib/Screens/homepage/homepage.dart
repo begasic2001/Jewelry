@@ -1,3 +1,4 @@
+import 'package:app_trang_suc/Screens/details/detail.dart';
 import 'package:app_trang_suc/Screens/homepage/components/singleProduct_widget.dart';
 import 'package:app_trang_suc/Screens/tabbar/tabbar_data.dart';
 import 'package:app_trang_suc/components/appColors/app_colors.dart';
@@ -220,7 +221,9 @@ class HomePage extends StatelessWidget {
                         productModel: arrivalDataStore.productModel,
                         productPrice: arrivalDataStore.productPrice,
                         productOldPrice: arrivalDataStore.productOldPrice,
-                        onTap: () => {},
+                        onTap: () => {
+                          PageRouting.goToNextPage(context: context, navigateTo: DetailScreen(data: arrivalDataStore))
+                        },
                       );
                     },
                   ),

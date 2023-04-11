@@ -28,83 +28,85 @@ class SingleProductWidget extends StatelessWidget {
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(5),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Container(
-                alignment: Alignment.topRight,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: AppColors.baseGrey10Color,
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(productImage!),
-                  ),
-                ),
-                child: IconButton(
-                  icon: Icon(
-                    Icons.favorite,
-                    size: 30,
-                    color: AppColors.baseDarkOrangeColor,
-                  ),
-                  onPressed: () {},
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    productName!,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+        child: Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Container(
+                  alignment: Alignment.topRight,
+                  width: double.infinity - 9,
+                  decoration: BoxDecoration(
+                    color: AppColors.baseGrey10Color,
+                    borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(productImage!),
                     ),
                   ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    productModel!,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: AppColors.baseDarkPinkColor,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.favorite,
+                      size: 30,
+                      color: AppColors.baseDarkOrangeColor,
                     ),
+                    onPressed: () {},
                   ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "\$ ${productPrice}",
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Text(
-                        "\$ ${productOldPrice}",
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            decoration: TextDecoration.lineThrough),
-                      )
-                    ],
-                  )
-                ],
+                ),
               ),
-            )
-          ],
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      productName!,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      productModel!,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: AppColors.baseDarkPinkColor,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "\$ ${productPrice}",
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                        Text(
+                          "\$ ${productOldPrice}",
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.lineThrough),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
