@@ -1,4 +1,5 @@
 import 'package:app_trang_suc/Screens/homepage/homepage.dart';
+import 'package:app_trang_suc/mybottombar/my_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:app_trang_suc/constants.dart';
@@ -96,7 +97,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
               size: size,
               defaultLoginSize: defaultLoginSize,
               onTap: () => {
-                   PageRouting.goToNextPage(context: context, navigateTo: HomePage())
+                   PageRouting.goToNextPage(context: context, navigateTo: MyBottomBar())
               }),
 
           // Register Container

@@ -1,4 +1,5 @@
 import 'package:app_trang_suc/Screens/homepage/homepage.dart';
+import 'package:app_trang_suc/Screens/login/components/login_form.dart';
 import 'package:app_trang_suc/mybottombar/my_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primaryColor: kPrimaryColor,
           textTheme: GoogleFonts.robotoTextTheme(Theme.of(context).textTheme)),
-      home: MyBottomBar(),
+      home: Login(),
     );
   }
 }

@@ -1,6 +1,8 @@
+import 'package:app_trang_suc/Screens/category/category.dart';
 import 'package:app_trang_suc/Screens/homepage/homepage.dart';
 import 'package:app_trang_suc/components/appColors/app_colors.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 //import 'package:custom_navigator/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 // import 'package:custom_navigator/custom_navigator.dart';
@@ -16,7 +18,7 @@ class _MyBottomBarState extends State<MyBottomBar> {
   int _selectedIndex = 0;
   static List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    // CategoryScreen(),
+    CategoryScreen(),
     // YourBagScreen(),
     // WishListScreen(),
     // ProfileScreen(),
@@ -63,6 +65,12 @@ class _MyBottomBarState extends State<MyBottomBar> {
             return CupertinoTabView(builder: (context) {
               return CupertinoPageScaffold(
                 child: HomePage(),
+              );
+            });
+          case 1:
+            return CupertinoTabView(builder: (context) {
+              return CupertinoPageScaffold(
+                child: CategoryScreen(),
               );
             });
           default:
