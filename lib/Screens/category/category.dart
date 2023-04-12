@@ -1,6 +1,8 @@
 import 'package:app_trang_suc/Screens/tabbar/categorytabbar/category_all_tabbar.dart';
+import 'package:app_trang_suc/Screens/tabbar/categorytabbar/category_men_tabbar.dart';
 import 'package:app_trang_suc/components/appColors/app_colors.dart';
 import 'package:app_trang_suc/components/stylies/category_screen_stylies.dart';
+import 'package:app_trang_suc/data/category_screen_data.dart';
 import 'package:app_trang_suc/svgimages/svg_images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -44,17 +46,17 @@ class _CategoryScreenState extends State<CategoryScreen> {
       bottom: TabBar(
         indicator: BoxDecoration(color: Colors.transparent),
         labelStyle: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
         ),
         unselectedLabelColor: AppColors.baseBlackColor,
         labelColor: AppColors.baseDarkPinkColor,
         automaticIndicatorColorAdjustment: false,
         tabs: [
           Text("All"),
-          Text("Ring2"),
-          Text("Bracelet2"),
-          Text("Earring2"),
+          Text("Men"),
+          Text("Girl"),
+          Text("Earring"),
         ],
       ),
     );
@@ -70,19 +72,19 @@ class _CategoryScreenState extends State<CategoryScreen> {
         body: TabBarView(
           children: [
             //All Place
-            //CategoryAllTabBar(),
+            CategoryAllTabBar(),
             // //Men  Place
-            // CategoryMenTabBar(
-            //   categoryProductModel: menCategoryData,
-            // ),
+            CategoryMenTabBar(
+              categoryProductModel: menCategoryData,
+            ),
             // //woman Place
-            // CategoryMenTabBar(
-            //   categoryProductModel: womenCategoryData,
-            // ),
+            CategoryMenTabBar(
+              categoryProductModel: womenCategoryData,
+            ),
             // //Kids place
-            // CategoryMenTabBar(
-            //   categoryProductModel: forKids,
-            // ),
+            CategoryMenTabBar(
+              categoryProductModel: forKids,
+            ),
           ],
         ),
       ),
