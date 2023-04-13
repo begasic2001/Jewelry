@@ -1,3 +1,4 @@
+import 'package:app_trang_suc/components/appColors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:app_trang_suc/components/rounded_button.dart';
@@ -91,13 +92,14 @@ class RoundedRegisterButton extends StatelessWidget {
         width: size.width * 0.8,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
-          color: kPrimaryColor,
+          color: AppColors.baseLightOrangeColor,
         ),
         padding: EdgeInsets.symmetric(vertical: 20),
         alignment: Alignment.center,
         child: Text(
           title,
-          style: TextStyle(color: Colors.white, fontSize: 18),
+          style: TextStyle(color: Colors.white, fontSize: 20
+           , fontWeight: FontWeight.w700),
         ),
       ),
     );

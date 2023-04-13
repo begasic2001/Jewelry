@@ -149,7 +149,7 @@ class _SubCategoryState extends State<SubCategory> {
                   height: 5,
                 ),
                 Text(
-                  "${widget.productData.length} Products",
+                  "${widget.productData.length} Sản Phẩm",
                   style: SubCategoryStylies.subCategoryProductItemStyle,
                 ),
                 SizedBox(
@@ -171,7 +171,7 @@ class _SubCategoryState extends State<SubCategory> {
                             width: 5,
                           ),
                           Text(
-                            'Reebok',
+                            'jewelry',
                             style: SubCategoryStylies.subCategoryModelNameStyle,
                           )
                         ],

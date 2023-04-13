@@ -19,7 +19,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       elevation: 0,
       centerTitle: true,
       title: Text(
-        "Welcome",
+        "Chào Mừng",
         style: CategoryScreenStylies.categoryAppBarTitleStyle,
       ),
       actions: [
@@ -53,10 +53,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
         labelColor: AppColors.baseDarkPinkColor,
         automaticIndicatorColorAdjustment: false,
         tabs: [
-          Text("All"),
-          Text("Men"),
-          Text("Girl"),
-          Text("Earring"),
+          Text("Tất Cả"),
+          Text("Nam"),
+          Text("Nữ"),
+          Text("Trẻ Em"),
         ],
       ),
     );

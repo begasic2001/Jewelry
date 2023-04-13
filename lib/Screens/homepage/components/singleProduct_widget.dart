@@ -86,7 +86,7 @@ class SingleProductWidget extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          "\$ ${productPrice}",
+                          "${productPrice} VNĐ",
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
@@ -94,7 +94,7 @@ class SingleProductWidget extends StatelessWidget {
                           width: 15,
                         ),
                         Text(
-                          "\$ ${productOldPrice}",
+                          "${productOldPrice} VNĐ",
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,

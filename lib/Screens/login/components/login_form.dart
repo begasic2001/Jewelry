@@ -1,4 +1,5 @@
 import 'package:app_trang_suc/Screens/homepage/homepage.dart';
+import 'package:app_trang_suc/components/appColors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:app_trang_suc/components/rounded_button.dart';
@@ -40,7 +41,7 @@ class LoginForm extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Chào mừng quay trở lại',
+                  'CHÀO MỪNG QUAY TRỞ LẠI',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                 ),
                 SizedBox(height: 40),
@@ -61,7 +62,7 @@ class LoginForm extends StatelessWidget {
                 const Text(
                   "Hoặc",
                   style: TextStyle(
-                      color: kPrimaryColor,
+                      color: AppColors.baseLightOrangeColor,
                       fontWeight: FontWeight.w600,
                       fontSize: 15),
                 ),
@@ -78,14 +79,14 @@ class LoginForm extends StatelessWidget {
                       iconSrc: "assets/socials/facebook.svg",
                       press: () {},
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     SocialLogin(
                       iconSrc: "assets/socials/google.svg",
                       press: () {},
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     SocialLogin(
@@ -118,7 +119,7 @@ class SocialLogin extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
-                border: Border.all(width: 2, color: kPrimaryColor),
+                border: Border.all(width: 2, color: AppColors.baseLightOrangeColor),
                 shape: BoxShape.circle),
             child: SvgPicture.asset(
               iconSrc,

@@ -1,4 +1,5 @@
 import 'package:app_trang_suc/Screens/homepage/homepage.dart';
+import 'package:app_trang_suc/components/appColors/app_colors.dart';
 import 'package:app_trang_suc/mybottombar/my_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -59,7 +60,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                 height: 100,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
-                    color: kPrimaryColor),
+                    color: AppColors.baseLightOrangeColor),
               )),
 
           Positioned(
@@ -70,7 +71,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                 height: 200,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
-                    color: kPrimaryColor),
+                    color: AppColors.baseLightOrangeColor),
               )),
 
           // Cancel Button
@@ -132,7 +133,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
       child: Container(
         width: double.infinity,
         height: containerSize.value,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(100),
               topRight: Radius.circular(100),
@@ -150,9 +151,9 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                   });
                 },
           child: isLogin
-              ? Text(
+              ? const Text(
                   "Bạn chưa có tài khoản? Đăng ký",
-                  style: TextStyle(color: kPrimaryColor, fontSize: 18),
+                  style: TextStyle(color: AppColors.baseBlackColor, fontSize: 18),
                 )
               : null,
         ),

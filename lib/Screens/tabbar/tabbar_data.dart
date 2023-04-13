@@ -1,8 +1,7 @@
-
-
-
+import 'package:app_trang_suc/Screens/details/detail.dart';
 import 'package:app_trang_suc/Screens/homepage/components/singleProduct_widget.dart';
 import 'package:app_trang_suc/models/SingleProductModel.dart';
+import 'package:app_trang_suc/routes/routes.dart';
 import 'package:flutter/material.dart';
 
 class TabBarBar extends StatelessWidget {
@@ -23,10 +22,10 @@ class TabBarBar extends StatelessWidget {
         var data = productData[index];
         return SingleProductWidget(
           onTap: () {
-            // PageRouting.goToNextPage(
-            //   context: context,
-            //   navigateTo: DetailScreen(data: data),
-            // );
+            PageRouting.goToNextPage(
+              context: context,
+              navigateTo: DetailScreen(data: data),
+            );
           },
           productImage: data.productImage,
           productModel: data.productModel,

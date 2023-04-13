@@ -1,5 +1,6 @@
 import 'package:app_trang_suc/Screens/details/components/drop_button.dart';
 import 'package:app_trang_suc/Screens/homepage/components/singleProduct_widget.dart';
+import 'package:app_trang_suc/Screens/sizeguide/sizeguide.dart';
 import 'package:app_trang_suc/components/appColors/app_colors.dart';
 import 'package:app_trang_suc/components/stylies/detail_screen_stylies.dart';
 import 'package:app_trang_suc/data/detail_screen_data.dart';
@@ -29,8 +30,8 @@ class _DetailScreenState extends State<DetailScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        title: Text(
-          "Reebok",
+        title: const Text(
+          "Jewelry",
           style: TextStyle(
             color: AppColors.baseBlackColor,
           ),
@@ -41,7 +42,7 @@ class _DetailScreenState extends State<DetailScreen> {
               SvgImages.heart,
               color: AppColors.baseBlackColor,
               width: 35,
-              semanticsLabel: "Fave",
+              semanticsLabel: "Favo",
             ),
             onPressed: () {},
           ),
@@ -50,7 +51,7 @@ class _DetailScreenState extends State<DetailScreen> {
               SvgImages.upload,
               color: AppColors.baseBlackColor,
               width: 35,
-              semanticsLabel: "Fave",
+              semanticsLabel: "Favo",
             ),
             onPressed: () {},
           ),
@@ -61,7 +62,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
   buildListTile() {
     return ListTile(
-      leading: CircleAvatar(
+      leading: const CircleAvatar(
         radius: 35,
         backgroundColor: Colors.transparent,
         backgroundImage: NetworkImage(
@@ -150,15 +151,28 @@ class _DetailScreenState extends State<DetailScreen> {
       children: [
         Expanded(
           child: DropButton(
-            hintText: "Color",
-            item: ["red", "blue", "white", "black", "pink"],
+            hintText: "Màu Sắc",
+            item: ["Vàng, Bạc, Bạch Kim"],
             ratingController: _ratingController,
           ),
         ),
         Expanded(
           child: DropButton(
             hintText: "Size",
-            item: ["25", "30", "35", "40", "45"],
+            item: [
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17"
+            ],
             ratingController: _sizeController,
           ),
         )
@@ -172,14 +186,14 @@ class _DetailScreenState extends State<DetailScreen> {
       children: [
         Text(
           firstTitle!,
-          semanticsLabel: ".\t\tMaterial",
+          semanticsLabel: ".\t\Chất Liệu",
           style: TextStyle(
             fontSize: 18.60,
           ),
         ),
         Text(
           secTitle!,
-          semanticsLabel: "84%\tnylon",
+          semanticsLabel: "84%\tVàng",
           style: TextStyle(
             fontSize: 18.60,
           ),
@@ -191,7 +205,7 @@ class _DetailScreenState extends State<DetailScreen> {
   buildExpensionTile() {
     return ExpansionTile(
       title: Text(
-        "Description",
+        "Mô Tả",
         style: DetailScreenStylies.descriptionTextStyle,
       ),
       children: [
@@ -199,7 +213,7 @@ class _DetailScreenState extends State<DetailScreen> {
           title: Wrap(
             children: [
               Text(
-                "this woman\'s tank top is designed to help you\nstay cool. it\'s made of stretchy and breathable\nfabric that moves heat away from your skin\n",
+                "Mô Tả Chi Tiết Sản Phẩm",
                 style: TextStyle(
                   fontSize: 16,
                 ),
@@ -207,14 +221,14 @@ class _DetailScreenState extends State<DetailScreen> {
               Column(
                 children: [
                   buildExpensionTileRow(
-                    firstTitle: '.\t\tMaterial',
-                    secTitle: "84%\tnylon",
+                    firstTitle: '.\t\Chất liệu',
+                    secTitle: "84%\tVàng",
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "16% elastance",
+                        "16% mix",
                         style: TextStyle(
                           fontSize: 18.60,
                         ),
@@ -222,35 +236,28 @@ class _DetailScreenState extends State<DetailScreen> {
                     ],
                   ),
                   buildExpensionTileRow(
-                    firstTitle: ".\t\tSize",
-                    secTitle: "2XS,\tXS, \ts,\tM, \tL",
+                    firstTitle: ".\t\Kích thước",
+                    secTitle: "10,\t11, \t12,\t13, \t14",
                   ),
                   buildExpensionTileRow(
-                    firstTitle: ".\t\tGender",
-                    secTitle: "Woman",
+                    firstTitle: ".\t\Giới tính",
+                    secTitle: "Nữ",
                   ),
-                  buildExpensionTileRow(
-                    firstTitle: ".\t\tProvince",
-                    secTitle: "Balochistan",
-                  ),
-                  buildExpensionTileRow(
-                    firstTitle: ".\t\tCountry",
-                    secTitle: "Pakistan",
-                  ),
+               
                   MaterialButton(
                     height: 55,
                     elevation: 0,
                     child: Text(
-                      "Size guide",
+                      "Hướng dân kích thước",
                       style: DetailScreenStylies.sizeGruideTextStyle,
                     ),
                     minWidth: double.infinity,
                     color: AppColors.basewhite60Color,
                     onPressed: () {
-                      // PageRouting.goToNextPage(
-                      //   context: context,
-                      //   navigateTo: SizeGuideScreen(),
-                      // );
+                      PageRouting.goToNextPage(
+                        context: context,
+                        navigateTo: SizeGuideScreen(),
+                      );
                     },
                   )
                 ],

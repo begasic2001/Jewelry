@@ -1,3 +1,4 @@
+import 'package:app_trang_suc/components/appColors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:app_trang_suc/components/input_container.dart';
 import 'package:app_trang_suc/constants.dart';
@@ -16,9 +17,9 @@ class RoundedInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return InputContainer(
       child: TextField(
-        cursorColor: kPrimaryColor,
+        cursorColor: AppColors.baseLightOrangeColor,
         decoration: InputDecoration(
-          icon: Icon(icon, color: kPrimaryColor),
+          icon: Icon(icon, color: AppColors.baseLightOrangeColor),
           hintText: hint,
           border: InputBorder.none
         ),

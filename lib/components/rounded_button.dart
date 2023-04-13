@@ -1,4 +1,5 @@
 import 'package:app_trang_suc/Screens/homepage/homepage.dart';
+import 'package:app_trang_suc/components/appColors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:app_trang_suc/constants.dart';
 
@@ -24,13 +25,13 @@ class RoundedButton extends StatelessWidget {
         width: size.width * 0.8,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
-          color: kPrimaryColor,
+          color: AppColors.baseLightOrangeColor,//yPrimaryColor
         ),
         padding: EdgeInsets.symmetric(vertical: 20),
         alignment: Alignment.center,
         child: Text(
           title,
-          style: TextStyle(color: Colors.white, fontSize: 18),
+          style: TextStyle(color: Colors.white, fontSize: 20 , fontWeight: FontWeight.w700),
         ),
         
       ),

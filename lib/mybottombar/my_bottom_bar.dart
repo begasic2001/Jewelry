@@ -1,5 +1,8 @@
 import 'package:app_trang_suc/Screens/category/category.dart';
 import 'package:app_trang_suc/Screens/homepage/homepage.dart';
+import 'package:app_trang_suc/Screens/profile/profile_screen.dart';
+import 'package:app_trang_suc/Screens/wishlist/wish_list_screen.dart';
+import 'package:app_trang_suc/Screens/yourcart/your_cart_screen.dart';
 import 'package:app_trang_suc/components/appColors/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -19,9 +22,9 @@ class _MyBottomBarState extends State<MyBottomBar> {
   static List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     CategoryScreen(),
-    // YourBagScreen(),
-    // WishListScreen(),
-    // ProfileScreen(),
+    YourCartScreen(),
+    WishListScreen(),
+    ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -56,7 +59,7 @@ class _MyBottomBarState extends State<MyBottomBar> {
             label: '',
           ),
         ],
-        activeColor: AppColors.baseDarkPinkColor,
+        activeColor: AppColors.baseLightOrangeColor,
         inactiveColor: AppColors.baseGrey40Color,
       ),
       tabBuilder: (context, index) {
@@ -71,6 +74,24 @@ class _MyBottomBarState extends State<MyBottomBar> {
             return CupertinoTabView(builder: (context) {
               return CupertinoPageScaffold(
                 child: CategoryScreen(),
+              );
+            });
+          case 2:
+            return CupertinoTabView(builder: (context) {
+              return CupertinoPageScaffold(
+                child: YourCartScreen(),
+              );
+            });
+          case 3:
+            return CupertinoTabView(builder: (context) {
+              return CupertinoPageScaffold(
+                child: WishListScreen(),
+              );
+            });
+          case 4:
+            return CupertinoTabView(builder: (context) {
+              return CupertinoPageScaffold(
+                child: ProfileScreen(),
               );
             });
           default:

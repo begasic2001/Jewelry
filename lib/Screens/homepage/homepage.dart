@@ -1,4 +1,5 @@
 import 'package:app_trang_suc/Screens/details/detail.dart';
+import 'package:app_trang_suc/Screens/filter/filter.dart';
 import 'package:app_trang_suc/Screens/homepage/components/singleProduct_widget.dart';
 import 'package:app_trang_suc/Screens/tabbar/tabbar_data.dart';
 import 'package:app_trang_suc/components/appColors/app_colors.dart';
@@ -32,10 +33,10 @@ class HomePage extends StatelessWidget {
         unselectedLabelColor: AppColors.baseBlackColor,
         labelColor: AppColors.baseDarkPinkColor,
         tabs: [
-          Text("All"),
-          Text("Ring"),
-          Text("Bracelet"),
-          Text("Earring"),
+          Text("Tất Cả"),
+          Text("Nhẫn"),
+          Text("Vòng Đeo"),
+          Text("Bông Tai"),
         ],
       ),
       backgroundColor: Colors.transparent,
@@ -44,11 +45,11 @@ class HomePage extends StatelessWidget {
       title: Column(
         children: const [
           Text(
-            "Chào Mừng",
+            "CHÀO MỪNG",
             style: HomeScreenStylies.appBarUpperTitleStylies,
           ),
           Text(
-            "Trang Sức",
+            "JEWELRY",
             style: HomeScreenStylies.appBarBottomTitleStylies,
           )
         ],
@@ -63,10 +64,10 @@ class HomePage extends StatelessWidget {
             ),
           ),
           onPressed: () {
-            // PageRouting.goToNextPage(
-            //   context: context,
-            //   navigateTo: FilterScreen(),
-            // );
+            PageRouting.goToNextPage(
+              context: context,
+              navigateTo: FilterScreen(),
+            );
           },
         ),
         IconButton(
@@ -177,7 +178,7 @@ class HomePage extends StatelessWidget {
               ),
               onPressed: () {},
               child: Text(
-                "\$ $productPrice",
+                "$productPrice",
                 style: HomeScreenStylies.trendingProductPriceStyle,
               ),
             ),
@@ -199,7 +200,7 @@ class HomePage extends StatelessWidget {
               physics: BouncingScrollPhysics(),
               children: [
                 buildAdvertismentPlace(),
-                ShowAllWidget(leftText: "New Arrival"),
+                ShowAllWidget(leftText: "Hàng Mới Về"),
                 Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: 12.0,
@@ -222,7 +223,9 @@ class HomePage extends StatelessWidget {
                         productPrice: arrivalDataStore.productPrice,
                         productOldPrice: arrivalDataStore.productOldPrice,
                         onTap: () => {
-                          PageRouting.goToNextPage(context: context, navigateTo: DetailScreen(data: arrivalDataStore))
+                          PageRouting.goToNextPage(
+                              context: context,
+                              navigateTo: DetailScreen(data: arrivalDataStore))
                         },
                       );
                     },
@@ -233,7 +236,7 @@ class HomePage extends StatelessWidget {
                   endIndent: 16,
                 ),
                 ShowAllWidget(
-                  leftText: "What\'s trending",
+                  leftText: "Xu Hướng",
                 ),
                 buildTrendingProduct(
                   productImage:
@@ -257,7 +260,7 @@ class HomePage extends StatelessWidget {
                   productPrice: 15,
                 ),
                 ShowAllWidget(
-                  leftText: "Your History",
+                  leftText: "Nhiều Người Tìm Kiếm",
                 ),
                 Container(
                   height: 260,
@@ -275,12 +278,12 @@ class HomePage extends StatelessWidget {
                       var arrivalDataStore = singleProductData[index];
                       return SingleProductWidget(
                           onTap: () {
-                            // PageRouting.goToNextPage(
-                            //   context: context,
-                            //   navigateTo: DetailScreen(
-                            //     data: historyDataStore,
-                            //   ),
-                            // );
+                            PageRouting.goToNextPage(
+                              context: context,
+                              navigateTo: DetailScreen(
+                                data: arrivalDataStore,
+                              ),
+                            );
                           },
                           productImage: arrivalDataStore
                               .productImage, //historyDataStore.productImage,
