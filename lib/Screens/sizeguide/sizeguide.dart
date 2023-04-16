@@ -35,8 +35,8 @@ class _SizeGuideScreenState extends State<SizeGuideScreen> {
 
   Widget buildExpansionTil({
     List<String>? items,
-    //String? title,
-    //String? hint,
+    String? title,
+    String? hint,
     String? value,
   }) {
     return ExpansionTile(
@@ -65,12 +65,12 @@ class _SizeGuideScreenState extends State<SizeGuideScreen> {
                   ),
                 ),
                 iconSize: 30,
-                // hint: Text(
-                //   hint!,
-                //   style: DetailScreenStylies.productDropDownValueStyle,
-                // ),
+                hint: Text(
+                  hint!,
+                  style: DetailScreenStylies.productDropDownValueStyle,
+                ),
                 value: value,
-                items: items!
+                items: items
                     .map(
                       (e) => DropdownMenuItem(
                         child: Text(e),
@@ -128,7 +128,7 @@ class _SizeGuideScreenState extends State<SizeGuideScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Giới Tính",
+                  "Gender",
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
@@ -136,13 +136,13 @@ class _SizeGuideScreenState extends State<SizeGuideScreen> {
                   ),
                 ),
                 buildExpansionTil(
-                  // hint: "Gender",
+                  hint: "Gender",
                   items: [
-                    "Nữ",
-                    "Nam",
-                    "Trẻ Em",
+                    "Woman",
+                    "Men",
+                    "Child",
                   ],
-                  //title: "Gender",
+                  title: "Gender",
                   value: _genderController,
                 ),
               ],

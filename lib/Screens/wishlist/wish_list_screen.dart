@@ -69,14 +69,14 @@ class _WishListScreenState extends State<WishListScreen> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Text(
-                            "800000 VNĐ",
-                            style: TextStyle(
-                              fontSize: 16,
-                              decoration: TextDecoration.lineThrough,
-                              color: AppColors.baseGrey50Color,
-                            ),
-                          )
+                          // Text(
+                          //   "800000 VNĐ",
+                          //   style: TextStyle(
+                          //     fontSize: 16,
+                          //     decoration: TextDecoration.lineThrough,
+                          //     color: AppColors.baseGrey50Color,
+                          //   ),
+                          // )
                         ],
                       ),
                     ),

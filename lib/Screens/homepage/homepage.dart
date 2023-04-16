@@ -33,10 +33,10 @@ class HomePage extends StatelessWidget {
         unselectedLabelColor: AppColors.baseBlackColor,
         labelColor: AppColors.baseDarkPinkColor,
         tabs: [
-          Text("Tất Cả"),
-          Text("Nhẫn"),
-          Text("Vòng Đeo"),
-          Text("Bông Tai"),
+          Text("All"),
+          Text("Ring"),
+          Text("Bracelet"),
+          Text("Earing"),
         ],
       ),
       backgroundColor: Colors.transparent,
@@ -45,7 +45,7 @@ class HomePage extends StatelessWidget {
       title: Column(
         children: const [
           Text(
-            "CHÀO MỪNG",
+            "WELCOME",
             style: HomeScreenStylies.appBarUpperTitleStylies,
           ),
           Text(
@@ -221,7 +221,7 @@ class HomePage extends StatelessWidget {
                         productName: arrivalDataStore.productName,
                         productModel: arrivalDataStore.productModel,
                         productPrice: arrivalDataStore.productPrice,
-                        productOldPrice: arrivalDataStore.productOldPrice,
+                        //productOldPrice: arrivalDataStore.productOldPrice,
                         onTap: () => {
                           PageRouting.goToNextPage(
                               context: context,
@@ -268,7 +268,7 @@ class HomePage extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
                     primary: true,
-                    itemCount: shoesData.length,
+                    itemCount: singleProductData.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 1,
                       childAspectRatio: 1.5,
@@ -291,8 +291,8 @@ class HomePage extends StatelessWidget {
                               .productImage, //historyDataStore.productModel,
                           productName: arrivalDataStore
                               .productName, //historyDataStore.productName,
-                          productOldPrice: arrivalDataStore
-                              .productOldPrice, //historyDataStore.productOldPrice,
+                          // productOldPrice: arrivalDataStore
+                          //     .productOldPrice, //historyDataStore.productOldPrice,
                           productPrice: arrivalDataStore
                               .productPrice //historyDataStore.productPrice
                           );

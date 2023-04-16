@@ -151,8 +151,8 @@ class _DetailScreenState extends State<DetailScreen> {
       children: [
         Expanded(
           child: DropButton(
-            hintText: "Màu Sắc",
-            item: ["Vàng, Bạc, Bạch Kim"],
+            hintText: "Color",
+            item: ["Silver", "Gold", "Pla"],
             ratingController: _ratingController,
           ),
         ),
@@ -243,7 +243,6 @@ class _DetailScreenState extends State<DetailScreen> {
                     firstTitle: ".\t\Giới tính",
                     secTitle: "Nữ",
                   ),
-               
                   MaterialButton(
                     height: 55,
                     elevation: 0,
@@ -319,7 +318,7 @@ class _DetailScreenState extends State<DetailScreen> {
             productImage: data.productImage,
             productModel: data.productModel,
             productName: data.productName,
-            productOldPrice: data.productOldPrice,
+            //productOldPrice: data.productOldPrice,
             productPrice: data.productPrice,
           );
         },

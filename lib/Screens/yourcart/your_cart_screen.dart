@@ -103,14 +103,14 @@ class _YourCartScreenState extends State<YourCartScreen> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Text(
-                                "800000 VNĐ",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  decoration: TextDecoration.lineThrough,
-                                  color: AppColors.baseGrey50Color,
-                                ),
-                              ),
+                              // Text(
+                              //   "800000 VNĐ",
+                              //   style: TextStyle(
+                              //     fontSize: 16,
+                              //     decoration: TextDecoration.lineThrough,
+                              //     color: AppColors.baseGrey50Color,
+                              //   ),
+                              // ),
                             ],
                           )
                         ],
