@@ -19,6 +19,10 @@ class _YourCartScreenState extends State<YourCartScreen> {
   var cartData;
   AppBar buildAppBar() {
     return AppBar(
+      leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.of(context).pop(context),
+        ),
       backgroundColor: Colors.transparent,
       elevation: 0,
       actions: [
@@ -92,27 +96,22 @@ class _YourCartScreenState extends State<YourCartScreen> {
                               color: AppColors.baseDarkPinkColor,
                             ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "400000 VNĐ",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: AppColors.baseBlackColor,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              // Text(
-                              //   "800000 VNĐ",
-                              //   style: TextStyle(
-                              //     fontSize: 16,
-                              //     decoration: TextDecoration.lineThrough,
-                              //     color: AppColors.baseGrey50Color,
-                              //   ),
-                              // ),
-                            ],
-                          )
+                          Text(
+                            "400000 VNĐ",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: AppColors.baseBlackColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            "800000 VNĐ",
+                            style: TextStyle(
+                              fontSize: 16,
+                              decoration: TextDecoration.lineThrough,
+                              color: AppColors.baseGrey50Color,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -177,7 +176,7 @@ class _YourCartScreenState extends State<YourCartScreen> {
                         ),
                       ),
                       hint: Text(
-                        "Colors",
+                        "Màu Sắc",
                         style: DetailScreenStylies.productDropDownValueStyle,
                       ),
                       value: colorsController,
@@ -333,7 +332,7 @@ class _YourCartScreenState extends State<YourCartScreen> {
                         ),
                       ),
                       SizedBox(
-                        height: 2,
+                        height: 5,
                       ),
                       Text(
                         "Số tiền giảm giá của bạn",
@@ -346,16 +345,17 @@ class _YourCartScreenState extends State<YourCartScreen> {
                   trailing: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
+                      SizedBox(height: 9,),
                       Text(
                         "193000 VNĐ",
                         style: TextStyle(
-                          fontSize: 16,
+                          
                           color: AppColors.baseBlackColor,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       SizedBox(
-                        height: 2,
+                        height: 8,
                       ),
                       Text(
                         "-500000 VNĐ",
@@ -367,7 +367,7 @@ class _YourCartScreenState extends State<YourCartScreen> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.all(20),
+                  margin: EdgeInsets.all(30),
                   child: RoundedButton(
                     //color: AppColors.baseDarkPinkColor,
                     title: "Thanh Toán",

@@ -222,7 +222,7 @@ class _SubCategoryState extends State<SubCategory> {
                       },
                       productImage: data.productImage,
                       productModel: data.productModel,
-                      //productOldPrice: data.productOldPrice,
+                      productOldPrice: data.productOldPrice,
                       productName: data.productName,
                       productPrice: data.productPrice,
                     );

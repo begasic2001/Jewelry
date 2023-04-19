@@ -1,6 +1,7 @@
 import 'package:app_trang_suc/Screens/details/components/drop_button.dart';
 import 'package:app_trang_suc/Screens/homepage/components/singleProduct_widget.dart';
 import 'package:app_trang_suc/Screens/sizeguide/sizeguide.dart';
+import 'package:app_trang_suc/Screens/yourcart/your_cart_screen.dart';
 import 'package:app_trang_suc/components/appColors/app_colors.dart';
 import 'package:app_trang_suc/components/stylies/detail_screen_stylies.dart';
 import 'package:app_trang_suc/data/detail_screen_data.dart';
@@ -27,6 +28,10 @@ class _DetailScreenState extends State<DetailScreen> {
     return PreferredSize(
       preferredSize: Size.fromHeight(70),
       child: AppBar(
+        leading: new IconButton(
+          icon: new Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.of(context).pop(context),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
@@ -151,14 +156,14 @@ class _DetailScreenState extends State<DetailScreen> {
       children: [
         Expanded(
           child: DropButton(
-            hintText: "Color",
-            item: ["Silver", "Gold", "Pla"],
+            hintText: "Màu",
+            item: ["Bạc", "Vàng", "Bạch Kim"],
             ratingController: _ratingController,
           ),
         ),
         Expanded(
           child: DropButton(
-            hintText: "Size",
+            hintText: "Kích Cỡ",
             item: [
               "6",
               "7",
@@ -274,19 +279,18 @@ class _DetailScreenState extends State<DetailScreen> {
       child: MaterialButton(
         elevation: 0,
         height: 50,
-        color: AppColors.baseDarkGreenColor,
+        color: AppColors.baseLightOrangeColor,
         shape: RoundedRectangleBorder(
             side: BorderSide.none, borderRadius: BorderRadius.circular(5)),
         child: Text(
-          "Add to Cart",
+          "Thêm Vào Giỏ",
           style: DetailScreenStylies.buttonTextStyle,
         ),
         onPressed: () {
-          // PageRouting.goToNextPage(
-          //   context: context,
-          //   navigateTo: YourBagScreen(
-          //   ),
-          // );
+          PageRouting.goToNextPage(
+            context: context,
+            navigateTo: YourCartScreen(),
+          );
         },
       ),
     );
@@ -318,7 +322,7 @@ class _DetailScreenState extends State<DetailScreen> {
             productImage: data.productImage,
             productModel: data.productModel,
             productName: data.productName,
-            //productOldPrice: data.productOldPrice,
+            productOldPrice: data.productOldPrice,
             productPrice: data.productPrice,
           );
         },
@@ -329,11 +333,11 @@ class _DetailScreenState extends State<DetailScreen> {
   buildMayLikeYou() {
     return ListTile(
       leading: Text(
-        "You may also like",
+        "Sản Phẩm Khác",
         style: DetailScreenStylies.youmayalsolikeTextStyle,
       ),
       trailing: Text(
-        "Show All",
+        "Xem Tất Cả",
         style: DetailScreenStylies.showAllTextStyle,
       ),
     );

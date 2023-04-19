@@ -16,6 +16,7 @@ class ConfirmationSuccessPage extends StatelessWidget {
         "Success",
         style: TextStyle(
           color: AppColors.baseBlackColor,
+          fontSize: 25
         ),
       ),
       actions: [
@@ -57,7 +58,7 @@ class ConfirmationSuccessPage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "Đơn đặt hàng của bạn được chấp nhận",
+                          "Đơn đặt hàng đã được chấp nhận",
                           style: TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
@@ -77,12 +78,15 @@ class ConfirmationSuccessPage extends StatelessWidget {
                           "Đơn hàng của bạn đang trên đường",
                           style: TextStyle(
                             color: AppColors.baseGrey40Color,
+                            fontSize: 20
                           ),
+                        
                         ),
                         Text(
                           "và sẽ đến trong thời gian ngắn",
                           style: TextStyle(
                             color: AppColors.baseGrey40Color,
+                            fontSize: 20
                           ),
                         ),
                       ],

@@ -1,3 +1,4 @@
+
 import 'package:app_trang_suc/Screens/confirmation/confirmation.dart';
 import 'package:app_trang_suc/Screens/payment/components/payment_text_formfield.dart';
 import 'package:app_trang_suc/components/appColors/app_colors.dart';
@@ -7,9 +8,19 @@ import 'package:app_trang_suc/svgimages/svg_images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class PaymentScreen extends StatelessWidget {
-  AppBar buildAppBar() {
+class PaymentScreen extends StatefulWidget {
+  
+
+  _PaymentScreenState createState() => _PaymentScreenState();
+}
+
+class _PaymentScreenState extends State<PaymentScreen> {
+    AppBar buildAppBar() {
     return AppBar(
+      leading: IconButton(
+          icon: new Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.of(context).pop(context),
+        ),
       elevation: 0,
       backgroundColor: Colors.transparent,
       actions: [
@@ -58,10 +69,10 @@ class PaymentScreen extends StatelessWidget {
       ),
     );
   }
-
+  
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+     return Scaffold(
       appBar: buildAppBar(),
       body: ListView(
         physics: BouncingScrollPhysics(),
@@ -368,3 +379,12 @@ class PaymentScreen extends StatelessWidget {
     );
   }
 }
+
+// class PaymentScreen extends StatelessWidget {
+
+
+//   @override
+//   Widget build(BuildContext context) {
+   
+//   }
+// }

@@ -21,7 +21,7 @@ class ShowAllWidget extends StatelessWidget {
             ),
           ),
           Text(
-            "Show All",
+            "Xem tất cả",
             style: TextStyle(
               fontSize: 20,
               color: AppColors.baseDarkPinkColor,

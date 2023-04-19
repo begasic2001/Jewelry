@@ -4,11 +4,19 @@ import 'package:app_trang_suc/components/rounded_button.dart';
 import 'package:app_trang_suc/routes/routes.dart';
 import 'package:flutter/material.dart';
 
-class ConfirmationPage extends StatelessWidget {
+class ConfirmationPage extends StatefulWidget {
+  _ConfirmationPageState createState() => _ConfirmationPageState();
+}
+
+class _ConfirmationPageState extends State<ConfirmationPage> {
   AppBar buildAppbar() {
     return AppBar(
       elevation: 0,
       backgroundColor: Colors.transparent,
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back, color: Colors.black),
+        onPressed: () => Navigator.of(context).pop(context),
+      ),
     );
   }
 
@@ -23,7 +31,7 @@ class ConfirmationPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
                 Text(
-                  "Order amount",
+                  "Tổng Đơn Hàng",
                   style: TextStyle(
                     fontSize: 18,
                     color: AppColors.baseBlackColor,
@@ -36,7 +44,7 @@ class ConfirmationPage extends StatelessWidget {
                 Text(
                   "số tiền giảm giá của bạn",
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: 16,
                     color: AppColors.baseBlackColor,
                   ),
                 ),
@@ -51,13 +59,13 @@ class ConfirmationPage extends StatelessWidget {
                 Text(
                   "1500000 VNĐ",
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 18,
                     color: AppColors.baseBlackColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 SizedBox(
-                  height: 2,
+                  height: 4,
                 ),
                 Text(
                   "-500000 VNĐ",

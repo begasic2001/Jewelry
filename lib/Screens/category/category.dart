@@ -50,7 +50,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
           fontWeight: FontWeight.bold,
         ),
         unselectedLabelColor: AppColors.baseBlackColor,
-        labelColor: AppColors.baseDarkPinkColor,
+        labelColor: AppColors.baseLightOrangeColor,
         automaticIndicatorColorAdjustment: false,
         tabs: [
           Text("Tất Cả"),

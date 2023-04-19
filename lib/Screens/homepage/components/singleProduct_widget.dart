@@ -6,14 +6,14 @@ class SingleProductWidget extends StatelessWidget {
   final String? productName;
   final String? productModel;
   final double? productPrice;
-  //final double? productOldPrice;
+  final double? productOldPrice;
   final VoidCallback? onTap;
   SingleProductWidget({
     this.productImage,
     this.productName,
     this.productModel,
     this.productPrice,
-    //this.productOldPrice,
+    this.productOldPrice,
     this.onTap,
   });
 
@@ -83,9 +83,7 @@ class SingleProductWidget extends StatelessWidget {
                     SizedBox(
                       height: 5,
                     ),
-                    Row(
-                      children: [
-                        Text(
+                    Text(
                           "${productPrice} VNĐ",
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(fontWeight: FontWeight.bold),
@@ -93,15 +91,13 @@ class SingleProductWidget extends StatelessWidget {
                         SizedBox(
                           width: 15,
                         ),
-                        // Text(
-                        //   "${productOldPrice} VNĐ",
-                        //   overflow: TextOverflow.ellipsis,
-                        //   style: TextStyle(
-                        //       fontWeight: FontWeight.bold,
-                        //       decoration: TextDecoration.lineThrough),
-                        // )
-                      ],
-                    )
+                        Text(
+                          "${productOldPrice} VNĐ",
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.lineThrough),
+                        )
                   ],
                 ),
               )

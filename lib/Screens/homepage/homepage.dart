@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
       bottom: const TabBar(
-        labelPadding: EdgeInsets.symmetric(horizontal: 22),
+        labelPadding: EdgeInsets.symmetric(horizontal: 20),
         indicator: BoxDecoration(
           color: Colors.transparent,
         ),
@@ -31,12 +31,12 @@ class HomePage extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
         unselectedLabelColor: AppColors.baseBlackColor,
-        labelColor: AppColors.baseDarkPinkColor,
+        labelColor: AppColors.baseLightOrangeColor,
         tabs: [
-          Text("All"),
-          Text("Ring"),
-          Text("Bracelet"),
-          Text("Earing"),
+          Text("Tất Cả"),
+          Text("Nhẫn"),
+          Text("Vòng"),
+          Text("Bông Tai"),
         ],
       ),
       backgroundColor: Colors.transparent,
@@ -88,8 +88,8 @@ class HomePage extends StatelessWidget {
         height: 170,
         child: Carousel(
           autoplay: true,
-          animationCurve: Curves.bounceIn,
-          animationDuration: Duration(microseconds: 1000),
+          animationCurve: Curves.easeInOut,
+          animationDuration: Duration(milliseconds: 1000),
           showIndicator: false,
           images: [
             Container(
@@ -221,7 +221,7 @@ class HomePage extends StatelessWidget {
                         productName: arrivalDataStore.productName,
                         productModel: arrivalDataStore.productModel,
                         productPrice: arrivalDataStore.productPrice,
-                        //productOldPrice: arrivalDataStore.productOldPrice,
+                        productOldPrice: arrivalDataStore.productOldPrice,
                         onTap: () => {
                           PageRouting.goToNextPage(
                               context: context,
@@ -288,11 +288,11 @@ class HomePage extends StatelessWidget {
                           productImage: arrivalDataStore
                               .productImage, //historyDataStore.productImage,
                           productModel: arrivalDataStore
-                              .productImage, //historyDataStore.productModel,
+                              .productName, //historyDataStore.productModel,
                           productName: arrivalDataStore
                               .productName, //historyDataStore.productName,
-                          // productOldPrice: arrivalDataStore
-                          //     .productOldPrice, //historyDataStore.productOldPrice,
+                          productOldPrice: arrivalDataStore
+                              .productOldPrice, //historyDataStore.productOldPrice,
                           productPrice: arrivalDataStore
                               .productPrice //historyDataStore.productPrice
                           );

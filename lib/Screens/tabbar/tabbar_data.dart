@@ -30,7 +30,7 @@ class TabBarBar extends StatelessWidget {
           productImage: data.productImage,
           productModel: data.productModel,
           productName: data.productName,
-          //productOldPrice: data.productOldPrice,
+          productOldPrice: data.productOldPrice,
           productPrice: data.productPrice,
         );
       },

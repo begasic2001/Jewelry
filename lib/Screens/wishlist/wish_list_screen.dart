@@ -69,14 +69,14 @@ class _WishListScreenState extends State<WishListScreen> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          // Text(
-                          //   "800000 VNĐ",
-                          //   style: TextStyle(
-                          //     fontSize: 16,
-                          //     decoration: TextDecoration.lineThrough,
-                          //     color: AppColors.baseGrey50Color,
-                          //   ),
-                          // )
+                          Text(
+                            "800000 VNĐ",
+                            style: TextStyle(
+                              fontSize: 16,
+                              decoration: TextDecoration.lineThrough,
+                              color: AppColors.baseGrey50Color,
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -185,7 +185,7 @@ class _WishListScreenState extends State<WishListScreen> {
                           width: 30,
                         ),
                         label: Text(
-                          "Remove",
+                          "Xóa",
                           style: TextStyle(
                             fontSize: 25,
                             color: AppColors.baseWhiteColor,
@@ -205,7 +205,7 @@ class _WishListScreenState extends State<WishListScreen> {
                           shape: BeveledRectangleBorder(
                             borderRadius: BorderRadius.circular(5),
                           ),
-                          primary: AppColors.baseDarkPinkColor,
+                          primary: AppColors.baseLightOrangeColor,
                           onSurface: Colors.grey,
                         ),
                         icon: SvgPicture.asset(
