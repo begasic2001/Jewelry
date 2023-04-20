@@ -9,6 +9,7 @@ import 'package:app_trang_suc/models/SingleProductModel.dart';
 import 'package:app_trang_suc/routes/routes.dart';
 import 'package:app_trang_suc/svgimages/svg_images.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_format_money_vietnam/flutter_format_money_vietnam.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -71,6 +72,7 @@ class _DetailScreenState extends State<DetailScreen> {
         radius: 35,
         backgroundColor: Colors.transparent,
         backgroundImage: NetworkImage(
+          
           'https://i2.wp.com/www.logotaglines.com/wp-content/uploads/2018/04/Reebok-new-logo.png?resize=489%2C480&ssl=1',
         ),
       ),
@@ -95,14 +97,14 @@ class _DetailScreenState extends State<DetailScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            widget.data.productPrice.toString(),
+            widget.data.productPrice!.toInt().toString().toVND(unit: 'đ'),
             style: DetailScreenStylies.productPriceStyle,
           ),
           SizedBox(
             height: 5,
           ),
           Text(
-            widget.data.productOldPrice.toString(),
+            widget.data.productOldPrice!.toInt().toString().toVND(unit: 'đ'),
             style: DetailScreenStylies.productOldPriceStyle,
           ),
         ],

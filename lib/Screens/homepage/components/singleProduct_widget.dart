@@ -1,6 +1,6 @@
 import 'package:app_trang_suc/components/appColors/app_colors.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_format_money_vietnam/flutter_format_money_vietnam.dart';
 class SingleProductWidget extends StatelessWidget {
   final String? productImage;
   final String? productName;
@@ -84,7 +84,7 @@ class SingleProductWidget extends StatelessWidget {
                       height: 5,
                     ),
                     Text(
-                          "${productPrice} VNĐ",
+                          "${productPrice!.toInt()}".toVND(unit: 'đ'),
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
@@ -92,7 +92,7 @@ class SingleProductWidget extends StatelessWidget {
                           width: 15,
                         ),
                         Text(
-                          "${productOldPrice} VNĐ",
+                          "${productOldPrice!.toInt()}".toVND(unit: 'đ'),
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,

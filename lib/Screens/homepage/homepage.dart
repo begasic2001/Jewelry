@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:app_trang_suc/svgimages/svg_images.dart';
+import 'package:flutter_format_money_vietnam/flutter_format_money_vietnam.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'components/show_all_widget.dart';
@@ -27,7 +28,7 @@ class HomePage extends StatelessWidget {
         isScrollable: true,
         indicatorSize: TabBarIndicatorSize.label,
         labelStyle: TextStyle(
-          fontSize: 20,
+          fontSize: 18,
           fontWeight: FontWeight.bold,
         ),
         unselectedLabelColor: AppColors.baseBlackColor,
@@ -35,8 +36,8 @@ class HomePage extends StatelessWidget {
         tabs: [
           Text("Tất Cả"),
           Text("Nhẫn"),
-          Text("Vòng"),
-          Text("Bông Tai"),
+          Text("Vòng Cổ"),
+          Text("Hoa Tai"),
         ],
       ),
       backgroundColor: Colors.transparent,
@@ -108,7 +109,18 @@ class HomePage extends StatelessWidget {
                 image: DecorationImage(
                   fit: BoxFit.cover,
                   image: NetworkImage(
-                    "https://i.pinimg.com/236x/e4/21/92/e42192b0682ede9d80d92260fb5e17cd.jpg",
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_v7xztojsRlhEzFI-ForOHDk31N4JZX_cTw&usqp=CAU",
+                  ),
+                ),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+            ),
+              Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtsHQgaTbUpnE03Whqrts0xKxr8jV70zpJbA&usqp=CAU",
                   ),
                 ),
                 borderRadius: BorderRadius.circular(10.0),
@@ -124,7 +136,7 @@ class HomePage extends StatelessWidget {
     String? productImage,
     String? productName,
     String? productModel,
-    double? productPrice,
+    String? productPrice,
   }) {
     return Container(
       margin: EdgeInsets.only(top: 30, left: 30, right: 20, bottom: 20),
@@ -240,24 +252,24 @@ class HomePage extends StatelessWidget {
                 ),
                 buildTrendingProduct(
                   productImage:
-                      'https://assets.reebok.com/images/w_600,f_auto,q_auto/cd34290e1b57479399b3aae00137ab00_9366/Classics_Mesh_Tank_Top_White_FJ3179_01_standard.jpg',
-                  productModel: 'Tank-tops',
-                  productName: 'Classics mesh tank top',
-                  productPrice: 15,
+                      'https://product.hstatic.net/1000112469/product/btbkc032_6_21b8019e5d7c4ec493200a2d2e9fcfd2.png',
+                  productModel: 'Bông Tai',
+                  productName: 'BTBKC 032',
+                  productPrice: "3967000".toVND(unit: 'đ'),
                 ),
                 buildTrendingProduct(
                   productImage:
-                      'https://assets.reebok.com/images/w_600,f_auto,q_auto/cd34290e1b57479399b3aae00137ab00_9366/Classics_Mesh_Tank_Top_White_FJ3179_01_standard.jpg',
-                  productModel: 'Tank-tops',
-                  productName: 'Classics mesh tank top',
-                  productPrice: 15,
+                      'https://product.hstatic.net/1000112469/product/bt402_6_ec1d719e62294c4cacfe35aea9213323.png',
+                  productModel: 'Bông Tai',
+                  productName: 'BT 402',
+                  productPrice: "1409000".toVND(unit: 'đ'),
                 ),
                 buildTrendingProduct(
                   productImage:
-                      'https://assets.reebok.com/images/w_600,f_auto,q_auto/cd34290e1b57479399b3aae00137ab00_9366/Classics_Mesh_Tank_Top_White_FJ3179_01_standard.jpg',
-                  productModel: 'Tank-tops',
-                  productName: 'Classics mesh tank top',
-                  productPrice: 15,
+                      'https://product.hstatic.net/1000112469/product/btptb334_6__1__cut_8dbaa6b8a4d44be9a9326256f33feb6e.png',
+                  productModel: 'Bông Tai',
+                  productName: 'BTPTB 334',
+                  productPrice: "3967000".toVND(unit: 'đ'),
                 ),
                 ShowAllWidget(
                   leftText: "Nhiều Người Tìm Kiếm",
