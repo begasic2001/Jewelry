@@ -73,7 +73,7 @@ class _DetailScreenState extends State<DetailScreen> {
         backgroundColor: Colors.transparent,
         backgroundImage: NetworkImage(
           
-          'https://i2.wp.com/www.logotaglines.com/wp-content/uploads/2018/04/Reebok-new-logo.png?resize=489%2C480&ssl=1',
+          'https://www.creativefabrica.com/wp-content/uploads/2022/08/14/Jewelry-Logo-Graphics-36190918-1-312x208.jpg',
         ),
       ),
       title: Column(

@@ -220,106 +220,47 @@ List<SingleProductModel> shoesData = [
 List<SingleProductModel> accessoriesData = [
   SingleProductModel(
       productImage:
-          'https://assets.reebok.com/images/h_840,f_auto,q_auto:sensitive,fl_lossy/28e7116674584c20826fabb300a9ccb7_9366/Face_Covers_M-L_3-Pack_Black_H18222_01_standard.jpg',
-      productModel: 'LifeStyle',
-      productName: 'Face covers m/l 3-pack',
-      productOldPrice: 40,
-      productPrice: 20,
+          'https://product.hstatic.net/1000112469/product/bt415_6_e5a0b2bf926c43a7b2e13e6f66541397.png',
+      productModel: 'Bông Tai',
+      productName: 'BT 415',
+      productOldPrice: 4475000,
+      productPrice: 4275000,
       productFourImage:
-          'https://assets.adidas.com/images/w_600,f_auto,q_auto/8f486b0278264d6598cbac56017bd0e9_9366/Face_Covers_3-Pack_M-L_White_HB7850.jpg',
+          'https://product.hstatic.net/1000112469/product/bt415_1_989f1171c6a44a23a25196f55938e8a6.jpg',
       productSecondImage:
-          'https://assets.adidas.com/images/h_840,f_auto,q_auto:sensitive,fl_lossy/85e3b8b43f314661a942abca00920ade_9366/Face_Covers_3-Pack_M-L_Blue_H32391_21_model.jpg',
+          'https://product.hstatic.net/1000112469/product/bt415_2_6a3f55ae276447a3b3245abc84f9d725.jpg',
       productThirdImage:
-          'https://assets.reebok.com/images/w_600,f_auto,q_auto/4a50773223134978aa7babb300d03c15_9366/Face_Covers_M-L_3-Pack_Black_H18222_04_standard.jpg'),
+          'https://product.hstatic.net/1000112469/product/bt415_4_3ac8c69786db474b97d600b352935268.jpg'),
   SingleProductModel(
       productImage:
-          'https://i.pinimg.com/originals/aa/c0/5f/aac05f35fbbd0c0cb176c2953c25ee78.png',
-      productModel: 'LifeStyle',
-      productName: 'Face covers xs/s 3 pack',
-      productOldPrice: 40,
-      productPrice: 20,
+          'https://product.hstatic.net/1000112469/product/btbkc032_6_21b8019e5d7c4ec493200a2d2e9fcfd2.png',
+      productModel: 'Bông Tai',
+      productName: 'BBTBKC 032',
+      productOldPrice: 4500000,
+      productPrice: 3967000,
       productFourImage:
-          'https://assets.reebok.com/images/w_600,f_auto,q_auto/28ad64fa0e624ae4807eabb300a9d51f_9366/Face_Covers_M-L_3-Pack_Black_H18222_03_standard_hover.jpg',
+          'https://product.hstatic.net/1000112469/product/btbkc032_3_0fae5ed09f934f23924ad192b14ef824.jpg',
       productSecondImage:
-          'https://assets.reebok.com/images/w_600,f_auto,q_auto/5d966e8e90b3438a9041abb300aa019e_9366/Face_Covers_M-L_3-Pack_Black_H18222_02_standard.jpg',
+          'https://product.hstatic.net/1000112469/product/btbkc032_2_fde1a8d8e6b344eaa77f215fd19e97a4.jpg',
       productThirdImage:
-          'https://assets.reebok.com/images/w_600,f_auto,q_auto/e6d4f7d53fdf4382bf04abb300aa371d_9366/Face_Covers_M-L_3-Pack_Black_H18222_14_standard.jpg'),
+          'https://product.hstatic.net/1000112469/product/btbkc032_4_7bf62b94b8ad431c99df6f5187f72c1a.jpg'),
   SingleProductModel(
-      productImage:
-          'https://assets.reebok.com/images/h_840,f_auto,q_auto:sensitive,fl_lossy/3403505cff9240428356ab22013b050f_9366/Low-Cut_Basic_Socks_Six_Pack_Multi_EW1846_01_standard.jpg',
-      productModel: 'Men training',
-      productName: 'Low cut basic socks six pack',
-      productOldPrice: 40,
-      productPrice: 20,
-      productFourImage:
-          'https://assets.reebok.com/images/w_600,f_auto,q_auto/5375944b44884d0d8148ab22014141bf_9366/Delta_Low-Cut_Basic_Socks_Six_Pack_Multi_EW1849.jpg',
-      productSecondImage:
-          'https://assets.reebok.com/images/w_600,f_auto,q_auto/f9d83abb292a44b285f3ab22013aa7be_9366/Delta_Low-Cut_Basic_Socks_Six_Pack_Multi_EW1849_01_standard.jpg',
-      productThirdImage:
-          'https://assets.reebok.com/images/w_600,f_auto,q_auto/5c711deb98a4480d9dc3a6d6002075ea_9366/Classics_Lost_and_Found_Socks_White_BQ2224_01_standard.jpg'),
+      productImage: 'https://product.hstatic.net/1000112469/product/bt402_6_ec1d719e62294c4cacfe35aea9213323.png',
+      productModel: 'Bông Tai',
+      productName: 'BT 402',
+      productOldPrice: 1500000,
+      productPrice: 1409000,
+      productFourImage: 'https://product.hstatic.net/1000112469/product/bt402_2_077e9ba68fb0482db939fbaa786f3cf6.jpg',
+      productSecondImage: 'https://product.hstatic.net/1000112469/product/bt402_3_719f9ac089b6490ba4ae3e6b9f15f699.jpg',
+      productThirdImage: 'https://product.hstatic.net/1000112469/product/bt402_1_19f172e37ac74817ad39a124db801d20.jpg'),
   SingleProductModel(
-      productImage:
-          'https://assets.reebok.com/images/h_840,f_auto,q_auto:sensitive,fl_lossy/33311a78deca4628a115abc9008e8034_9366/Training_Weave_Backpack_Black_GD0696_01_standard.jpg',
-      productModel: 'Training',
-      productName: 'Training weave backpack',
-      productOldPrice: 200,
-      productPrice: 150,
-      productFourImage:
-          'https://assets.reebok.com/images/w_600,f_auto,q_auto/1fc379faa6b0473e8516ac8a010031b5_9366/Training_Weave_Backpack_Black_GT7686_04_standard.jpg',
-      productSecondImage:
-          'https://assets.reebok.com/images/w_600,f_auto,q_auto/44df69de09e24e5db910abc100f3f30a_9366/Training_Weave_Backpack_Yellow_GH0037_04_standard.jpg',
-      productThirdImage:
-          'https://produkty.lionsport.cz/produkty_images/600/gh0099/gh0099.jpg'),
-  SingleProductModel(
-      productImage:
-          'https://assets.reebok.com/images/h_840,f_auto,q_auto:sensitive,fl_lossy/e21e6ce4dc0f43c89688ab45018a437e_9366/Classics_Fold-Over_Crew_Socks_3_Pairs_Black_GG6683_01_standard.jpg',
-      productModel: 'Classic',
-      productName: 'Classics Fold-over crew socks 3 packs',
-      productOldPrice: 30,
-      productPrice: 15,
-      productFourImage:
-          'https://assets.reebok.com/images/w_600,f_auto,q_auto/fd3bfed25f844a3290b1ab460005826c_9366/Classics_Fold-Over_Crew_Socks_3_Pairs_Black_GG6683.jpg',
-      productSecondImage:
-          'https://assets.reebok.com/images/w_600,f_auto,q_auto/e3b61214cede424e8f24ab45018a2d90_9366/Classics_Fold-Over_Crew_Socks_3_Pairs_Orange_GG6685_01_standard.jpg',
-      productThirdImage:
-          'https://assets.reebok.com/images/w_600,f_auto,q_auto/321d0ba2df724de09b79ab2800e90cd1_9366/Classics_Crew_Socks_3_Pairs_White_FM9461_01_standard.jpg'),
-  SingleProductModel(
-      productImage:
-          'https://assets.reebok.com/images/w_600,f_auto,q_auto/ec37efac818e47f2b522ab61014bccb2_9366/Active_Enhanced_Convertible_Grip_Bag_Grey_GN4963_02_standard_hover.jpg',
-      productModel: 'training',
-      productName: 'Active Enhanced Convertible Grip Bag',
-      productOldPrice: 85,
-      productPrice: 70,
-      productFourImage:
-          'https://assets.reebok.com/images/w_600,f_auto,q_auto/9d2ce122e3bd4b838e9dabc100ea51b9_9366/Active_Enhanced_Convertible_Grip_Bag_Orange_GH0112_04_standard.jpg',
-      productSecondImage:
-          'https://assets.reebok.com/images/w_600,f_auto,q_auto/dd709bb49870430bb2dfab0500bf9e76_9366/Active_Enhanced_Grip_Bag_Black_FQ5368_04_standard.jpg',
-      productThirdImage:
-          'https://assets.reebok.com/images/w_600,f_auto,q_auto:sensitive,fl_lossy/d280d49fa0e8400da15ca9880020b2e0_9366/Active_Enhanced_Grip_Bag_Large_Black_DU2968_04_standard.jpg'),
-  SingleProductModel(
-      productImage:
-          'https://assets.reebok.com/images/w_600,f_auto,q_auto/06b2d8d277df4fccadbdac6800baf061_9366/One_Series_Bucket_Hat_Black_GP0122_01_standard.jpg',
-      productModel: 'Training',
-      productName: 'One series bucket hat',
-      productOldPrice: 45,
-      productPrice: 30,
-      productFourImage:
-          'https://assets.reebok.com/images/w_600,f_auto,q_auto/726197720333461494ecac2c017387a9_9366/Classics_Foundation_Bucket_Hat_Black_GM5866_01_standard.jpg',
-      productSecondImage:
-          'https://assets.reebok.com/images/h_840,f_auto,q_auto:sensitive,fl_lossy/788d5e4380a7433ca072ac5b011d6e7e_9366/Classics_Summer_Retreat_Bucket_Hat_Orange_GN7731_01_standard.jpg',
-      productThirdImage:
-          'https://assets.reebok.com/images/w_600,f_auto,q_auto/ab11bc0f91a64386b436ac5b011dfb35_9366/Classics_Summer_Retreat_Bucket_Hat_Black_GN7730.jpg'),
-  SingleProductModel(
-      productImage:
-          'https://assets.reebok.com/images/w_600,f_auto,q_auto/eb31ff6778fa42e89e57ac480039b8fd_9366/Classics_Archive_Backpack_Small_Black_GN7640.jpg',
-      productModel: 'Classic',
-      productName: 'Classics archive backpack',
-      productOldPrice: 70,
-      productPrice: 54,
-      productFourImage:
-          'https://assets.reebok.com/images/w_600,f_auto,q_auto/4c3801f601b647279640aaca0105c7f1_9366/Classics_Archive_Backpack_Black_FL7045_04_standard.jpg',
-      productSecondImage:
-          'https://assets.reebok.com/images/w_600,f_auto,q_auto/f509c6c223e947798d50ab3601497153_9366/Classics_Archive_Backpack_Black_GD1040_01_standard.jpg',
-      productThirdImage:
-          'https://assets.reebok.com/images/w_600,f_auto,q_auto/53b4eac625434cffbfc1ab1400e1f2bc_9366/Classics_Archive_Backpack_White_FL7044_04_standard.jpg'),
+      productImage: 'https://product.hstatic.net/1000112469/product/btptb334_6__1__cut_8dbaa6b8a4d44be9a9326256f33feb6e.png',
+      productModel: 'Bông Tai',
+      productName: 'BTPTB 334',
+      productOldPrice: 2300000,
+      productPrice: 2192000,
+      productFourImage: 'https://product.hstatic.net/1000112469/product/btptb334_1b_53eaa53e80014865882f43409f02b95d.jpg',
+      productSecondImage: 'https://product.hstatic.net/1000112469/product/btptb334_2__1__7039c48cf6ee423785abbc3b71738474.jpg',
+      productThirdImage: 'https://product.hstatic.net/1000112469/product/btptb334_3__1__72c5bdec75ef42ccbb502d4394e3168b.jpg'),
+ 
 ];

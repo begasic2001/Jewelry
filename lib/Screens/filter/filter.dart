@@ -1,7 +1,10 @@
+import 'package:app_trang_suc/Screens/homepage/homepage.dart';
 import 'package:app_trang_suc/components/appColors/app_colors.dart';
 import 'package:app_trang_suc/components/rounded_button.dart';
 import 'package:app_trang_suc/components/stylies/detail_screen_stylies.dart';
+import 'package:app_trang_suc/routes/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_format_money_vietnam/flutter_format_money_vietnam.dart';
 
 class FilterScreen extends StatefulWidget {
   @override
@@ -12,7 +15,7 @@ class _FilterScreenState extends State<FilterScreen> {
   String? _ratingController;
   String? _categoryController;
 
-  RangeValues _currentRangeValues = const RangeValues(40, 80);
+  RangeValues _currentRangeValues = const RangeValues(1500000, 2500000);
 
   AppBar buildAppBar() {
     return AppBar(
@@ -137,8 +140,8 @@ class _FilterScreenState extends State<FilterScreen> {
             children: [
               RangeSlider(
                 values: _currentRangeValues,
-                min: 0,
-                max: 1000,
+                min: 1000000,
+                max: 30000000,
                 labels: RangeLabels(
                   _currentRangeValues.start.round().toString(),
                   _currentRangeValues.end.round().toString(),
@@ -153,14 +156,14 @@ class _FilterScreenState extends State<FilterScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "{_currentRangeValues.start.toInt()} VNĐ",
+                    "${_currentRangeValues.start.toInt()}".toVND(unit: 'đ'),
                     style: TextStyle(
                       fontSize: 18,
                       color: AppColors.baseBlackColor,
                     ),
                   ),
                   Text(
-                    "{_currentRangeValues.end.toInt()} VNĐ",
+                    "${_currentRangeValues.end.toInt()}".toVND(unit: 'đ'),
                     style: TextStyle(
                       fontSize: 18,
                       color: AppColors.baseBlackColor,
@@ -285,7 +288,7 @@ class _FilterScreenState extends State<FilterScreen> {
           Divider(),
           ExpansionTile(
             title: const Text(
-              "Colors",
+              "Màu",
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -332,15 +335,15 @@ class _FilterScreenState extends State<FilterScreen> {
           buildPriceExpansionTile(),
           Container(
             margin: EdgeInsets.all(20.0),
-            child: const RoundedButton(
+            child:  RoundedButton(
               //color: AppColors.baseDarkPinkColor,
               title: "Xem Sản Phẩm Khác",
-              // onTap: () {
-              //   PageRouting.goToNextPage(
-              //     context: context,
-              //     navigateTo: PaymentScreen(),
-              //   );
-              // },
+              onTap: () {
+                PageRouting.goToNextPage(
+                  context: context,
+                  navigateTo: HomePage(),
+                );
+              },
             ),
           ),
         ],

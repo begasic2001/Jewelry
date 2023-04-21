@@ -33,7 +33,7 @@ class _WishListScreenState extends State<WishListScreen> {
                             borderRadius: BorderRadius.circular(10.0),
                             image: DecorationImage(
                               image: NetworkImage(
-                                  "https://kickz.akamaized.net/en/media/images/p/600/adidas_originals-3_STRIPES_T_Shirt-white_-2.jpg"),
+                                  "https://product.hstatic.net/1000112469/product/nc796_7_25472dc50a994ab188461b165cf11d33.png"),
                             )),
                       ),
                     ),

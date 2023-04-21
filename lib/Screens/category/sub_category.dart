@@ -1,4 +1,3 @@
-
 import 'package:app_trang_suc/Screens/details/detail.dart';
 import 'package:app_trang_suc/Screens/homepage/components/singleProduct_widget.dart';
 import 'package:app_trang_suc/components/appColors/app_colors.dart';
@@ -8,11 +7,15 @@ import 'package:app_trang_suc/routes/routes.dart';
 import 'package:app_trang_suc/svgimages/svg_images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 class SubCategory extends StatefulWidget {
- final List<SingleProductModel> productData;
+  final List<SingleProductModel> productData;
   final String? productName;
   final String? productModel;
-  SubCategory({required this.productData,required this.productName,required this.productModel});
+  SubCategory(
+      {required this.productData,
+      required this.productName,
+      required this.productModel});
   @override
   _SubCategoryState createState() => _SubCategoryState();
 }
@@ -102,6 +105,10 @@ class _SubCategoryState extends State<SubCategory> {
 
   AppBar buildAppBar() {
     return AppBar(
+      leading: new IconButton(
+        icon: new Icon(Icons.arrow_back, color: Colors.black),
+        onPressed: () => Navigator.of(context).pop(context),
+      ),
       elevation: 0,
       backgroundColor: Colors.transparent,
       actions: [

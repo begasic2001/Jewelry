@@ -43,17 +43,17 @@ class CategoryAllTabBar extends StatelessWidget {
       physics: BouncingScrollPhysics(),
       children: [
         ShowAllWidget(
-          leftText: "Ring",
+          leftText: "Nhẫn",
         ),
         builderRender(singleProduct: colothsData),
         ShowAllWidget(
-          leftText: "Bracelet",
+          leftText: "Vòng Cổ",
         ),
         builderRender(
           singleProduct: shoesData,
         ),
         ShowAllWidget(
-          leftText: "Earing",
+          leftText: "Hoa Tai",
         ),
         builderRender(
           singleProduct: accessoriesData,

@@ -25,7 +25,7 @@ class CategoryMenTabBar extends StatelessWidget {
           navigateTo: SubCategory(
             productModel: data.productModel,
             productData: colothsData,
-            productName: data.productName,
+            productName: menCategoryData[index].productName,
           ),
           context: context,
         );
@@ -34,8 +34,8 @@ class CategoryMenTabBar extends StatelessWidget {
          
           navigateTo: SubCategory(
             productModel: data.productModel,
-            productData: colothsData,
-            productName: data.productName,
+            productData: shoesData,
+            productName: menCategoryData[index].productName,
           ),
           context: context,
         );
@@ -48,25 +48,7 @@ class CategoryMenTabBar extends StatelessWidget {
           ),
           context: context,
         );
-      } else if (index == 3) {
-        PageRouting.goToNextPage(
-          navigateTo: SubCategory(
-            productModel: accessoriesData[index].productModel,
-            productData: accessoriesData,
-            productName: menCategoryData[index].productName,
-          ),
-          context: context,
-        );
-      } else if (index == 4) {
-        PageRouting.goToNextPage(
-          navigateTo: SubCategory(
-            productModel: accessoriesData[index].productModel,
-            productData: accessoriesData,
-            productName: menCategoryData[index].productName,
-          ),
-          context: context, 
-        );
-      }
+      } 
     }
 
     return ListView.builder(
