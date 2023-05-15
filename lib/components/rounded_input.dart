@@ -4,12 +4,15 @@ import 'package:app_trang_suc/components/input_container.dart';
 import 'package:app_trang_suc/constants.dart';
 
 class RoundedInput extends StatelessWidget {
-  const RoundedInput({
+  
+
+  RoundedInput({
     Key? key,
     required this.icon,
-    required this.hint
+    required this.hint,
+    required this.emailController
   }) : super(key: key);
-
+  final TextEditingController emailController;
   final IconData icon;
   final String hint;
 
@@ -17,6 +20,7 @@ class RoundedInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return InputContainer(
       child: TextField(
+        controller: emailController,
         cursorColor: AppColors.baseLightOrangeColor,
         decoration: InputDecoration(
           icon: Icon(icon, color: AppColors.baseLightOrangeColor),

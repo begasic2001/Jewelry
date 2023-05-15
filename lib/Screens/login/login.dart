@@ -1,6 +1,9 @@
 import 'package:app_trang_suc/Screens/homepage/homepage.dart';
 import 'package:app_trang_suc/components/appColors/app_colors.dart';
+import 'package:app_trang_suc/main.dart';
 import 'package:app_trang_suc/mybottombar/my_bottom_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:app_trang_suc/constants.dart';
@@ -20,7 +23,8 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
   late Animation<double> containerSize;
   AnimationController? animationController;
   Duration animationDuration = Duration(milliseconds: 270);
-
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -97,10 +101,12 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
               animationDuration: animationDuration,
               size: size,
               defaultLoginSize: defaultLoginSize,
-              onTap: () => {
-                   PageRouting.goToNextPage(context: context, navigateTo: MyBottomBar())
-              }),
-
+              emailController: emailController,
+              passwordController: passwordController,
+              onTap: signIn),
+          // () => {
+          //          PageRouting.goToNextPage(context: context, navigateTo: MyBottomBar())
+          //     })
           // Register Container
           AnimatedBuilder(
             animation: animationController!,
@@ -118,10 +124,13 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
 
           // Register Form
           RegisterForm(
-              isLogin: isLogin,
-              animationDuration: animationDuration,
-              size: size,
-              defaultLoginSize: defaultRegisterSize),
+            isLogin: isLogin,
+            animationDuration: animationDuration,
+            size: size,
+            defaultLoginSize: defaultRegisterSize,
+            emailController: emailController,
+            passwordController: passwordController,
+          ),
         ],
       ),
     );
@@ -153,11 +162,29 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
           child: isLogin
               ? const Text(
                   "Bạn chưa có tài khoản? Đăng ký",
-                  style: TextStyle(color: AppColors.baseBlackColor, fontSize: 18),
+                  style:
+                      TextStyle(color: AppColors.baseBlackColor, fontSize: 18),
                 )
               : null,
         ),
       ),
     );
+  }
+
+  Future signIn() async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => Center(
+              child: CircularProgressIndicator(),
+            ));
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim());
+    } on FirebaseAuthException catch (e) {
+      print(e);
+    }
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 }

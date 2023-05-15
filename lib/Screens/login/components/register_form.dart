@@ -9,18 +9,23 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../constants.dart';
 
 class RegisterForm extends StatelessWidget {
-  const RegisterForm({
+  RegisterForm({
     Key? key,
     required this.isLogin,
     required this.animationDuration,
     required this.size,
     required this.defaultLoginSize,
+    required this.emailController,
+    required this.passwordController
   }) : super(key: key);
-
+  // final emailController = TextEditingController();
+  // final passwordController = TextEditingController();
   final bool isLogin;
   final Duration animationDuration;
   final Size size;
   final double defaultLoginSize;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
   // assets/images/register.svg
   @override
   Widget build(BuildContext context) {
@@ -53,11 +58,11 @@ class RegisterForm extends StatelessWidget {
 
                   SizedBox(height: 40),
 
-                  RoundedInput(icon: Icons.mail, hint: 'Email'),
+                  RoundedInput(icon: Icons.mail, hint: 'Email',emailController: emailController,),
 
-                  RoundedInput(icon: Icons.face_rounded, hint: 'Tên Đăng Nhập'),
+                  RoundedInput(icon: Icons.face_rounded, hint: 'Tên Đăng Nhập',emailController: emailController,),
 
-                  RoundedPasswordInput(hint: 'Mật Khẩu'),
+                  RoundedPasswordInput(hint: 'Mật Khẩu',passwordController: passwordController,),
 
                   SizedBox(height: 10),
 

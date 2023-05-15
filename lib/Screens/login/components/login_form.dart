@@ -11,20 +11,24 @@ import 'package:app_trang_suc/constants.dart';
 import '../../../routes/routes.dart';
 
 class LoginForm extends StatelessWidget {
-  const LoginForm({
+ 
+   LoginForm({
     Key? key,
     required this.isLogin,
     required this.animationDuration,
     required this.size,
     required this.defaultLoginSize,
+    required this.emailController,
+    required this.passwordController,
     this.onTap
   }) : super(key: key);
-
   final bool isLogin;
   final Duration animationDuration;
   final Size size;
   final double defaultLoginSize;
   final VoidCallback? onTap;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
   @override
   Widget build(BuildContext context) {
     return AnimatedOpacity(
@@ -41,14 +45,15 @@ class LoginForm extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
+                  
                   'CHÀO MỪNG QUAY TRỞ LẠI',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                 ),
                 SizedBox(height: 40),
                 SvgPicture.asset('assets/images/login.svg'),
                 SizedBox(height: 40),
-                RoundedInput(icon: Icons.mail, hint: 'Email'),
-                RoundedPasswordInput(hint: 'Mật Khẩu'),
+                RoundedInput(icon: Icons.mail, hint: 'Email',emailController: emailController,),
+                RoundedPasswordInput(hint: 'Mật Khẩu',passwordController: passwordController,),
                 SizedBox(height: 10),
                 RoundedButton(
                   title: 'Đăng Nhập',

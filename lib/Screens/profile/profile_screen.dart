@@ -3,10 +3,13 @@ import 'package:app_trang_suc/components/appColors/app_colors.dart';
 import 'package:app_trang_suc/components/rounded_button.dart';
 import 'package:app_trang_suc/routes/routes.dart';
 import 'package:app_trang_suc/svgimages/svg_images.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ProfileScreen extends StatelessWidget {
+  final user = FirebaseAuth.instance.currentUser!;
   AppBar buildAppBar() {
     return AppBar(
       elevation: 0.70,
@@ -133,7 +136,7 @@ class ProfileScreen extends StatelessWidget {
                 Divider(),
                 buildlistTileWidget(
                   leading: "Email",
-                  trailing: "luongminhthanh91@gmail.com",
+                  trailing: user.email!.toString(),
                 ),
                 Divider(),
                 buildlistTileWidget(
@@ -175,16 +178,21 @@ class ProfileScreen extends StatelessWidget {
             child: RoundedButton(
               //color: AppColors.baseDarkPinkColor,
               title: "Đăng Xuất",
-              onTap: () {
-                PageRouting.goToNextPage(
-                  context: context,
-                  navigateTo: Login(),
-                );
-              },
+              onTap: signOut,
+              // () {
+              //   PageRouting.goToNextPage(
+              //     context: context,
+              //     navigateTo: Login(),
+              //   );
+              // }
             ),
           ),
         ],
       ),
     );
   }
+
+Future signOut() async{
+  await FirebaseAuth.instance.signOut();
+}
 }

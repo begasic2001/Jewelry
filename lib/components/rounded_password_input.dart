@@ -4,14 +4,15 @@ import 'package:app_trang_suc/components/input_container.dart';
 import 'package:app_trang_suc/constants.dart';
 
 class RoundedPasswordInput extends StatelessWidget {
-  RoundedPasswordInput({Key? key, required this.hint}) : super(key: key);
+  
+  RoundedPasswordInput({Key? key, required this.hint,required this.passwordController}) : super(key: key);
   final String hint;
-  final myController = TextEditingController();
+  final TextEditingController passwordController;
   @override
   Widget build(BuildContext context) {
     return InputContainer(
         child: TextField(
-      controller: myController,
+      controller: passwordController,
       cursorColor: kPrimaryColor,
       obscureText: true,
       decoration: InputDecoration(
