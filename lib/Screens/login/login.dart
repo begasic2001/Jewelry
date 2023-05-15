@@ -25,6 +25,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
   Duration animationDuration = Duration(milliseconds: 270);
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
   @override
   void initState() {
     super.initState();
@@ -53,6 +54,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
             .animate(CurvedAnimation(
                 parent: animationController!, curve: Curves.linear));
     return Scaffold(
+      key: formKey,
       body: Stack(
         children: [
           // Lets add some decorations
@@ -130,6 +132,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
             defaultLoginSize: defaultRegisterSize,
             emailController: emailController,
             passwordController: passwordController,
+            onTap: signUp,
           ),
         ],
       ),
@@ -184,7 +187,41 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
           password: passwordController.text.trim());
     } on FirebaseAuthException catch (e) {
       print(e);
+      Utils.showSnackBar(e.message);
     }
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
+  }
+
+  Future signUp() async {
+    final isValid = formKey.currentState!.validate();
+    if(!isValid) return;
+
+     showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => Center(
+              child: CircularProgressIndicator(),
+            ));
+     try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim());
+    } on FirebaseAuthException catch (e) {
+      print(e);
+      Utils.showSnackBar(e.message);
+    }
+  }
+}
+
+class Utils {
+  static final messengerKey = GlobalKey<ScaffoldMessengerState>();
+  static showSnackBar(String? text){
+    if(text == null) return;
+
+    final snackBar = SnackBar(content: Text(text),backgroundColor: Colors.red,);
+    messengerKey.currentState!
+     ..removeCurrentSnackBar()
+     ..showSnackBar(snackBar);
+
   }
 }

@@ -1,17 +1,16 @@
 import 'package:app_trang_suc/components/appColors/app_colors.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:app_trang_suc/components/input_container.dart';
 import 'package:app_trang_suc/constants.dart';
 
 class RoundedInput extends StatelessWidget {
-  
-
-  RoundedInput({
-    Key? key,
-    required this.icon,
-    required this.hint,
-    required this.emailController
-  }) : super(key: key);
+  RoundedInput(
+      {Key? key,
+      required this.icon,
+      required this.hint,
+      required this.emailController})
+      : super(key: key);
   final TextEditingController emailController;
   final IconData icon;
   final String hint;
@@ -19,14 +18,17 @@ class RoundedInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InputContainer(
-      child: TextField(
-        controller: emailController,
-        cursorColor: AppColors.baseLightOrangeColor,
-        decoration: InputDecoration(
+      
+        child: TextFormField(
+      controller: emailController,
+      cursorColor: AppColors.baseLightOrangeColor,
+      decoration: InputDecoration(
           icon: Icon(icon, color: AppColors.baseLightOrangeColor),
           hintText: hint,
-          border: InputBorder.none
-        ),
-      ));
+          border: InputBorder.none),
+      validator: (email) => email != null && EmailValidator.validate(email)
+          ? "Vui lòng nhập email"
+          : null,
+    ));
   }
 }

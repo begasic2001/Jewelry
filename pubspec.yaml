@@ -40,6 +40,8 @@ dependencies:
   flutter_format_money_vietnam: ^0.0.2
   cloud_firestore: ^4.7.0
   firebase_auth: ^4.6.0
+  email_validator: ^2.1.17
+  firebase_database: ^10.2.0
   #custom_navigator: ^0.3.0
 dev_dependencies:
   flutter_test:

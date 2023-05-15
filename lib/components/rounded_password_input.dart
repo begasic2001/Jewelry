@@ -1,4 +1,5 @@
 import 'package:app_trang_suc/components/appColors/app_colors.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:app_trang_suc/components/input_container.dart';
 import 'package:app_trang_suc/constants.dart';
@@ -11,7 +12,7 @@ class RoundedPasswordInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InputContainer(
-        child: TextField(
+        child: TextFormField(
       controller: passwordController,
       cursorColor: kPrimaryColor,
       obscureText: true,
@@ -19,6 +20,9 @@ class RoundedPasswordInput extends StatelessWidget {
           icon: Icon(Icons.lock, color: AppColors.baseLightOrangeColor),
           hintText: hint,
           border: InputBorder.none),
+      validator: (email) => email != null && EmailValidator.validate(email)
+          ? "Vui lòng nhập mật khẩu"
+          : null,
     ));
   }
 }

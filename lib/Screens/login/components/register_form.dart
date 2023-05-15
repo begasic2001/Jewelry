@@ -16,16 +16,16 @@ class RegisterForm extends StatelessWidget {
     required this.size,
     required this.defaultLoginSize,
     required this.emailController,
-    required this.passwordController
+    required this.passwordController,
+    this.onTap
   }) : super(key: key);
-  // final emailController = TextEditingController();
-  // final passwordController = TextEditingController();
   final bool isLogin;
   final Duration animationDuration;
   final Size size;
   final double defaultLoginSize;
   final TextEditingController emailController;
   final TextEditingController passwordController;
+  final VoidCallback? onTap;
   // assets/images/register.svg
   @override
   Widget build(BuildContext context) {
@@ -58,16 +58,30 @@ class RegisterForm extends StatelessWidget {
 
                   SizedBox(height: 40),
 
-                  RoundedInput(icon: Icons.mail, hint: 'Email',emailController: emailController,),
+                  RoundedInput(
+                    icon: Icons.mail,
+                    hint: 'Email',
+                    emailController: emailController,
+                  ),
 
-                  RoundedInput(icon: Icons.face_rounded, hint: 'Tên Đăng Nhập',emailController: emailController,),
+                  // RoundedInput(
+                  //   icon: Icons.face_rounded,
+                  //   hint: 'Tên Đăng Nhập',
+                  //   emailController: emailController,
+                  // ),
 
-                  RoundedPasswordInput(hint: 'Mật Khẩu',passwordController: passwordController,),
+                  RoundedPasswordInput(
+                    hint: 'Mật Khẩu',
+                    passwordController: passwordController,
+                  ),
 
                   SizedBox(height: 10),
 
                   //RoundedButton(title: 'Đăng Ký',onTap: onTap,),
-                  RoundedRegisterButton(title: 'Đăng Ký'),
+                  RoundedRegisterButton(
+                    title: 'Đăng Ký',
+                    onTap: onTap,
+                  ),
                   SizedBox(height: 10),
                 ],
               ),
@@ -76,15 +90,17 @@ class RegisterForm extends StatelessWidget {
         ),
       ),
     );
-  } 
+  }
 }
 
 class RoundedRegisterButton extends StatelessWidget {
   final String title;
+  final VoidCallback? onTap;
+  //this.onTap
   const RoundedRegisterButton({
     Key? key,
     required this.title,
-    
+    this.onTap
   }) : super(key: key);
 
   @override
@@ -103,10 +119,11 @@ class RoundedRegisterButton extends StatelessWidget {
         alignment: Alignment.center,
         child: Text(
           title,
-          style: TextStyle(color: Colors.white, fontSize: 20
-           , fontWeight: FontWeight.w700),
+          style: TextStyle(
+              color: Colors.white, fontSize: 20, fontWeight: FontWeight.w700),
         ),
       ),
+      onTap: onTap,
     );
   }
 }
