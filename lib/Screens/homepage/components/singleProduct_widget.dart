@@ -5,8 +5,8 @@ class SingleProductWidget extends StatelessWidget {
   final String? productImage;
   final String? productName;
   final String? productModel;
-  final double? productPrice;
-  final double? productOldPrice;
+  final int? productPrice;
+  final int? productOldPrice;
   final VoidCallback? onTap;
   SingleProductWidget({
     this.productImage,

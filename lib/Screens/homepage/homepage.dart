@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:app_trang_suc/Screens/details/detail.dart';
 import 'package:app_trang_suc/Screens/filter/filter.dart';
 import 'package:app_trang_suc/Screens/homepage/components/singleProduct_widget.dart';
@@ -7,6 +9,7 @@ import 'package:app_trang_suc/components/stylies/home_screen_stylies.dart';
 import 'package:app_trang_suc/data/home_page_data.dart';
 import 'package:app_trang_suc/models/SingleProductModel.dart';
 import 'package:app_trang_suc/routes/routes.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -18,6 +21,13 @@ import 'components/show_all_widget.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 
 class HomePage extends StatelessWidget {
+  GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
+  List<SingleProductModel> singleProductModels =
+      new List<SingleProductModel>.empty(growable: true);
+  List<SingleProductModel> colothsDatas =
+      new List<SingleProductModel>.empty(growable: true);
+  var colothData = FirebaseDatabase.instance.ref().child('arrivals').onValue;
+  
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
       bottom: const TabBar(
@@ -115,7 +125,7 @@ class HomePage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.0),
               ),
             ),
-              Container(
+            Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
@@ -217,31 +227,84 @@ class HomePage extends StatelessWidget {
                   padding: EdgeInsets.symmetric(
                     horizontal: 12.0,
                   ),
-                  child: GridView.builder(
-                    shrinkWrap: true,
-                    primary: true,
-                    itemCount: singleProductData.length,
-                    physics: NeverScrollableScrollPhysics(),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 0.7,
-                    ),
-                    itemBuilder: (context, index) {
-                      var arrivalDataStore = singleProductData[index];
-                      return SingleProductWidget(
-                        productImage: arrivalDataStore.productImage,
-                        productName: arrivalDataStore.productName,
-                        productModel: arrivalDataStore.productModel,
-                        productPrice: arrivalDataStore.productPrice,
-                        productOldPrice: arrivalDataStore.productOldPrice,
-                        onTap: () => {
-                          PageRouting.goToNextPage(
-                              context: context,
-                              navigateTo: DetailScreen(data: arrivalDataStore))
-                        },
-                      );
+                  child: StreamBuilder(
+                    stream: FirebaseDatabase.instance
+                        .ref()
+                        .child('arrivals')
+                        .onValue,
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      if (snapshot.hasData) {
+                        var map = snapshot.data.snapshot.value
+                            as Map<dynamic, dynamic>;
+                        singleProductModels.clear();
+                        map.forEach((key, value) {
+                          var singleProductModel =
+                              new SingleProductModel.fromJson(
+                                  json.decode(json.encode(value)));
+                          //singProductModel.key = key;
+                          singleProductModels.add(singleProductModel);
+                        });
+
+                        return GridView.builder(
+                          shrinkWrap: true,
+                          primary: true,
+                          itemCount: singleProductModels.length,
+                          physics: NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 0.7,
+                          ),
+                          itemBuilder: (context, index) {
+                            var arrivalDataStore = singleProductModels[index];
+                            return SingleProductWidget(
+                              productImage: arrivalDataStore.productImage,
+                              productName: arrivalDataStore.productName,
+                              productModel: arrivalDataStore.productModel,
+                              productPrice: arrivalDataStore.productPrice,
+                              productOldPrice: arrivalDataStore.productOldPrice,
+                              onTap: () => {
+                                PageRouting.goToNextPage(
+                                    context: context,
+                                    navigateTo:
+                                        DetailScreen(data: arrivalDataStore))
+                              },
+                            );
+                          },
+                        );
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
                     },
                   ),
+                  // child: GridView.builder(
+                  //   shrinkWrap: true,
+                  //   primary: true,
+                  //   itemCount: singleProductData.length,
+                  //   physics: NeverScrollableScrollPhysics(),
+                  //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  //     crossAxisCount: 2,
+                  //     childAspectRatio: 0.7,
+                  //   ),
+
+                  //   itemBuilder: (context, index) {
+                  //     var arrivalDataStore = singleProductData[index];
+                  //     return SingleProductWidget(
+                  //       productImage: arrivalDataStore.productImage,
+                  //       productName: arrivalDataStore.productName,
+                  //       productModel: arrivalDataStore.productModel,
+                  //       productPrice: arrivalDataStore.productPrice,
+                  //       productOldPrice: arrivalDataStore.productOldPrice,
+                  //       onTap: () => {
+                  //         PageRouting.goToNextPage(
+                  //             context: context,
+                  //             navigateTo: DetailScreen(data: arrivalDataStore))
+                  //       },
+                  //     );
+                  //   },
+                  // ),
                 ),
                 Divider(
                   indent: 16,
@@ -314,7 +377,7 @@ class HomePage extends StatelessWidget {
               ],
             ),
             TabBarBar(
-              productData: colothsData,
+              productData: colothsDatas,
             ),
             TabBarBar(
               productData: shoesData,
