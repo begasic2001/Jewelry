@@ -7,7 +7,7 @@ class SingleProductModel {
   String? productFourImage;
   String? productSecondImage;
   String? productThirdImage;
-
+  String? key;
   SingleProductModel(
       {this.productImage,
       this.productModel,
@@ -16,7 +16,9 @@ class SingleProductModel {
       this.productPrice,
       this.productFourImage,
       this.productSecondImage,
-      this.productThirdImage});
+      this.productThirdImage,
+      this.key
+      });
 
   SingleProductModel.fromJson(Map<String, dynamic> json) {
     productImage = json['productImage'];
@@ -39,6 +41,7 @@ class SingleProductModel {
     data['productFourImage'] = this.productFourImage;
     data['productSecondImage'] = this.productSecondImage;
     data['productThirdImage'] = this.productThirdImage;
+    data['key']=this.key;
     return data;
   }
 }

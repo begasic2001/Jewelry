@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:app_trang_suc/Screens/details/detail.dart';
@@ -7,6 +8,7 @@ import 'package:app_trang_suc/Screens/tabbar/tabbar_data.dart';
 import 'package:app_trang_suc/components/appColors/app_colors.dart';
 import 'package:app_trang_suc/components/stylies/home_screen_stylies.dart';
 import 'package:app_trang_suc/data/home_page_data.dart';
+import 'package:app_trang_suc/main.dart';
 import 'package:app_trang_suc/models/SingleProductModel.dart';
 import 'package:app_trang_suc/routes/routes.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -20,14 +22,39 @@ import 'package:flutter_svg/svg.dart';
 import 'components/show_all_widget.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+List<SingleProductModel> singleProductModels =
+    new List<SingleProductModel>.empty(growable: true);
+List<SingleProductModel> arrivalsDatas =
+    new List<SingleProductModel>.empty(growable: true);
+
+class _HomePageState extends State<HomePage> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
-  List<SingleProductModel> singleProductModels =
-      new List<SingleProductModel>.empty(growable: true);
-  List<SingleProductModel> colothsDatas =
-      new List<SingleProductModel>.empty(growable: true);
-  var colothData = FirebaseDatabase.instance.ref().child('arrivals').onValue;
-  
+
+  @override
+  void initState() {
+    super.initState();
+
+    setState(() {
+      var ref = FirebaseDatabase.instance.ref().child('arrivals').onValue;
+      ref.listen((DatabaseEvent event) {
+        final map = event.snapshot.value as Map<dynamic, dynamic>;
+        arrivalsDatas.clear();
+        map.forEach((key, value) {
+          var arrivalSingleProductModel =
+              SingleProductModel.fromJson(json.decode(json.encode(value)));
+          arrivalsDatas.add(arrivalSingleProductModel);
+        });
+      });
+      print("data form firebase::::::::");
+      print(arrivalsDatas);
+    });
+  }
+
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
       bottom: const TabBar(
@@ -83,7 +110,7 @@ class HomePage extends StatelessWidget {
         ),
         IconButton(
           icon: SvgPicture.asset(
-            SvgImages.search,
+            SvgImages.shoppingCart,
             width: 30,
           ),
           onPressed: () {},
@@ -227,84 +254,85 @@ class HomePage extends StatelessWidget {
                   padding: EdgeInsets.symmetric(
                     horizontal: 12.0,
                   ),
-                  child: StreamBuilder(
-                    stream: FirebaseDatabase.instance
-                        .ref()
-                        .child('arrivals')
-                        .onValue,
-                    builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      if (snapshot.hasData) {
-                        var map = snapshot.data.snapshot.value
-                            as Map<dynamic, dynamic>;
-                        singleProductModels.clear();
-                        map.forEach((key, value) {
-                          var singleProductModel =
-                              new SingleProductModel.fromJson(
-                                  json.decode(json.encode(value)));
-                          //singProductModel.key = key;
-                          singleProductModels.add(singleProductModel);
-                        });
+                  // child: StreamBuilder(
+                  //   initialData: singleProductModels,
+                  //   stream: FirebaseDatabase.instance
+                  //       .ref()
+                  //       .child('arrivals')
+                  //       .onValue,
+                  //   builder: (context, AsyncSnapshot snapshot) {
+                  //     if (!snapshot.hasData) {
+                  //       return Center(
+                  //         child: CircularProgressIndicator(),
+                  //       );
+                  //     } else {
+                  //       var map = snapshot.data.snapshot.value
+                  //           as Map<dynamic, dynamic>;
+                  //       singleProductModels.clear();
+                  //       map.forEach((key, value) {
+                  //         var singleProductModel =
+                  //             new SingleProductModel.fromJson(
+                  //                 json.decode(json.encode(value)));
+                  //         singleProductModel.key = key;
+                  //         singleProductModels.add(singleProductModel);
+                  //       });
 
-                        return GridView.builder(
-                          shrinkWrap: true,
-                          primary: true,
-                          itemCount: singleProductModels.length,
-                          physics: NeverScrollableScrollPhysics(),
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            childAspectRatio: 0.7,
-                          ),
-                          itemBuilder: (context, index) {
-                            var arrivalDataStore = singleProductModels[index];
-                            return SingleProductWidget(
-                              productImage: arrivalDataStore.productImage,
-                              productName: arrivalDataStore.productName,
-                              productModel: arrivalDataStore.productModel,
-                              productPrice: arrivalDataStore.productPrice,
-                              productOldPrice: arrivalDataStore.productOldPrice,
-                              onTap: () => {
-                                PageRouting.goToNextPage(
-                                    context: context,
-                                    navigateTo:
-                                        DetailScreen(data: arrivalDataStore))
-                              },
-                            );
-                          },
-                        );
-                      } else {
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                    },
-                  ),
-                  // child: GridView.builder(
-                  //   shrinkWrap: true,
-                  //   primary: true,
-                  //   itemCount: singleProductData.length,
-                  //   physics: NeverScrollableScrollPhysics(),
-                  //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  //     crossAxisCount: 2,
-                  //     childAspectRatio: 0.7,
-                  //   ),
-
-                  //   itemBuilder: (context, index) {
-                  //     var arrivalDataStore = singleProductData[index];
-                  //     return SingleProductWidget(
-                  //       productImage: arrivalDataStore.productImage,
-                  //       productName: arrivalDataStore.productName,
-                  //       productModel: arrivalDataStore.productModel,
-                  //       productPrice: arrivalDataStore.productPrice,
-                  //       productOldPrice: arrivalDataStore.productOldPrice,
-                  //       onTap: () => {
-                  //         PageRouting.goToNextPage(
-                  //             context: context,
-                  //             navigateTo: DetailScreen(data: arrivalDataStore))
-                  //       },
-                  //     );
+                  //       return GridView.builder(
+                  //         shrinkWrap: true,
+                  //         primary: true,
+                  //         itemCount: singleProductModels.length,
+                  //         physics: NeverScrollableScrollPhysics(),
+                  //         gridDelegate:
+                  //             SliverGridDelegateWithFixedCrossAxisCount(
+                  //           crossAxisCount: 2,
+                  //           childAspectRatio: 0.7,
+                  //         ),
+                  //         itemBuilder: (context, index) {
+                  //           var arrivalDataStore = singleProductModels[index];
+                  //           return SingleProductWidget(
+                  //             productImage: arrivalDataStore.productImage,
+                  //             productName: arrivalDataStore.productName,
+                  //             productModel: arrivalDataStore.productModel,
+                  //             productPrice: arrivalDataStore.productPrice,
+                  //             productOldPrice: arrivalDataStore.productOldPrice,
+                  //             onTap: () => {
+                  //               PageRouting.goToNextPage(
+                  //                   context: context,
+                  //                   navigateTo:
+                  //                       DetailScreen(data: arrivalDataStore))
+                  //             },
+                  //           );
+                  //         },
+                  //       );
+                  //     }
                   //   },
                   // ),
+
+                  child: GridView.builder(
+                    shrinkWrap: true,
+                    primary: true,
+                    itemCount: arrivalsDatas.length,
+                    physics: NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.7,
+                    ),
+                    itemBuilder: (context, index) {
+                      var arrivalDataStore = arrivalsDatas[index];
+                      return SingleProductWidget(
+                        productImage: arrivalDataStore.productImage,
+                        productName: arrivalDataStore.productName,
+                        productModel: arrivalDataStore.productModel,
+                        productPrice: arrivalDataStore.productPrice,
+                        productOldPrice: arrivalDataStore.productOldPrice,
+                        onTap: () => {
+                          PageRouting.goToNextPage(
+                              context: context,
+                              navigateTo: DetailScreen(data: arrivalDataStore))
+                        },
+                      );
+                    },
+                  ),
                 ),
                 Divider(
                   indent: 16,
@@ -377,17 +405,54 @@ class HomePage extends StatelessWidget {
               ],
             ),
             TabBarBar(
-              productData: colothsDatas,
+              productData: getColothsDatas(),
             ),
             TabBarBar(
-              productData: shoesData,
+              productData: getColothsDatas(),
             ),
             TabBarBar(
-              productData: accessoriesData,
+              productData: getColothsDatas(),
             ),
           ],
         ),
       ),
     );
   }
+}
+
+List<dynamic> getArrivalDatas(List<SingleProductModel> arrivalsDatas) {
+  //List<SingleProductModel> arrivalsDatas
+  // List<SingleProductModel> arrivalsDatas =
+  //     new List<SingleProductModel>.empty(growable: true);
+  var ref = FirebaseDatabase.instance.ref().child('arrivals').onValue;
+  ref.listen((DatabaseEvent event) {
+    final map = event.snapshot.value as Map<dynamic, dynamic>;
+    arrivalsDatas.clear();
+    map.forEach((key, value) {
+      var arrivalSingleProductModel =
+          SingleProductModel.fromJson(json.decode(json.encode(value)));
+      arrivalsDatas.add(arrivalSingleProductModel);
+    });
+  });
+  print("my data :::::::::");
+  print(arrivalsDatas);
+  return arrivalsDatas;
+}
+
+List<SingleProductModel> getColothsDatas() {
+  List<SingleProductModel> colothsDatas =
+      new List<SingleProductModel>.empty(growable: true);
+  var ref = FirebaseDatabase.instance.ref().child('arrivals').onValue;
+  ref.listen((DatabaseEvent event) {
+    final map = event.snapshot.value as Map<dynamic, dynamic>;
+    colothsDatas.clear();
+    map.forEach((key, value) {
+      var colothSingleProductModel =
+          new SingleProductModel.fromJson(json.decode(json.encode(value)));
+      colothsDatas.add(colothSingleProductModel);
+    });
+  });
+  print("my data :::::::::");
+  print(colothsDatas);
+  return colothsDatas;
 }

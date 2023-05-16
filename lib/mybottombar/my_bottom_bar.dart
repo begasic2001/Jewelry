@@ -47,10 +47,6 @@ class _MyBottomBarState extends State<MyBottomBar> {
             label: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart_outlined),
-            label: '',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.favorite_border),
             label: '',
           ),
@@ -79,16 +75,10 @@ class _MyBottomBarState extends State<MyBottomBar> {
           case 2:
             return CupertinoTabView(builder: (context) {
               return CupertinoPageScaffold(
-                child: YourCartScreen(),
-              );
-            });
-          case 3:
-            return CupertinoTabView(builder: (context) {
-              return CupertinoPageScaffold(
                 child: WishListScreen(),
               );
             });
-          case 4:
+          case 3:
             return CupertinoTabView(builder: (context) {
               return CupertinoPageScaffold(
                 child: ProfileScreen(),
