@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:app_trang_suc/Screens/details/components/drop_button.dart';
 import 'package:app_trang_suc/Screens/homepage/components/singleProduct_widget.dart';
 import 'package:app_trang_suc/Screens/sizeguide/sizeguide.dart';
@@ -6,11 +7,15 @@ import 'package:app_trang_suc/components/appColors/app_colors.dart';
 import 'package:app_trang_suc/components/stylies/detail_screen_stylies.dart';
 import 'package:app_trang_suc/data/detail_screen_data.dart';
 import 'package:app_trang_suc/models/SingleProductModel.dart';
+import 'package:app_trang_suc/models/cart_model.dart';
 import 'package:app_trang_suc/routes/routes.dart';
 import 'package:app_trang_suc/svgimages/svg_images.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_format_money_vietnam/flutter_format_money_vietnam.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:badges/badges.dart' as badges;
 
 class DetailScreen extends StatefulWidget {
   final SingleProductModel data;
@@ -24,7 +29,9 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   String? _ratingController;
   String? _sizeController;
-
+  GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
+  List<CartModel> carts = new List<CartModel>.empty(growable: true);
+  final user = FirebaseAuth.instance.currentUser!;
   PreferredSize buildAppbar() {
     return PreferredSize(
       preferredSize: Size.fromHeight(70),
@@ -52,15 +59,55 @@ class _DetailScreenState extends State<DetailScreen> {
             ),
             onPressed: () {},
           ),
-          IconButton(
-            icon: SvgPicture.asset(
-              SvgImages.upload,
-              color: AppColors.baseBlackColor,
-              width: 35,
-              semanticsLabel: "Favo",
+          Padding(
+            padding: const EdgeInsets.only(top: 10, right: 20),
+            child: StreamBuilder(
+              stream: FirebaseDatabase.instance
+                  .ref()
+                  .child('Cart')
+                  .child(user.uid)
+                  .onValue,
+              builder: (context, AsyncSnapshot snapshot) {
+                if (snapshot.hasData) {
+                  var map = snapshot.data.snapshot.value;
+                  carts.clear();
+                  if (map != null) {
+                    map.forEach((key, value) {
+                      var cartModel =
+                          CartModel.fromJson(json.decode(json.encode(value)));
+                      carts.add(cartModel);
+                    });
+                  }
+
+                  return GestureDetector(
+                    child: Center(
+                        child: badges.Badge(
+                      showBadge: true,
+                      badgeContent: Text(
+                        '${carts.length > 9 ? 9.toString() + "+" : carts.length.toString()}',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      child: Icon(
+                        Icons.shopping_cart,
+                        color: Colors.black,
+                        
+                      ),
+                    )),
+                  );
+                } else {
+                  return Center(
+                    child: badges.Badge(
+                        showBadge: true,
+                        badgeContent: Text(
+                          '0',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        child: Icon(Icons.shopping_cart,color: Colors.black,)),
+                  );
+                }
+              },
             ),
-            onPressed: () {},
-          ),
+          )
         ],
       ),
     );
@@ -72,7 +119,6 @@ class _DetailScreenState extends State<DetailScreen> {
         radius: 35,
         backgroundColor: Colors.transparent,
         backgroundImage: NetworkImage(
-          
           'https://www.creativefabrica.com/wp-content/uploads/2022/08/14/Jewelry-Logo-Graphics-36190918-1-312x208.jpg',
         ),
       ),
@@ -289,10 +335,11 @@ class _DetailScreenState extends State<DetailScreen> {
           style: DetailScreenStylies.buttonTextStyle,
         ),
         onPressed: () {
-          PageRouting.goToNextPage(
-            context: context,
-            navigateTo: YourCartScreen(),
-          );
+          // PageRouting.goToNextPage(
+          //   context: context,
+          //   navigateTo: YourCartScreen(),
+          // );
+          addToCart(_scaffoldKey, widget.data, user.uid);
         },
       ),
     );
@@ -363,4 +410,45 @@ class _DetailScreenState extends State<DetailScreen> {
       ),
     );
   }
+}
+
+void addToCart(
+    GlobalKey<ScaffoldState> scaffoldKey, SingleProductModel data, String uid) {
+  var myKey = data.key!;
+  var cart = FirebaseDatabase.instance.ref().child('Cart').child(uid);
+  cart.child(myKey).once().then((value) {
+    var cartDatas = value.snapshot.value;
+    if (cartDatas != null) {
+      var cartModel = CartModel.fromJson(json.decode(json.encode(cartDatas)));
+      cartModel.productQuantity = cartModel.productQuantity! + 1;
+      cartModel.totalPrice = data.productPrice! * cartModel.productQuantity!;
+
+      cart
+          .child(myKey)
+          .set(cartModel.toJson())
+          .then((value) => ScaffoldMessenger.of(scaffoldKey.currentContext!)
+              .showSnackBar(
+                  SnackBar(content: Text('Cập nhật thành công giỏ hàng'))))
+          .catchError((e) => {
+                ScaffoldMessenger.of(scaffoldKey.currentContext!)
+                    .showSnackBar(SnackBar(content: Text('${e}')))
+              });
+    } else {
+      var cartModel = new CartModel(
+          productName: data.productName,
+          productPrice: data.productPrice,
+          productQuantity: 1,
+          productImage: data.productImage);
+
+      cart
+          .child(myKey)
+          .set(cartModel.toJson())
+          .then((value) => ScaffoldMessenger.of(scaffoldKey.currentContext!)
+              .showSnackBar(SnackBar(content: Text('Đã thêm vào giỏ hàng'))))
+          .catchError((e) => {
+                ScaffoldMessenger.of(scaffoldKey.currentContext!)
+                    .showSnackBar(SnackBar(content: Text('${e}')))
+              });
+    }
+  });
 }

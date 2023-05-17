@@ -10,7 +10,9 @@ import 'package:app_trang_suc/components/stylies/home_screen_stylies.dart';
 import 'package:app_trang_suc/data/home_page_data.dart';
 import 'package:app_trang_suc/main.dart';
 import 'package:app_trang_suc/models/SingleProductModel.dart';
+import 'package:app_trang_suc/models/cart_model.dart';
 import 'package:app_trang_suc/routes/routes.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
@@ -29,13 +31,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
-//  List<SingleProductModel> singleProductModels =
-//     new List<SingleProductModel>.empty(growable: true);
+  //GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
   List<SingleProductModel> arrivalsDatas =
       new List<SingleProductModel>.empty(growable: true);
-
+  List<CartModel> carts = new List<CartModel>.empty(growable: true);
   AppBar buildAppBar(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
     return AppBar(
       bottom: const TabBar(
         labelPadding: EdgeInsets.symmetric(horizontal: 20),
@@ -95,6 +96,49 @@ class _HomePageState extends State<HomePage> {
           ),
           onPressed: () {},
         ),
+        // Padding(
+        //   padding: const EdgeInsets.only(top: 10, right: 20),
+        //   child: StreamBuilder(
+        //     stream: FirebaseDatabase.instance
+        //         .ref()
+        //         .child('Cart')
+        //         .child(user.uid)
+        //         .onValue,
+        //     builder: (context, AsyncSnapshot snapshot) {
+        //       if (snapshot.hasData) {
+        //         var map = snapshot.data.snapshot.value;
+        //         carts.clear();
+        //         map.forEach((key, value) {
+        //           var cartModel =
+        //               CartModel.fromJson(json.decode(json.encode(value)));
+        //           carts.add(cartModel);
+        //         });
+        //         return GestureDetector(
+        //           child: Center(
+        //               child: Badge(
+        //             label: Text(
+        //               '${carts.length > 9 ? 9.toString() + "+" : carts.length.toString()}',
+        //               style: TextStyle(color: Colors.white),
+        //             ),
+        //           )),
+        //         );
+        //       } else {
+        //         return const Center(
+        //           child: Badge(
+        //             label: Text(
+        //               '0',
+        //               style: TextStyle(color: Colors.white),
+        //             ),
+        //             child:Icon(
+        //               Icons.shopping_cart,
+        //               color: Colors.white,
+        //             ),
+        //           ),
+        //         );
+        //       }
+        //     },
+        //   ),
+        // )
       ],
     );
   }
@@ -298,14 +342,14 @@ class _HomePageState extends State<HomePage> {
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
                     primary: true,
-                    itemCount: singleProductData.length,
+                    itemCount: arrivalsDatas.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 1,
                       childAspectRatio: 1.5,
                     ),
                     itemBuilder: (context, index) {
                       //var historyDataStore = shoesData[index];
-                      var arrivalDataStore = singleProductData[index];
+                      var arrivalDataStore = arrivalsDatas[index];
                       return SingleProductWidget(
                           onTap: () {
                             PageRouting.goToNextPage(
@@ -347,7 +391,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void GetArrivalData() {
-     DatabaseReference dbRef = FirebaseDatabase.instance.ref().child('arrivals');
+    DatabaseReference dbRef = FirebaseDatabase.instance.ref().child('arrivals');
     dbRef.onValue.listen((event) {
       setState(() {
         final map = event.snapshot.value as Map<dynamic, dynamic>;

@@ -29,6 +29,7 @@ class SingleProductModel {
     productFourImage = json['productFourImage'];
     productSecondImage = json['productSecondImage'];
     productThirdImage = json['productThirdImage'];
+    key = json['key'];
   }
 
   Map<String, dynamic> toJson() {
