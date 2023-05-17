@@ -12,6 +12,7 @@ import 'package:app_trang_suc/main.dart';
 import 'package:app_trang_suc/models/SingleProductModel.dart';
 import 'package:app_trang_suc/routes/routes.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -27,33 +28,12 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-List<SingleProductModel> singleProductModels =
-    new List<SingleProductModel>.empty(growable: true);
-List<SingleProductModel> arrivalsDatas =
-    new List<SingleProductModel>.empty(growable: true);
-
 class _HomePageState extends State<HomePage> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
-
-  @override
-  void initState() {
-    super.initState();
-
-    setState(() {
-      var ref = FirebaseDatabase.instance.ref().child('arrivals').onValue;
-      ref.listen((DatabaseEvent event) {
-        final map = event.snapshot.value as Map<dynamic, dynamic>;
-        arrivalsDatas.clear();
-        map.forEach((key, value) {
-          var arrivalSingleProductModel =
-              SingleProductModel.fromJson(json.decode(json.encode(value)));
-          arrivalsDatas.add(arrivalSingleProductModel);
-        });
-      });
-      print("data form firebase::::::::");
-      print(arrivalsDatas);
-    });
-  }
+//  List<SingleProductModel> singleProductModels =
+//     new List<SingleProductModel>.empty(growable: true);
+  List<SingleProductModel> arrivalsDatas =
+      new List<SingleProductModel>.empty(growable: true);
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
@@ -239,6 +219,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    GetArrivalData();
     return DefaultTabController(
       length: 4,
       child: Scaffold(
@@ -254,60 +235,6 @@ class _HomePageState extends State<HomePage> {
                   padding: EdgeInsets.symmetric(
                     horizontal: 12.0,
                   ),
-                  // child: StreamBuilder(
-                  //   initialData: singleProductModels,
-                  //   stream: FirebaseDatabase.instance
-                  //       .ref()
-                  //       .child('arrivals')
-                  //       .onValue,
-                  //   builder: (context, AsyncSnapshot snapshot) {
-                  //     if (!snapshot.hasData) {
-                  //       return Center(
-                  //         child: CircularProgressIndicator(),
-                  //       );
-                  //     } else {
-                  //       var map = snapshot.data.snapshot.value
-                  //           as Map<dynamic, dynamic>;
-                  //       singleProductModels.clear();
-                  //       map.forEach((key, value) {
-                  //         var singleProductModel =
-                  //             new SingleProductModel.fromJson(
-                  //                 json.decode(json.encode(value)));
-                  //         singleProductModel.key = key;
-                  //         singleProductModels.add(singleProductModel);
-                  //       });
-
-                  //       return GridView.builder(
-                  //         shrinkWrap: true,
-                  //         primary: true,
-                  //         itemCount: singleProductModels.length,
-                  //         physics: NeverScrollableScrollPhysics(),
-                  //         gridDelegate:
-                  //             SliverGridDelegateWithFixedCrossAxisCount(
-                  //           crossAxisCount: 2,
-                  //           childAspectRatio: 0.7,
-                  //         ),
-                  //         itemBuilder: (context, index) {
-                  //           var arrivalDataStore = singleProductModels[index];
-                  //           return SingleProductWidget(
-                  //             productImage: arrivalDataStore.productImage,
-                  //             productName: arrivalDataStore.productName,
-                  //             productModel: arrivalDataStore.productModel,
-                  //             productPrice: arrivalDataStore.productPrice,
-                  //             productOldPrice: arrivalDataStore.productOldPrice,
-                  //             onTap: () => {
-                  //               PageRouting.goToNextPage(
-                  //                   context: context,
-                  //                   navigateTo:
-                  //                       DetailScreen(data: arrivalDataStore))
-                  //             },
-                  //           );
-                  //         },
-                  //       );
-                  //     }
-                  //   },
-                  // ),
-
                   child: GridView.builder(
                     shrinkWrap: true,
                     primary: true,
@@ -418,25 +345,22 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-}
 
-List<dynamic> getArrivalDatas(List<SingleProductModel> arrivalsDatas) {
-  //List<SingleProductModel> arrivalsDatas
-  // List<SingleProductModel> arrivalsDatas =
-  //     new List<SingleProductModel>.empty(growable: true);
-  var ref = FirebaseDatabase.instance.ref().child('arrivals').onValue;
-  ref.listen((DatabaseEvent event) {
-    final map = event.snapshot.value as Map<dynamic, dynamic>;
-    arrivalsDatas.clear();
-    map.forEach((key, value) {
-      var arrivalSingleProductModel =
-          SingleProductModel.fromJson(json.decode(json.encode(value)));
-      arrivalsDatas.add(arrivalSingleProductModel);
+  void GetArrivalData() {
+     DatabaseReference dbRef = FirebaseDatabase.instance.ref().child('arrivals');
+    dbRef.onValue.listen((event) {
+      setState(() {
+        final map = event.snapshot.value as Map<dynamic, dynamic>;
+        arrivalsDatas.clear();
+        map.forEach((key, value) {
+          var arrivalSingleProductModel =
+              SingleProductModel.fromJson(json.decode(json.encode(value)));
+          arrivalsDatas.add(arrivalSingleProductModel);
+        });
+        //arrivalsDatas
+      });
     });
-  });
-  print("my data :::::::::");
-  print(arrivalsDatas);
-  return arrivalsDatas;
+  }
 }
 
 List<SingleProductModel> getColothsDatas() {
@@ -452,7 +376,5 @@ List<SingleProductModel> getColothsDatas() {
       colothsDatas.add(colothSingleProductModel);
     });
   });
-  print("my data :::::::::");
-  print(colothsDatas);
   return colothsDatas;
 }

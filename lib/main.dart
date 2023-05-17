@@ -1,6 +1,5 @@
 import 'package:app_trang_suc/Screens/homepage/homepage.dart';
 import 'package:app_trang_suc/Screens/login/components/login_form.dart';
-import 'package:app_trang_suc/auth.dart';
 import 'package:app_trang_suc/mybottombar/my_bottom_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
