@@ -41,6 +41,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    
     Size size = MediaQuery.of(context).size;
 
     double viewInset = MediaQuery.of(context)
@@ -193,16 +194,16 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
   }
 
   Future signUp() async {
-    final isValid = formKey.currentState!.validate();
-    if(!isValid) return;
+    // final isValid = formKey.currentState!.validate();
+    // if (!isValid) return;
 
-     showDialog(
+    showDialog(
         context: context,
         barrierDismissible: false,
         builder: (context) => Center(
               child: CircularProgressIndicator(),
             ));
-     try {
+    try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
@@ -210,18 +211,22 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
       print(e);
       Utils.showSnackBar(e.message);
     }
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 }
 
 class Utils {
   static final messengerKey = GlobalKey<ScaffoldMessengerState>();
-  static showSnackBar(String? text){
-    if(text == null) return;
+  static showSnackBar(String? text) {
+    if (text == null) return;
 
-    final snackBar = SnackBar(content: Text(text),backgroundColor: Colors.red,);
+    final snackBar = SnackBar(
+      key: messengerKey,
+      content: Text(text),
+      backgroundColor: Colors.red,
+    );
     messengerKey.currentState!
-     ..removeCurrentSnackBar()
-     ..showSnackBar(snackBar);
-
+      ..removeCurrentSnackBar()
+      ..showSnackBar(snackBar);
   }
 }

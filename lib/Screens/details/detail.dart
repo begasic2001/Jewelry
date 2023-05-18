@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:app_trang_suc/Screens/details/components/drop_button.dart';
 import 'package:app_trang_suc/Screens/homepage/components/singleProduct_widget.dart';
 import 'package:app_trang_suc/Screens/sizeguide/sizeguide.dart';
+import 'package:app_trang_suc/Screens/yourcart/cart_detail.dart';
 import 'package:app_trang_suc/Screens/yourcart/your_cart_screen.dart';
 import 'package:app_trang_suc/components/appColors/app_colors.dart';
 import 'package:app_trang_suc/components/stylies/detail_screen_stylies.dart';
@@ -29,7 +30,7 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   String? _ratingController;
   String? _sizeController;
-  GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   List<CartModel> carts = new List<CartModel>.empty(growable: true);
   final user = FirebaseAuth.instance.currentUser!;
   PreferredSize buildAppbar() {
@@ -68,6 +69,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   .child(user.uid)
                   .onValue,
               builder: (context, AsyncSnapshot snapshot) {
+                var numberItemInCart = 0;
                 if (snapshot.hasData) {
                   var map = snapshot.data.snapshot.value;
                   carts.clear();
@@ -75,22 +77,30 @@ class _DetailScreenState extends State<DetailScreen> {
                     map.forEach((key, value) {
                       var cartModel =
                           CartModel.fromJson(json.decode(json.encode(value)));
+                      cartModel.key = key;
                       carts.add(cartModel);
                     });
+                    numberItemInCart = carts
+                      .map<int>((c) => c.productQuantity!)
+                      .reduce((a, b) => a + b);
                   }
-
                   return GestureDetector(
+                    onTap: () {
+                      PageRouting.goToNextPage(
+                        context: context,
+                        navigateTo: CartDetail(),
+                      );
+                    },
                     child: Center(
                         child: badges.Badge(
                       showBadge: true,
                       badgeContent: Text(
-                        '${carts.length > 9 ? 9.toString() + "+" : carts.length.toString()}',
+                        '${numberItemInCart > 9 ? 9.toString() + "+" : numberItemInCart.toString()}',
                         style: TextStyle(color: Colors.white),
                       ),
                       child: Icon(
                         Icons.shopping_cart,
                         color: Colors.black,
-                        
                       ),
                     )),
                   );
@@ -102,7 +112,10 @@ class _DetailScreenState extends State<DetailScreen> {
                           '0',
                           style: TextStyle(color: Colors.white),
                         ),
-                        child: Icon(Icons.shopping_cart,color: Colors.black,)),
+                        child: Icon(
+                          Icons.shopping_cart,
+                          color: Colors.black,
+                        )),
                   );
                 }
               },
@@ -395,6 +408,7 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: buildAppbar(),
       body: ListView(
         physics: BouncingScrollPhysics(),
@@ -438,7 +452,8 @@ void addToCart(
           productName: data.productName,
           productPrice: data.productPrice,
           productQuantity: 1,
-          productImage: data.productImage);
+          productImage: data.productImage,
+          totalPrice: data.productPrice);
 
       cart
           .child(myKey)

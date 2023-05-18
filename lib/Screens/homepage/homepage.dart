@@ -5,6 +5,7 @@ import 'package:app_trang_suc/Screens/details/detail.dart';
 import 'package:app_trang_suc/Screens/filter/filter.dart';
 import 'package:app_trang_suc/Screens/homepage/components/singleProduct_widget.dart';
 import 'package:app_trang_suc/Screens/tabbar/tabbar_data.dart';
+import 'package:app_trang_suc/Screens/yourcart/cart_detail.dart';
 import 'package:app_trang_suc/components/appColors/app_colors.dart';
 import 'package:app_trang_suc/components/stylies/home_screen_stylies.dart';
 import 'package:app_trang_suc/data/home_page_data.dart';
@@ -24,6 +25,7 @@ import 'package:flutter_svg/svg.dart';
 
 import 'components/show_all_widget.dart';
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:badges/badges.dart' as badges;
 
 class HomePage extends StatefulWidget {
   @override
@@ -89,56 +91,67 @@ class _HomePageState extends State<HomePage> {
             );
           },
         ),
-        IconButton(
-          icon: SvgPicture.asset(
-            SvgImages.shoppingCart,
-            width: 30,
+        Padding(
+          padding: const EdgeInsets.only(top: 10, right: 20),
+          child: StreamBuilder(
+            stream: FirebaseDatabase.instance
+                .ref()
+                .child('Cart')
+                .child(user.uid)
+                .onValue,
+            builder: (context, AsyncSnapshot snapshot) {
+              var numberItemInCart = 0;
+              if (snapshot.hasData) {
+                var map = snapshot.data.snapshot.value;
+                carts.clear();
+                if (map != null) {
+                  map.forEach((key, value) {
+                    var cartModel =
+                        CartModel.fromJson(json.decode(json.encode(value)));
+                    carts.add(cartModel);
+                  });
+                  numberItemInCart = carts
+                    .map<int>((c) => c.productQuantity!)
+                    .reduce((a, b) => a + b);
+                }
+               
+                return GestureDetector(
+                  onTap: () {
+                    PageRouting.goToNextPage(
+                      context: context,
+                      navigateTo: CartDetail(),
+                    );
+                  },
+                  child: Center(
+                      child: badges.Badge(
+                    showBadge: true,
+                    badgeContent: Text(
+                      '${numberItemInCart > 9 ? 9.toString() + "+" : numberItemInCart.toString()}',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    child: Icon(
+                      Icons.shopping_cart,
+                      color: Colors.black,
+                    ),
+                  )),
+                );
+              } else {
+                return Center(
+                  child: badges.Badge(
+                      showBadge: true,
+                      badgeContent: Text(
+                        '0',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      child: Icon(
+                        Icons.shopping_cart,
+                        color: Colors.black,
+                      )),
+                );
+              }
+            },
           ),
-          onPressed: () {},
-        ),
-        // Padding(
-        //   padding: const EdgeInsets.only(top: 10, right: 20),
-        //   child: StreamBuilder(
-        //     stream: FirebaseDatabase.instance
-        //         .ref()
-        //         .child('Cart')
-        //         .child(user.uid)
-        //         .onValue,
-        //     builder: (context, AsyncSnapshot snapshot) {
-        //       if (snapshot.hasData) {
-        //         var map = snapshot.data.snapshot.value;
-        //         carts.clear();
-        //         map.forEach((key, value) {
-        //           var cartModel =
-        //               CartModel.fromJson(json.decode(json.encode(value)));
-        //           carts.add(cartModel);
-        //         });
-        //         return GestureDetector(
-        //           child: Center(
-        //               child: Badge(
-        //             label: Text(
-        //               '${carts.length > 9 ? 9.toString() + "+" : carts.length.toString()}',
-        //               style: TextStyle(color: Colors.white),
-        //             ),
-        //           )),
-        //         );
-        //       } else {
-        //         return const Center(
-        //           child: Badge(
-        //             label: Text(
-        //               '0',
-        //               style: TextStyle(color: Colors.white),
-        //             ),
-        //             child:Icon(
-        //               Icons.shopping_cart,
-        //               color: Colors.white,
-        //             ),
-        //           ),
-        //         );
-        //       }
-        //     },
-        //   ),
-        // )
+        )
       ],
     );
   }
@@ -290,6 +303,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     itemBuilder: (context, index) {
                       var arrivalDataStore = arrivalsDatas[index];
+                      var myKey = arrivalDataStore.key;
                       return SingleProductWidget(
                         productImage: arrivalDataStore.productImage,
                         productName: arrivalDataStore.productName,
@@ -396,9 +410,11 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         final map = event.snapshot.value as Map<dynamic, dynamic>;
         arrivalsDatas.clear();
+
         map.forEach((key, value) {
           var arrivalSingleProductModel =
               SingleProductModel.fromJson(json.decode(json.encode(value)));
+          arrivalSingleProductModel.key = key;
           arrivalsDatas.add(arrivalSingleProductModel);
         });
         //arrivalsDatas
@@ -417,6 +433,7 @@ List<SingleProductModel> getColothsDatas() {
     map.forEach((key, value) {
       var colothSingleProductModel =
           new SingleProductModel.fromJson(json.decode(json.encode(value)));
+      colothSingleProductModel.key = key;
       colothsDatas.add(colothSingleProductModel);
     });
   });

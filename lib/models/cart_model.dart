@@ -1,18 +1,17 @@
 class CartModel {
   String? productImage;
-
   String? productName;
-
   int? productPrice;
-
   int? productQuantity;
   int? totalPrice;
+  String? key;
   CartModel(
       {this.productImage,
       this.productName,
       this.productPrice,
       this.productQuantity,
-      this.totalPrice});
+      this.totalPrice,
+      this.key});
 
   CartModel.fromJson(Map<String, dynamic> json) {
     productImage = json['productImage'];
@@ -23,6 +22,7 @@ class CartModel {
 
     productQuantity = json['productQuantity'];
     totalPrice = json['totalPrice'];
+    key = json['key'];
   }
 
   Map<String, dynamic> toJson() {
@@ -35,6 +35,7 @@ class CartModel {
 
     data['productQuantity'] = this.productQuantity;
     data['totalPrice'] = this.totalPrice;
+    data['key']= this.key;
     return data;
   }
 }
