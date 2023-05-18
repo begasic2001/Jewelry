@@ -1,8 +1,12 @@
 import 'dart:convert';
 
+import 'package:app_trang_suc/Screens/confirmsuccess/confirmsuccess.dart';
+import 'package:app_trang_suc/components/rounded_button.dart';
 import 'package:app_trang_suc/components/stylies/home_screen_stylies.dart';
 import 'package:app_trang_suc/models/SingleProductModel.dart';
 import 'package:app_trang_suc/models/cart_model.dart';
+import 'package:app_trang_suc/models/order_model.dart';
+import 'package:app_trang_suc/routes/routes.dart';
 import 'package:confirm_dialog/confirm_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -202,8 +206,8 @@ class _CartDetailState extends State<CartDetail> {
                                       //       style: TextStyle(color: Colors.red),
                                       //     ),
                                       //     textCancel: Text('Hủy'))) {
-                                         deleteCart(scaffoldKey,
-                                            cartModels[index], user.uid);
+                                      deleteCart(scaffoldKey, cartModels[index],
+                                          user.uid);
                                       //}
                                     },
                                     //     cartModels[index], user.uid,
@@ -233,7 +237,17 @@ class _CartDetailState extends State<CartDetail> {
                   );
                 }
               },
-            ))
+            )),
+            Container(
+              margin: EdgeInsets.all(30),
+              child: RoundedButton(
+                //color: AppColors.baseDarkPinkColor,
+                title: "Thanh Toán",
+                onTap: () {
+                  SubmitCart(scaffoldKey, cartModels, user.uid);
+                },
+              ),
+            )
           ],
         ));
   }
@@ -266,5 +280,64 @@ class _CartDetailState extends State<CartDetail> {
               ScaffoldMessenger.of(scaffoldKey.currentContext!)
                   .showSnackBar(SnackBar(content: Text('${e}')))
             });
+  }
+
+  void SubmitCart(
+      GlobalKey<ScaffoldState> scaffoldKey, List<CartModel> data, String uid) {
+    var dbOrder = FirebaseDatabase.instance.ref().child('Order').child(uid);
+    var cart = FirebaseDatabase.instance.ref().child('Cart').child(uid);
+
+    print("Order Submit::::::::::::");
+    print(data);
+    //var myKey = data.key!;
+    data.forEach((value) {
+      var cartModel = CartModel.fromJson(json.decode(json.encode(value)));
+      var productKey = cartModel.key!;
+      var orderModel = OrderModel(
+          productName: cartModel.productName,
+          productPrice: cartModel.productPrice,
+          productQuantity: cartModel.productQuantity,
+          productImage: cartModel.productImage,
+          totalPrice: cartModel.productPrice);
+
+      dbOrder.child(productKey).set(orderModel.toJson()).whenComplete(() {
+        cart.child(productKey).remove().whenComplete(() {
+          ScaffoldMessenger.of(scaffoldKey.currentContext!)
+              .showSnackBar(SnackBar(content: Text('Đặt hàng thành công')));
+        }).catchError((e) => {
+              ScaffoldMessenger.of(scaffoldKey.currentContext!)
+                  .showSnackBar(SnackBar(content: Text('${e}')))
+            });
+      });
+    });
+
+    PageRouting.goToNextPage(
+        context: context, navigateTo: ConfirmationSuccessPage());
+    // var cart = FirebaseDatabase.instance.ref().child('Cart').child(uid);
+    // cart.onValue.listen((DatabaseEvent event) {
+    //   var listCart = event.snapshot.value as Map<dynamic, dynamic>;
+    //   listCart.forEach((key, value) {
+    //     var cartModel = CartModel.fromJson(json.decode(json.encode(value)));
+    //     if (cartModel != null) {
+    //       var orderModel = new OrderModel(
+    //           productName: cartModel.productName,
+    //           productPrice: cartModel.productPrice,
+    //           productQuantity: cartModel.productQuantity,
+    //           productImage: cartModel.productImage,
+    //           totalPrice: cartModel.productPrice);
+    //       cart.child(key).set(cartModel.toJson());
+    //     }
+    //   });
+    // });
+
+    // cart
+    //     .child(myKey)
+    //     .set(cartModel.toJson())
+    //     .then((value) => ScaffoldMessenger.of(scaffoldKey.currentContext!)
+    //         .showSnackBar(SnackBar(content: Text('Đã thêm vào giỏ hàng'))))
+    //     .catchError((e) => {
+    //           ScaffoldMessenger.of(scaffoldKey.currentContext!)
+    //               .showSnackBar(SnackBar(content: Text('${e}')))
+    //         });
   }
 }
