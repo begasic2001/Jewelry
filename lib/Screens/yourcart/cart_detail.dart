@@ -16,6 +16,8 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter_elegant_number_button/flutter_elegant_number_button.dart';
 import 'package:flutter_format_money_vietnam/flutter_format_money_vietnam.dart';
+import 'package:uuid/uuid.dart';
+import 'package:uuid/uuid_util.dart';
 
 class CartDetail extends StatefulWidget {
   const CartDetail({super.key});
@@ -286,7 +288,9 @@ class _CartDetailState extends State<CartDetail> {
       GlobalKey<ScaffoldState> scaffoldKey, List<CartModel> data, String uid) {
     var dbOrder = FirebaseDatabase.instance.ref().child('Order').child(uid);
     var cart = FirebaseDatabase.instance.ref().child('Cart').child(uid);
-
+    var current_date = DateTime.now();
+    var uuid = Uuid();
+    var v1 = uuid.v1();
     print("Order Submit::::::::::::");
     print(data);
     //var myKey = data.key!;
@@ -294,13 +298,18 @@ class _CartDetailState extends State<CartDetail> {
       var cartModel = CartModel.fromJson(json.decode(json.encode(value)));
       var productKey = cartModel.key!;
       var orderModel = OrderModel(
+          date_order: current_date.toString(),
           productName: cartModel.productName,
           productPrice: cartModel.productPrice,
           productQuantity: cartModel.productQuantity,
           productImage: cartModel.productImage,
           totalPrice: cartModel.productPrice);
 
-      dbOrder.child(productKey).set(orderModel.toJson()).whenComplete(() {
+      dbOrder
+          .child(v1)
+          .child(productKey)
+          .set(orderModel.toJson())
+          .whenComplete(() {
         cart.child(productKey).remove().whenComplete(() {
           ScaffoldMessenger.of(scaffoldKey.currentContext!)
               .showSnackBar(SnackBar(content: Text('Đặt hàng thành công')));
@@ -313,31 +322,5 @@ class _CartDetailState extends State<CartDetail> {
 
     PageRouting.goToNextPage(
         context: context, navigateTo: ConfirmationSuccessPage());
-    // var cart = FirebaseDatabase.instance.ref().child('Cart').child(uid);
-    // cart.onValue.listen((DatabaseEvent event) {
-    //   var listCart = event.snapshot.value as Map<dynamic, dynamic>;
-    //   listCart.forEach((key, value) {
-    //     var cartModel = CartModel.fromJson(json.decode(json.encode(value)));
-    //     if (cartModel != null) {
-    //       var orderModel = new OrderModel(
-    //           productName: cartModel.productName,
-    //           productPrice: cartModel.productPrice,
-    //           productQuantity: cartModel.productQuantity,
-    //           productImage: cartModel.productImage,
-    //           totalPrice: cartModel.productPrice);
-    //       cart.child(key).set(cartModel.toJson());
-    //     }
-    //   });
-    // });
-
-    // cart
-    //     .child(myKey)
-    //     .set(cartModel.toJson())
-    //     .then((value) => ScaffoldMessenger.of(scaffoldKey.currentContext!)
-    //         .showSnackBar(SnackBar(content: Text('Đã thêm vào giỏ hàng'))))
-    //     .catchError((e) => {
-    //           ScaffoldMessenger.of(scaffoldKey.currentContext!)
-    //               .showSnackBar(SnackBar(content: Text('${e}')))
-    //         });
   }
 }
