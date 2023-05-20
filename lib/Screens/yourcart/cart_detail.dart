@@ -48,210 +48,205 @@ class _CartDetailState extends State<CartDetail> {
               ),
             ],
           ),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  if (cartModels.length > 0) {
+                    SubmitCart(scaffoldKey, cartModels, user.uid);
+                  } else {
+                    return;
+                  }
+                },
+                icon: Icon(Icons.payment, color: Colors.black))
+            // Container(
+            //   margin: EdgeInsets.all(30),
+            //   child: RoundedButton(
+            //     //color: AppColors.baseDarkPinkColor,
+            //     title: "Thanh Toán",
+            //     onTap: () {
+            //       SubmitCart(scaffoldKey, cartModels, user.uid);
+            //     },
+            //   ),
+            // )
+          ],
         ),
         body: Column(
           children: [
             SizedBox(
               height: 20,
             ),
-            Expanded(
-                child: StreamBuilder(
-              stream: FirebaseDatabase.instance
-                  .ref()
-                  .child('Cart')
-                  .child(user.uid)
-                  .onValue,
-              builder: (context, AsyncSnapshot snapshot) {
-                if (snapshot.hasData) {
-                  var map = snapshot.data.snapshot.value;
-                  cartModels.clear();
-                  if (map != null) {
-                    map.forEach((key, value) {
-                      var cartModel =
-                          CartModel.fromJson(json.decode(json.encode(value)));
-                      cartModel.key = key;
-                      cartModels.add(cartModel);
-                    });
-                  }
-                  return cartModels.length > 0
-                      ? ListView.builder(
-                          itemCount: cartModels.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Stack(
-                              children: [
-                                Card(
-                                  elevation: 8,
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 10.0, vertical: 6.0),
-                                  child: Container(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Expanded(
-                                          child: ClipRRect(
-                                            child: Image(
-                                              image: NetworkImage(
-                                                cartModels[index].productImage!,
-                                              ),
-                                              fit: BoxFit.cover,
-                                            ),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(4)),
-                                          ),
-                                        ),
-                                        Expanded(
-                                            flex: 4,
-                                            child: Container(
-                                              padding: const EdgeInsets.only(
-                                                  bottom: 8),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 8, right: 8),
-                                                    child: Text(
-                                                      cartModels[index]
-                                                          .productName!,
-                                                      style: TextStyle(
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 8, right: 8),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Text(
-                                                            '${cartModels[index].productPrice.toVND(unit: 'đ')}'),
-                                                        ElegantNumberButton(
-                                                          initialValue: cartModels[
-                                                                  index]
-                                                              .productQuantity!,
-                                                          minValue: 1,
-                                                          maxValue: 50,
-                                                          decimalPlaces: 0,
-                                                          color: Colors.white38,
-                                                          onChanged:
-                                                              (value) async {
-                                                            cartModels[index]
-                                                                    .productQuantity =
-                                                                value.toInt();
-                                                            cartModels[index]
-                                                                .totalPrice = cartModels[
-                                                                        index]
-                                                                    .productQuantity! *
-                                                                cartModels[
-                                                                        index]
-                                                                    .productPrice!;
-
-                                                            updateCart(
-                                                                scaffoldKey,
-                                                                cartModels[
-                                                                    index],
-                                                                user.uid);
-                                                          },
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 8, right: 8),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(
-                                                          'Tổng: ${cartModels[index].totalPrice.toVND(unit: 'đ')}',
-                                                          style: TextStyle(
-                                                              fontSize: 18),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ))
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment.topRight,
-                                  child: IconButton(
-                                    icon: Icon(Icons.clear),
-
-                                    onPressed: () async {
-                                      // if (await confirm(context,
-                                      //     title: Text('Xóa sản phẩm'),
-                                      //     content: Text(
-                                      //         'Bạn có muốn xóa sản phẩm này ???'),
-                                      //     textOK: Text(
-                                      //       'Xóa',
-                                      //       style: TextStyle(color: Colors.red),
-                                      //     ),
-                                      //     textCancel: Text('Hủy'))) {
-                                      deleteCart(scaffoldKey, cartModels[index],
-                                          user.uid);
-                                      //}
-                                    },
-                                    //     cartModels[index], user.uid,
-                                    // onPressed: updateCart(scaffoldKey,
-                                    //     cartModels[index], user.uid),
-                                  ),
-                                )
-                              ],
-                            );
-                          },
-                        )
-                      : Center(
-                          child: Text('Giỏ hàng trống !!!!'),
-                        );
-                } else {
-                  return Center(
-                    child: badges.Badge(
-                        showBadge: true,
-                        badgeContent: Text(
-                          '0',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        child: Icon(
-                          Icons.shopping_cart,
-                          color: Colors.black,
-                        )),
-                  );
-                }
-              },
-            )),
-            Container(
-              margin: EdgeInsets.all(30),
-              child: RoundedButton(
-                //color: AppColors.baseDarkPinkColor,
-                title: "Thanh Toán",
-                onTap: () {
-                  SubmitCart(scaffoldKey, cartModels, user.uid);
-                },
-              ),
-            )
+            Expanded(child: CartDetailData()),
           ],
         ));
+  }
+
+  StreamBuilder<DatabaseEvent> CartDetailData() {
+    return StreamBuilder(
+      stream:
+          FirebaseDatabase.instance.ref().child('Cart').child(user.uid).onValue,
+      builder: (context, AsyncSnapshot snapshot) {
+        if (snapshot.hasData) {
+          var map = snapshot.data.snapshot.value;
+          cartModels.clear();
+          if (map != null) {
+            map.forEach((key, value) {
+              var cartModel =
+                  CartModel.fromJson(json.decode(json.encode(value)));
+              cartModel.key = key;
+              cartModels.add(cartModel);
+            });
+          }
+          return cartModels.length > 0
+              ? ListView.builder(
+                  itemCount: cartModels.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Stack(
+                      children: [
+                        Card(
+                          elevation: 8,
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 10.0, vertical: 6.0),
+                          child: Container(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child: ClipRRect(
+                                    child: Image(
+                                      image: NetworkImage(
+                                        cartModels[index].productImage!,
+                                      ),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(4)),
+                                  ),
+                                ),
+                                Expanded(
+                                    flex: 4,
+                                    child: Container(
+                                      padding: const EdgeInsets.only(bottom: 8),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 8, right: 8),
+                                            child: Text(
+                                              cartModels[index].productName!,
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 8, right: 8),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                    '${cartModels[index].productPrice.toVND(unit: 'đ')}'),
+                                                ElegantNumberButton(
+                                                  initialValue:
+                                                      cartModels[index]
+                                                          .productQuantity!,
+                                                  minValue: 1,
+                                                  maxValue: 50,
+                                                  decimalPlaces: 0,
+                                                  color: Colors.white38,
+                                                  onChanged: (value) async {
+                                                    cartModels[index]
+                                                            .productQuantity =
+                                                        value.toInt();
+                                                    cartModels[index]
+                                                        .totalPrice = cartModels[
+                                                                index]
+                                                            .productQuantity! *
+                                                        cartModels[index]
+                                                            .productPrice!;
+
+                                                    updateCart(
+                                                        scaffoldKey,
+                                                        cartModels[index],
+                                                        user.uid);
+                                                  },
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 8, right: 8),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Tổng: ${cartModels[index].totalPrice.toVND(unit: 'đ')}',
+                                                  style:
+                                                      TextStyle(fontSize: 18),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ))
+                              ],
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: IconButton(
+                            icon: Icon(Icons.clear),
+                            onPressed: () async {
+                              // if (await confirm(context,
+                              //     title: Text('Xóa sản phẩm'),
+                              //     content: Text(
+                              //         'Bạn có muốn xóa sản phẩm này ???'),
+                              //     textOK: Text(
+                              //       'Xóa',
+                              //       style: TextStyle(color: Colors.red),
+                              //     ),
+                              //     textCancel: Text('Hủy'))) {
+                              deleteCart(
+                                  scaffoldKey, cartModels[index], user.uid);
+                              //}
+                            },
+                          ),
+                        )
+                      ],
+                    );
+                  },
+                )
+              : Center(
+                  child: Text('Giỏ hàng trống !!!!'),
+                );
+        } else {
+          return Center(
+            child: badges.Badge(
+                showBadge: true,
+                badgeContent: Text(
+                  '0',
+                  style: TextStyle(color: Colors.white),
+                ),
+                child: Icon(
+                  Icons.shopping_cart,
+                  color: Colors.black,
+                )),
+          );
+        }
+      },
+    );
   }
 
   void updateCart(

@@ -1,3 +1,4 @@
+import 'package:app_trang_suc/Screens/history/history_srceen.dart';
 import 'package:app_trang_suc/Screens/login/login.dart';
 import 'package:app_trang_suc/components/appColors/app_colors.dart';
 import 'package:app_trang_suc/components/rounded_button.dart';
@@ -59,6 +60,38 @@ class ProfileScreen extends StatelessWidget {
       {required String leading, required String trailing}) {
     return ListTile(
       onTap: () {},
+      tileColor: AppColors.baseWhiteColor,
+      leading: Text(
+        leading,
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      trailing: Wrap(
+        spacing: 5,
+        children: [
+          Text(
+            trailing,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 20,
+            ),
+          ),
+          Icon(
+            Icons.arrow_forward_ios_outlined,
+            size: 20,
+          ),
+        ],
+      ),
+    );
+  }
+
+
+   Widget buildHistory(
+      {required String leading, required String trailing,required VoidCallback onTap}) {
+    return ListTile(
+      onTap: onTap,
       tileColor: AppColors.baseWhiteColor,
       leading: Text(
         leading,
@@ -166,9 +199,12 @@ class ProfileScreen extends StatelessWidget {
                   trailing: "3",
                 ),
                 Divider(),
-                buildBottomListTile(
-                  leading: "Đơn Đặt",
+                buildHistory(
+                  leading: "Lịch Sử",
                   trailing: "1 đơn đang được giao",
+                  onTap : (){
+                    PageRouting.goToNextPage(context: context, navigateTo: HistoryPage());
+                  }
                 ),
               ],
             ),

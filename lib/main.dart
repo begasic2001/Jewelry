@@ -1,3 +1,4 @@
+import 'package:app_trang_suc/Screens/confirmation/confirmation.dart';
 import 'package:app_trang_suc/Screens/homepage/homepage.dart';
 import 'package:app_trang_suc/Screens/login/components/login_form.dart';
 import 'package:app_trang_suc/Screens/yourcart/cart_detail.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshots) {
           if (snapshots.hasData) {
-            return MyBottomBar();
+            return ConfirmationPage();
           }
           return Login();
         },
