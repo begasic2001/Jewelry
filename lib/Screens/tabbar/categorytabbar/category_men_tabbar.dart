@@ -9,12 +9,17 @@ import 'package:app_trang_suc/models/SingleProductModel.dart';
 import 'package:app_trang_suc/models/categoryProductModel.dart';
 import 'package:app_trang_suc/routes/routes.dart';
 import 'package:flutter/material.dart';
-class CategoryMenTabBar extends StatelessWidget {
+class CategoryMenTabBar extends StatefulWidget {
   List<CategoryProductModel> categoryProductModel = [];
   CategoryMenTabBar({
     required this.categoryProductModel,
   });
 
+  @override
+  State<CategoryMenTabBar> createState() => _CategoryMenTabBarState();
+}
+
+class _CategoryMenTabBarState extends State<CategoryMenTabBar> {
   @override
   Widget build(BuildContext context) {
     var data;
@@ -53,17 +58,17 @@ class CategoryMenTabBar extends StatelessWidget {
 
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: categoryProductModel.length,
+      itemCount: widget.categoryProductModel.length,
       physics: BouncingScrollPhysics(),
       itemBuilder: (context, index) {
-        data = categoryProductModel[index];
+        data = widget.categoryProductModel[index];
         return CategoryProductWidget(
           onPressed: () {
             buildConditions(index);
          
           },
           productImage: data.productImage,
-          productModel: "${colothsData.length}\t${data.productModel}",
+          //productModel: "${colothsData.length}\t${data.productModel}",
           productName: data.productName,
         );
       },

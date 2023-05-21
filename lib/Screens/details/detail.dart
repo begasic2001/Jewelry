@@ -358,52 +358,52 @@ class _DetailScreenState extends State<DetailScreen> {
     );
   }
 
-  buildBottomGridView() {
-    return Container(
-      height: 260,
-      child: GridView.builder(
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        primary: true,
-        itemCount: detailScreenData.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 1,
-          childAspectRatio: 1.5,
-        ),
-        itemBuilder: (context, index) {
-          var data = detailScreenData[index];
-          return SingleProductWidget(
-            onTap: () {
-              PageRouting.goToNextPage(
-                context: context,
-                navigateTo: DetailScreen(
-                  data: data,
-                ),
-              );
-            },
-            productImage: data.productImage,
-            productModel: data.productModel,
-            productName: data.productName,
-            productOldPrice: data.productOldPrice,
-            productPrice: data.productPrice,
-          );
-        },
-      ),
-    );
-  }
+  // buildBottomGridView() {
+  //   return Container(
+  //     height: 260,
+  //     child: GridView.builder(
+  //       scrollDirection: Axis.horizontal,
+  //       shrinkWrap: true,
+  //       primary: true,
+  //       itemCount: detailScreenData.length,
+  //       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+  //         crossAxisCount: 1,
+  //         childAspectRatio: 1.5,
+  //       ),
+  //       itemBuilder: (context, index) {
+  //         var data = detailScreenData[index];
+  //         return SingleProductWidget(
+  //           onTap: () {
+  //             PageRouting.goToNextPage(
+  //               context: context,
+  //               navigateTo: DetailScreen(
+  //                 data: data,
+  //               ),
+  //             );
+  //           },
+  //           productImage: data.productImage,
+  //           productModel: data.productModel,
+  //           productName: data.productName,
+  //           productOldPrice: data.productOldPrice,
+  //           productPrice: data.productPrice,
+  //         );
+  //       },
+  //     ),
+  //   );
+  // }
 
-  buildMayLikeYou() {
-    return ListTile(
-      leading: Text(
-        "Sản Phẩm Khác",
-        style: DetailScreenStylies.youmayalsolikeTextStyle,
-      ),
-      trailing: Text(
-        "Xem Tất Cả",
-        style: DetailScreenStylies.showAllTextStyle,
-      ),
-    );
-  }
+  // buildMayLikeYou() {
+  //   return ListTile(
+  //     leading: Text(
+  //       "Sản Phẩm Khác",
+  //       style: DetailScreenStylies.youmayalsolikeTextStyle,
+  //     ),
+  //     trailing: Text(
+  //       "Xem Tất Cả",
+  //       style: DetailScreenStylies.showAllTextStyle,
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -418,8 +418,8 @@ class _DetailScreenState extends State<DetailScreen> {
           buildColorsAndSize(),
           buildAddtoCart(),
           buildExpensionTile(),
-          buildMayLikeYou(),
-          buildBottomGridView(),
+          //buildMayLikeYou(),
+          //buildBottomGridView(),
         ],
       ),
     );

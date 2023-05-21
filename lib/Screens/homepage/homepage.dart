@@ -12,6 +12,7 @@ import 'package:app_trang_suc/data/home_page_data.dart';
 import 'package:app_trang_suc/main.dart';
 import 'package:app_trang_suc/models/SingleProductModel.dart';
 import 'package:app_trang_suc/models/cart_model.dart';
+import 'package:app_trang_suc/models/order_model.dart';
 import 'package:app_trang_suc/routes/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -35,6 +36,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   //GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
   List<SingleProductModel> arrivalsDatas =
+      new List<SingleProductModel>.empty(growable: true);
+  List<SingleProductModel> ringDatas =
+      new List<SingleProductModel>.empty(growable: true);
+  List<SingleProductModel> accessoriesData =
+      new List<SingleProductModel>.empty(growable: true);
+  List<SingleProductModel> necklaceDatas =
       new List<SingleProductModel>.empty(growable: true);
   List<CartModel> carts = new List<CartModel>.empty(growable: true);
   AppBar buildAppBar(BuildContext context) {
@@ -111,10 +118,10 @@ class _HomePageState extends State<HomePage> {
                     carts.add(cartModel);
                   });
                   numberItemInCart = carts
-                    .map<int>((c) => c.productQuantity!)
-                    .reduce((a, b) => a + b);
+                      .map<int>((c) => c.productQuantity!)
+                      .reduce((a, b) => a + b);
                 }
-               
+
                 return GestureDetector(
                   onTap: () {
                     PageRouting.goToNextPage(
@@ -275,6 +282,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
+  void initState() {
+    getRingDatas();
+    getaccessoriesDatas();
+    getnecklaceDatas();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     GetArrivalData();
     return DefaultTabController(
@@ -390,13 +405,13 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             TabBarBar(
-              productData: getColothsDatas(),
+              productData: ringDatas,
             ),
             TabBarBar(
-              productData: getColothsDatas(),
+              productData: necklaceDatas,
             ),
             TabBarBar(
-              productData: getColothsDatas(),
+              productData: accessoriesData,
             ),
           ],
         ),
@@ -421,21 +436,56 @@ class _HomePageState extends State<HomePage> {
       });
     });
   }
-}
 
-List<SingleProductModel> getColothsDatas() {
-  List<SingleProductModel> colothsDatas =
-      new List<SingleProductModel>.empty(growable: true);
-  var ref = FirebaseDatabase.instance.ref().child('arrivals').onValue;
-  ref.listen((DatabaseEvent event) {
-    final map = event.snapshot.value as Map<dynamic, dynamic>;
-    colothsDatas.clear();
-    map.forEach((key, value) {
-      var colothSingleProductModel =
-          new SingleProductModel.fromJson(json.decode(json.encode(value)));
-      colothSingleProductModel.key = key;
-      colothsDatas.add(colothSingleProductModel);
+  void getRingDatas() {
+    var ref = FirebaseDatabase.instance.ref().child('colothsData').onValue;
+    List<SingleProductModel> tempData = [];
+    ref.listen((DatabaseEvent event) {
+      final map = event.snapshot.value as Map<dynamic, dynamic>;
+      ringDatas.clear();
+      map.forEach((key, value) {
+        var colothSingleProductModel =
+            new SingleProductModel.fromJson(json.decode(json.encode(value)));
+        colothSingleProductModel.key = key;
+        tempData.add(colothSingleProductModel);
+        setState(() => ringDatas = tempData);
+      });
     });
-  });
-  return colothsDatas;
+  }
+
+  void getaccessoriesDatas() {
+    var ref = FirebaseDatabase.instance.ref().child('accessoriesData').onValue;
+    List<SingleProductModel> tempData = [];
+    ref.listen((DatabaseEvent event) {
+      final map = event.snapshot.value as Map<dynamic, dynamic>;
+      accessoriesData.clear();
+      map.forEach((key, value) {
+        var colothSingleProductModel =
+            new SingleProductModel.fromJson(json.decode(json.encode(value)));
+        colothSingleProductModel.key = key;
+        tempData.add(colothSingleProductModel);
+        setState(() {
+          accessoriesData = tempData;
+        });
+      });
+    });
+  }
+
+  void getnecklaceDatas() {
+    var ref = FirebaseDatabase.instance.ref().child('shoesData').onValue;
+    List<SingleProductModel> tempData = [];
+    ref.listen((DatabaseEvent event) {
+      final map = event.snapshot.value as Map<dynamic, dynamic>;
+      necklaceDatas.clear();
+      map.forEach((key, value) {
+        var colothSingleProductModel =
+            new SingleProductModel.fromJson(json.decode(json.encode(value)));
+        colothSingleProductModel.key = key;
+        tempData.add(colothSingleProductModel);
+        setState(() {
+          necklaceDatas = tempData;
+        });
+      });
+    });
+  }
 }

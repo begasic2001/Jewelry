@@ -13,6 +13,7 @@ class CategoryScreen extends StatefulWidget {
 }
 
 class _CategoryScreenState extends State<CategoryScreen> {
+  
   AppBar buildAppBar() {
     return AppBar(
       backgroundColor: Colors.transparent,

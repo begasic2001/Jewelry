@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 class CategoryProductWidget extends StatelessWidget {
   final String productImage;
   final String productName;
-  final String productModel;
+  //final String productModel;
   final VoidCallback? onPressed;
   CategoryProductWidget({
     required this.productImage,
     required this.productName,
-    required this.productModel,
+    //required this.productModel,
     this.onPressed,
   });
 
@@ -45,10 +45,10 @@ class CategoryProductWidget extends StatelessWidget {
                   SizedBox(
                     height: 8,
                   ),
-                  Text(
-                    productModel,
-                    style: CategoryScreenStylies.categoryProductModelStyle,
-                  ),
+                  // Text(
+                  //   productModel,
+                  //   style: CategoryScreenStylies.categoryProductModelStyle,
+                  // ),
                 ],
               ),
             ),
