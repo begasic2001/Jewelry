@@ -36,8 +36,7 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget buildlistTileWidget(
-      {required String leading, required String trailing}) {
+  Widget buildlistTileWidget({required String leading, required String trailing}) {
     return ListTile(
       tileColor: AppColors.baseWhiteColor,
       leading: Text(
@@ -56,8 +55,7 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget buildBottomListTile(
-      {required String leading, required String trailing}) {
+  Widget buildBottomListTile({required String leading, required String trailing}) {
     return ListTile(
       onTap: () {},
       tileColor: AppColors.baseWhiteColor,
@@ -87,9 +85,7 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-
-   Widget buildHistory(
-      {required String leading, required String trailing,required VoidCallback onTap}) {
+  Widget buildHistory({required String leading, required String trailing, required VoidCallback onTap}) {
     return ListTile(
       onTap: onTap,
       tileColor: AppColors.baseWhiteColor,
@@ -140,8 +136,8 @@ class ProfileScreen extends StatelessWidget {
                     child: CircleAvatar(
                       radius: 35,
                       backgroundColor: Colors.transparent,
-                      backgroundImage: NetworkImage(
-                          "https://i.pinimg.com/originals/7b/48/65/7b48654b92587f3df86c21d7071bad42.jpg"),
+                      backgroundImage:
+                          NetworkImage("https://i.pinimg.com/originals/7b/48/65/7b48654b92587f3df86c21d7071bad42.jpg"),
                     ),
                   ),
                   Text(
@@ -164,8 +160,7 @@ class ProfileScreen extends StatelessWidget {
             color: AppColors.baseWhiteColor,
             child: Column(
               children: [
-                buildlistTileWidget(
-                    leading: "Họ & Tên", trailing: "Lương Minh Thành"),
+                buildlistTileWidget(leading: "Họ & Tên", trailing: "Lương Minh Thành"),
                 Divider(),
                 buildlistTileWidget(
                   leading: "Email",
@@ -200,12 +195,11 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 Divider(),
                 buildHistory(
-                  leading: "Lịch Sử",
-                  trailing: "1 đơn đang được giao",
-                  onTap : (){
-                    PageRouting.goToNextPage(context: context, navigateTo: HistoryPage());
-                  }
-                ),
+                    leading: "Lịch Sử",
+                    trailing: "",
+                    onTap: () {
+                      PageRouting.goToNextPage(context: context, navigateTo: HistoryPage());
+                    }),
               ],
             ),
           ),
@@ -228,7 +222,7 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-Future signOut() async{
-  await FirebaseAuth.instance.signOut();
-}
+  Future signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
 }
