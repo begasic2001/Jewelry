@@ -22,7 +22,7 @@ class _MyBottomBarState extends State<MyBottomBar> {
   static List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     CategoryScreen(),
-    YourCartScreen(),
+    //YourCartScreen(),
     WishListScreen(),
     ProfileScreen(),
   ];

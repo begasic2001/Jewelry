@@ -4,6 +4,7 @@ import 'package:app_trang_suc/Screens/history/components/historyProductWidget.da
 import 'package:app_trang_suc/components/appColors/app_colors.dart';
 import 'package:app_trang_suc/models/cart_model.dart';
 import 'package:app_trang_suc/models/order_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,9 @@ class HistoryPage extends StatefulWidget {
 }
 
 class _HistoryPageState extends State<HistoryPage> {
+  final user = FirebaseAuth.instance.currentUser!;
+  final List<OrderModel> historyDatas =
+      new List<OrderModel>.empty(growable: true);
   AppBar buildAppbar() {
     return AppBar(
       elevation: 0,
@@ -44,8 +48,7 @@ class _HistoryPageState extends State<HistoryPage> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
                             image: DecorationImage(
-                              image: NetworkImage(
-                                  "https://kickz.akamaized.net/en/media/images/p/600/adidas_originals-3_STRIPES_T_Shirt-white_-2.jpg"),
+                              image: NetworkImage("da"),
                             )),
                       ),
                     ),
@@ -128,6 +131,7 @@ class _HistoryPageState extends State<HistoryPage> {
 
   @override
   Widget build(BuildContext context) {
+    HistoryUser();
     return Scaffold(
       appBar: buildAppbar(),
       backgroundColor: AppColors.baseGrey10Color,
@@ -147,11 +151,16 @@ class _HistoryPageState extends State<HistoryPage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                
                 ),
-                buildConfirmationProduct(),
-                buildConfirmationProduct(),
-                buildConfirmationProduct(),
+                // StreamBuilder(
+                //   stream: ,
+                //   builder: (context,AsyncSnapshot snapshot){
+
+                // });
+                // ListView.builder(itemBuilder: )
+                buildConfirmationProduct(
+                  
+                ),
               ],
             ),
           ),
@@ -159,29 +168,27 @@ class _HistoryPageState extends State<HistoryPage> {
       ),
     );
   }
+
+  void HistoryUser() {
+    DatabaseReference ref =
+        FirebaseDatabase.instance.ref().child('Order').child(user.uid);
+    ref.onValue.listen((DatabaseEvent event) {
+      final map = event.snapshot.value as Map<dynamic, dynamic>;
+      historyDatas.clear();
+      map.forEach((key, value) {
+        print("data history ::::::::::::");
+        print("key" + key);
+        ref.child(key).onValue.listen((DatabaseEvent event2) {
+          final map2 = event2.snapshot.value as Map<dynamic, dynamic>;
+          map2.forEach((key2, value2) {
+            print("data history ::::::::::::");
+            print("key" + key2);
+            var historyValue =
+                new OrderModel.fromJson(json.decode(json.encode(value2)));
+            historyDatas.add(historyValue);
+          });
+        });
+      });
+    });
+  }
 }
-
-  // void HistoryUser() {
-  //   DatabaseReference ref =
-  //       FirebaseDatabase.instance.ref().child('Order').child(user.uid);
-  //   ref.onValue.listen((DatabaseEvent event) {
-  //     final map = event.snapshot.value as Map<dynamic, dynamic>;
-  //     historyDatas.clear();
-  //     map.forEach((key, value) {
-  //       ref.child(key).onValue.listen((event2) {
-  //         setState(() {
-  //           final map2 = event2.snapshot.value as Map<dynamic, dynamic>;
-  //           map2.forEach((key, value2) {
-  //             var colothSingleProductModel =
-  //                 new OrderModel.fromJson(json.decode(json.encode(value2)));
-  //             colothSingleProductModel.key = key;
-  //             historyDatas.add(colothSingleProductModel);
-  //           });
-  //         });
-  //       });
-  //     });
-  //   });
-
-  
-  
-

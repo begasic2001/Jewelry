@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshots) {
           if (snapshots.hasData) {
-            return ConfirmationPage();
+            return MyBottomBar();
           }
           return Login();
         },
