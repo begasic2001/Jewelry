@@ -106,7 +106,9 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
               defaultLoginSize: defaultLoginSize,
               emailController: emailController,
               passwordController: passwordController,
-              onTap: signIn),
+              onTap: (){
+                signIn(context);
+              }),
           // () => {
           //          PageRouting.goToNextPage(context: context, navigateTo: MyBottomBar())
           //     })
@@ -133,7 +135,9 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
             defaultLoginSize: defaultRegisterSize,
             emailController: emailController,
             passwordController: passwordController,
-            onTap: signUp,
+            onTap: (){
+              signUp(context);
+            },
           ),
         ],
       ),
@@ -175,7 +179,25 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
     );
   }
 
-  Future signIn() async {
+  Future<void> signIn(BuildContext context) async {
+    String email = emailController.text.trim();
+    String password = passwordController.text.trim();
+
+    if (email.isEmpty || password.isEmpty) {
+      Utils.showSnackBar(context,"Vui lòng nhập email và mật khẩu");
+      return;
+    }
+
+    if (!_isValidEmail(email)) {
+      Utils.showSnackBar(context,"Email không hợp lệ");
+      return;
+    }
+
+    if (password.length < 6) {
+      Utils.showSnackBar(context,"Mật khẩu phải có ít nhất 6 ký tự");
+      return;
+    }
+    
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -188,36 +210,60 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
           password: passwordController.text.trim());
     } on FirebaseAuthException catch (e) {
       print(e);
-      Utils.showSnackBar(e.message);
+      Utils.showSnackBar(context, e.message);
     }
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 
-  Future signUp() async {
-    // final isValid = formKey.currentState!.validate();
-    // if (!isValid) return;
+  Future<void> signUp(BuildContext context) async {
+    String email = emailController.text.trim();
+    String password = passwordController.text.trim();
+
+    if (email.isEmpty || password.isEmpty) {
+      Utils.showSnackBar(context,"Vui lòng nhập email và mật khẩu");
+      return;
+    }
+
+    if (!_isValidEmail(email)) {
+      Utils.showSnackBar(context,"Email không hợp lệ");
+      return;
+    }
+
+    if (password.length < 6) {
+      Utils.showSnackBar(context,"Mật khẩu phải có ít nhất 6 ký tự");
+      return;
+    }
 
     showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) => Center(
-              child: CircularProgressIndicator(),
-            ));
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: emailController.text.trim(),
-          password: passwordController.text.trim());
+        email: email,
+        password: password,
+      );
     } on FirebaseAuthException catch (e) {
-      print(e);
-      Utils.showSnackBar(e.message);
+      Utils.showSnackBar(context, e.message);
     }
-    navigatorKey.currentState!.popUntil((route) => route.isFirst);
+
+    Navigator.of(context).popUntil((route) => route.isFirst);
   }
+
+  bool _isValidEmail(String email) {
+    final emailRegExp = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+    return emailRegExp.hasMatch(email);
+  }
+
 }
 
 class Utils {
   static final messengerKey = GlobalKey<ScaffoldMessengerState>();
-  static showSnackBar(String? text) {
+  static showSnackBar(BuildContext context,String? text) {
     if (text == null) return;
 
     final snackBar = SnackBar(
@@ -225,7 +271,7 @@ class Utils {
       content: Text(text),
       backgroundColor: Colors.red,
     );
-    messengerKey.currentState!
+    ScaffoldMessenger.of(context)
       ..removeCurrentSnackBar()
       ..showSnackBar(snackBar);
   }
