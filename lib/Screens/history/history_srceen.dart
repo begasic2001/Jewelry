@@ -5,7 +5,8 @@ import 'package:app_trang_suc/models/order_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart'; 
+import 'package:intl/date_symbol_data_local.dart';
 class HistoryPage extends StatefulWidget {
   _HistoryPageState createState() => _HistoryPageState();
 }
@@ -25,6 +26,7 @@ class _HistoryPageState extends State<HistoryPage> {
   }
 
   Widget buildConfirmationProduct(int index) {
+    var parsedDate = DateTime.parse(historyDatas[index].date_order!);
     return Card(
       child: SizedBox(
         height: 140,
@@ -42,7 +44,8 @@ class _HistoryPageState extends State<HistoryPage> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
                             image: DecorationImage(
-                              image: NetworkImage(historyDatas[index].productImage.toString()),
+                              image: NetworkImage(
+                                  historyDatas[index].productImage.toString()),
                             )),
                       ),
                     ),
@@ -50,7 +53,8 @@ class _HistoryPageState extends State<HistoryPage> {
                   Expanded(
                     flex: 2,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 9.0, vertical: 20.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -61,7 +65,7 @@ class _HistoryPageState extends State<HistoryPage> {
                               Text(
                                 historyDatas[index].productName!,
                                 style: const TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 14,
                                   color: AppColors.baseBlackColor,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -78,22 +82,16 @@ class _HistoryPageState extends State<HistoryPage> {
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
+                            children:  [
                               Text(
-                                "Nguyên Khối",
+                                DateFormat('yyyy-MM-dd hh:mm:ss').format(parsedDate),
                                 style: TextStyle(
                                   color: AppColors.baseDarkPinkColor,
                                 ),
                               ),
                             ],
                           ),
-                          Text(
-                            "Màu Sắc:\tVàng",
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: AppColors.baseGrey60Color,
-                            ),
-                          ),
+                    
                           Text(
                             "Số Lượng: ${historyDatas[index].productQuantity}",
                             style: TextStyle(
@@ -124,8 +122,10 @@ class _HistoryPageState extends State<HistoryPage> {
   Widget build(BuildContext context) {
     if (historyDatas.isEmpty)
       return Scaffold(
-        appBar: AppBar(),
-        body: Text('Loading...'),
+        appBar: buildAppbar(),
+        body: Center(
+          child: Text('Giỏ hàng trống !!!!'),
+        ),
       );
 
     return Scaffold(
@@ -146,7 +146,8 @@ class _HistoryPageState extends State<HistoryPage> {
   }
 
   void HistoryUser() {
-    DatabaseReference ref = FirebaseDatabase.instance.ref().child('Order').child(user.uid);
+    DatabaseReference ref =
+        FirebaseDatabase.instance.ref().child('Order').child(user.uid);
     List<OrderModel> tempData = [];
     ref.onValue.listen((DatabaseEvent event) {
       final map = event.snapshot.value as Map<dynamic, dynamic>;
@@ -157,7 +158,8 @@ class _HistoryPageState extends State<HistoryPage> {
         ref.child(key).onValue.listen((DatabaseEvent event2) {
           final map2 = event2.snapshot.value as Map<dynamic, dynamic>;
           map2.forEach((key2, value2) {
-            var historyValue = new OrderModel.fromJson(json.decode(json.encode(value2)));
+            var historyValue =
+                new OrderModel.fromJson(json.decode(json.encode(value2)));
 
             tempData.add(historyValue);
             setState(() => historyDatas = tempData);

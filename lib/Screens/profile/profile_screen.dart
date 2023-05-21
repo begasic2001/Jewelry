@@ -171,11 +171,11 @@ class ProfileScreen extends StatelessWidget {
                   leading: "Địa Chỉ",
                   trailing: "abc/xyz",
                 ),
-                Divider(),
-                buildlistTileWidget(
-                  leading: "Thanh Toán",
-                  trailing: "6011\t****\t****\t1117",
-                ),
+                // Divider(),
+                // buildlistTileWidget(
+                //   leading: "Thanh Toán",
+                //   trailing: "6011\t****\t****\t1117",
+                // ),
               ],
             ),
           ),
@@ -184,14 +184,14 @@ class ProfileScreen extends StatelessWidget {
             color: AppColors.baseWhiteColor,
             child: Column(
               children: [
-                buildBottomListTile(
-                  leading: "Yêu Thích",
-                  trailing: "5",
-                ),
-                Divider(),
+                // buildBottomListTile(
+                //   leading: "Yêu Thích",
+                //   trailing: "5",
+                // ),
+                // Divider(),
                 buildBottomListTile(
                   leading: "Giỏ Hàng",
-                  trailing: "3",
+                  trailing: "",
                 ),
                 Divider(),
                 buildHistory(
