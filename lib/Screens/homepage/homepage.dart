@@ -626,22 +626,4 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-// class Data {
-//   String productName,
-//       productModel,
-//       productFourImage,
-//       productSecondImage,
-//       productThirdImage,
-//       productImage;
-//   int productPrice,productOldPrice;
-//   Data(
-//     this.productImage,
-//     this.productModel,
-//     this.productName,
-//     this.productOldPrice,
-//     this.productPrice,
-//     this.productFourImage,
-//     this.productSecondImage,
-//     this.productThirdImage,
-//   );
-// }
+

@@ -1,15 +1,18 @@
-import 'package:app_trang_suc/Screens/homepage/homepage.dart';
 import 'package:app_trang_suc/components/appColors/app_colors.dart';
 import 'package:app_trang_suc/main.dart';
+import 'package:app_trang_suc/models/cart_model.dart';
+import 'package:app_trang_suc/models/profile_model.dart';
 import 'package:app_trang_suc/mybottombar/my_bottom_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:app_trang_suc/constants.dart';
 import 'package:app_trang_suc/Screens/login/components/cancel_button.dart';
 import 'package:app_trang_suc/Screens/login/components/login_form.dart';
 import 'package:app_trang_suc/Screens/login/components/register_form.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../routes/routes.dart';
 
@@ -43,7 +46,6 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    
     Size size = MediaQuery.of(context).size;
 
     double viewInset = MediaQuery.of(context)
@@ -108,7 +110,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
               defaultLoginSize: defaultLoginSize,
               emailController: emailController,
               passwordController: passwordController,
-              onTap: (){
+              onTap: () {
                 signIn(context);
               }),
           // () => {
@@ -137,9 +139,9 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
             defaultLoginSize: defaultRegisterSize,
             emailController: emailController,
             passwordController: passwordController,
-             fullnameController : fullnameController,
-             addressController: addressController,
-            onTap: (){
+            fullnameController: fullnameController,
+            addressController: addressController,
+            onTap: () {
               signUp(context);
             },
           ),
@@ -186,23 +188,21 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
   Future<void> signIn(BuildContext context) async {
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
-    String name = fullnameController.text.trim();
-    String address = addressController.text.trim();
     if (email.isEmpty || password.isEmpty) {
-      Utils.showSnackBar(context,"Vui lòng nhập email và mật khẩu");
+      Utils.showSnackBar(context, "Vui lòng nhập email và mật khẩu");
       return;
     }
 
     if (!_isValidEmail(email)) {
-      Utils.showSnackBar(context,"Email không hợp lệ");
+      Utils.showSnackBar(context, "Email không hợp lệ");
       return;
     }
 
     if (password.length < 6) {
-      Utils.showSnackBar(context,"Mật khẩu phải có ít nhất 6 ký tự");
+      Utils.showSnackBar(context, "Mật khẩu phải có ít nhất 6 ký tự");
       return;
     }
-    
+
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -223,19 +223,20 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
   Future<void> signUp(BuildContext context) async {
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
-
+    String name = fullnameController.text.trim();
+    String address = addressController.text.trim();
     if (email.isEmpty || password.isEmpty) {
-      Utils.showSnackBar(context,"Vui lòng nhập email và mật khẩu");
+      Utils.showSnackBar(context, "Vui lòng nhập email và mật khẩu");
       return;
     }
 
     if (!_isValidEmail(email)) {
-      Utils.showSnackBar(context,"Email không hợp lệ");
+      Utils.showSnackBar(context, "Email không hợp lệ");
       return;
     }
 
     if (password.length < 6) {
-      Utils.showSnackBar(context,"Mật khẩu phải có ít nhất 6 ký tự");
+      Utils.showSnackBar(context, "Mật khẩu phải có ít nhất 6 ký tự");
       return;
     }
 
@@ -251,7 +252,11 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
-      );
+      ).then((value){
+        var user = FirebaseAuth.instance.currentUser!;
+        RegisterUser(user.uid,email, password, name, address);
+
+      });
     } on FirebaseAuthException catch (e) {
       Utils.showSnackBar(context, e.message);
     }
@@ -264,11 +269,19 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
     return emailRegExp.hasMatch(email);
   }
 
+  RegisterUser(String uid,String email, String password, String name, String address) {
+    var user = FirebaseDatabase.instance.ref().child('Users');
+    var userProfile = new UserModel(
+        uid: uid,
+        email: email, password: password, name: name, address: address);
+   
+    user.child(uid).set(userProfile.toJson());
+  }
 }
 
 class Utils {
   static final messengerKey = GlobalKey<ScaffoldMessengerState>();
-  static showSnackBar(BuildContext context,String? text) {
+  static showSnackBar(BuildContext context, String? text) {
     if (text == null) return;
 
     final snackBar = SnackBar(
