@@ -23,7 +23,7 @@ class _MyBottomBarState extends State<MyBottomBar> {
     HomePage(),
     CategoryScreen(),
     //YourCartScreen(),
-    WishListScreen(),
+    //WishListScreen(),
     ProfileScreen(),
   ];
 
@@ -46,10 +46,10 @@ class _MyBottomBarState extends State<MyBottomBar> {
             icon: Icon(Icons.grid_view),
             label: '',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_border),
-            label: '',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.favorite_border),
+          //   label: '',
+          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: '',
@@ -72,13 +72,13 @@ class _MyBottomBarState extends State<MyBottomBar> {
                 child: CategoryScreen(),
               );
             });
+          // case 2:
+          //   return CupertinoTabView(builder: (context) {
+          //     return CupertinoPageScaffold(
+          //       child: WishListScreen(),
+          //     );
+          //   });
           case 2:
-            return CupertinoTabView(builder: (context) {
-              return CupertinoPageScaffold(
-                child: WishListScreen(),
-              );
-            });
-          case 3:
             return CupertinoTabView(builder: (context) {
               return CupertinoPageScaffold(
                 child: ProfileScreen(),

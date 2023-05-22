@@ -1,33 +1,40 @@
+import 'dart:convert';
+
 import 'package:app_trang_suc/Screens/details/detail.dart';
 import 'package:app_trang_suc/Screens/homepage/components/singleProduct_widget.dart';
+import 'package:app_trang_suc/Screens/yourcart/cart_detail.dart';
 import 'package:app_trang_suc/components/appColors/app_colors.dart';
 import 'package:app_trang_suc/components/stylies/sub_category_stylies.dart';
 import 'package:app_trang_suc/models/SingleProductModel.dart';
+import 'package:app_trang_suc/models/cart_model.dart';
 import 'package:app_trang_suc/routes/routes.dart';
 import 'package:app_trang_suc/svgimages/svg_images.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:badges/badges.dart' as badges;
 class SubCategory extends StatefulWidget {
   final List<SingleProductModel> productData;
   final String? productName;
-  final String? productModel;
-  SubCategory(
-      {required this.productData,
-      required this.productName,
-      required this.productModel});
+  //final String? productModel;
+  SubCategory({
+    required this.productData,
+    required this.productName,
+    //required this.productModel
+  });
   @override
   _SubCategoryState createState() => _SubCategoryState();
 }
 
 class _SubCategoryState extends State<SubCategory> {
   int isSelect = 1;
-
   List<bool> isSelected = [true, false, false];
   FocusNode focusNodeButton1 = FocusNode();
   FocusNode focusNodeButton2 = FocusNode();
   FocusNode focusNodeButton3 = FocusNode();
   late List<FocusNode> focusToggle;
+  List<CartModel> carts = new List<CartModel>.empty(growable: true);
 
   @override
   void initState() {
@@ -104,6 +111,7 @@ class _SubCategoryState extends State<SubCategory> {
   }
 
   AppBar buildAppBar() {
+    final user = FirebaseAuth.instance.currentUser!;
     return AppBar(
       leading: new IconButton(
         icon: new Icon(Icons.arrow_back, color: Colors.black),
@@ -125,13 +133,66 @@ class _SubCategoryState extends State<SubCategory> {
           ),
           onPressed: () {},
         ),
-        IconButton(
-          icon: SvgPicture.asset(
-            SvgImages.search,
-            color: AppColors.baseBlackColor,
-            width: 35,
+       Padding(
+          padding: const EdgeInsets.only(top: 10, right: 20),
+          child: StreamBuilder(
+            stream: FirebaseDatabase.instance
+                .ref()
+                .child('Cart')
+                .child(user.uid)
+                .onValue,
+            builder: (context, AsyncSnapshot snapshot) {
+              var numberItemInCart = 0;
+              if (snapshot.hasData) {
+                var map = snapshot.data.snapshot.value;
+                carts.clear();
+                if (map != null) {
+                  map.forEach((key, value) {
+                    var cartModel =
+                        CartModel.fromJson(json.decode(json.encode(value)));
+                    carts.add(cartModel);
+                  });
+                  numberItemInCart = carts
+                      .map<int>((c) => c.productQuantity!)
+                      .reduce((a, b) => a + b);
+                }
+
+                return GestureDetector(
+                  onTap: () {
+                    PageRouting.goToNextPage(
+                      context: context,
+                      navigateTo: CartDetail(),
+                    );
+                  },
+                  child: Center(
+                      child: badges.Badge(
+                    showBadge: true,
+                    badgeContent: Text(
+                      '${numberItemInCart > 9 ? 9.toString() + "+" : numberItemInCart.toString()}',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    child: Icon(
+                      Icons.shopping_cart,
+                      color: Colors.black,
+                    ),
+                  )),
+                );
+              } else {
+                return Center(
+                  child: badges.Badge(
+                      showBadge: true,
+                      badgeContent: Text(
+                        '0',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      child: Icon(
+                        Icons.shopping_cart,
+                        color: Colors.black,
+                      )),
+                );
+              }
+            },
           ),
-          onPressed: () {},
         )
       ],
     );
