@@ -132,14 +132,14 @@ class ProfileScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Center(
-                    child: CircleAvatar(
-                      radius: 35,
-                      backgroundColor: Colors.transparent,
-                      backgroundImage:
-                          NetworkImage("https://i.pinimg.com/originals/7b/48/65/7b48654b92587f3df86c21d7071bad42.jpg"),
-                    ),
-                  ),
+                  // Center(
+                  //   child: CircleAvatar(
+                  //     radius: 35,
+                  //     backgroundColor: Colors.transparent,
+                  //     backgroundImage:
+                  //         NetworkImage("https://i.pinimg.com/originals/7b/48/65/7b48654b92587f3df86c21d7071bad42.jpg"),
+                  //   ),
+                  // ),
                   Text(
                     "Lương Minh Thành",
                     style: TextStyle(
@@ -147,10 +147,10 @@ class ProfileScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    "bio asp.net core",
-                    textAlign: TextAlign.center,
-                  )
+                  // Text(
+                  //   "bio asp.net core",
+                  //   textAlign: TextAlign.center,
+                  // )
                 ],
               ),
             ),
@@ -160,7 +160,7 @@ class ProfileScreen extends StatelessWidget {
             color: AppColors.baseWhiteColor,
             child: Column(
               children: [
-                buildlistTileWidget(leading: "Họ & Tên", trailing: "Lương Minh Thành"),
+                //buildlistTileWidget(leading: "Họ & Tên", trailing: "Lương Minh Thành"),
                 Divider(),
                 buildlistTileWidget(
                   leading: "Email",
@@ -189,10 +189,10 @@ class ProfileScreen extends StatelessWidget {
                 //   trailing: "5",
                 // ),
                 // Divider(),
-                buildBottomListTile(
-                  leading: "Giỏ Hàng",
-                  trailing: "",
-                ),
+                // buildBottomListTile(
+                //   leading: "Giỏ Hàng",
+                //   trailing: "",
+                // ),
                 Divider(),
                 buildHistory(
                     leading: "Lịch Sử",

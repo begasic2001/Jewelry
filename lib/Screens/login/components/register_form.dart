@@ -17,6 +17,8 @@ class RegisterForm extends StatelessWidget {
     required this.defaultLoginSize,
     required this.emailController,
     required this.passwordController,
+    required this.fullnameController,
+    required this.addressController,
     this.onTap
   }) : super(key: key);
   final bool isLogin;
@@ -25,6 +27,8 @@ class RegisterForm extends StatelessWidget {
   final double defaultLoginSize;
   final TextEditingController emailController;
   final TextEditingController passwordController;
+    final TextEditingController fullnameController;
+  final TextEditingController addressController;
   final VoidCallback? onTap;
   // assets/images/register.svg
   @override
@@ -76,7 +80,16 @@ class RegisterForm extends StatelessWidget {
                   ),
 
                   SizedBox(height: 10),
-
+                   RoundedInput(
+                    icon: Icons.person,
+                    hint: 'Tên',
+                    emailController: fullnameController,
+                  ),
+                   RoundedInput(
+                    icon: Icons.location_on,
+                    hint: 'Địa Chỉ',
+                    emailController: addressController,
+                  ),
                   //RoundedButton(title: 'Đăng Ký',onTap: onTap,),
                   RoundedRegisterButton(
                     title: 'Đăng Ký',

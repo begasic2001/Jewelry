@@ -32,17 +32,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
         style: CategoryScreenStylies.categoryAppBarTitleStyle,
       ),
       actions: [
-        RotationTransition(
-          turns: AlwaysStoppedAnimation(90 / 360),
-          child: IconButton(
-            onPressed: () {},
-            icon: SvgPicture.asset(
-              SvgImages.filter,
-              color: AppColors.baseBlackColor,
-              width: 35,
-            ),
-          ),
-        ),
       Padding(
           padding: const EdgeInsets.only(top: 10, right: 20),
           child: StreamBuilder(

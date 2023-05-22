@@ -120,21 +120,21 @@ class _SubCategoryState extends State<SubCategory> {
       elevation: 0,
       backgroundColor: Colors.transparent,
       actions: [
-        IconButton(
-          icon: RotationTransition(
-            turns: AlwaysStoppedAnimation(
-              90 / 360,
-            ),
-            child: SvgPicture.asset(
-              SvgImages.filter,
-              color: AppColors.baseBlackColor,
-              width: 35,
-            ),
-          ),
-          onPressed: () {},
-        ),
+        // IconButton(
+        //   icon: RotationTransition(
+        //     turns: AlwaysStoppedAnimation(
+        //       90 / 360,
+        //     ),
+        //     child: SvgPicture.asset(
+        //       SvgImages.filter,
+        //       color: AppColors.baseBlackColor,
+        //       width: 35,
+        //     ),
+        //   ),
+        //   onPressed: () {},
+        // ),
        Padding(
-          padding: const EdgeInsets.only(top: 10, right: 20),
+          padding: const EdgeInsets.only(right: 20),
           child: StreamBuilder(
             stream: FirebaseDatabase.instance
                 .ref()

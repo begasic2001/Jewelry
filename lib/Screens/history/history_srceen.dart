@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 import 'package:app_trang_suc/components/appColors/app_colors.dart';
+import 'package:app_trang_suc/components/stylies/home_screen_stylies.dart';
 import 'package:app_trang_suc/models/order_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_format_money_vietnam/flutter_format_money_vietnam.dart';
 import 'package:intl/intl.dart'; 
 import 'package:intl/date_symbol_data_local.dart';
 class HistoryPage extends StatefulWidget {
@@ -22,6 +24,8 @@ class _HistoryPageState extends State<HistoryPage> {
         icon: const Icon(Icons.arrow_back, color: Colors.black),
         onPressed: () => Navigator.of(context).pop(context),
       ),
+      centerTitle: true,
+      title: Text("Lịch sử đặt hàng",style: HomeScreenStylies.appBarUpperTitleStylies),
     );
   }
 
@@ -71,7 +75,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                 ),
                               ),
                               Text(
-                                historyDatas[index].productPrice.toString(),
+                                historyDatas[index].productPrice.toString().toVND(unit: 'đ'),
                                 style: const TextStyle(
                                   fontSize: 16,
                                   color: AppColors.baseBlackColor,

@@ -25,6 +25,8 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
   Duration animationDuration = Duration(milliseconds: 270);
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final fullnameController = TextEditingController();
+  final addressController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   @override
   void initState() {
@@ -135,6 +137,8 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
             defaultLoginSize: defaultRegisterSize,
             emailController: emailController,
             passwordController: passwordController,
+             fullnameController : fullnameController,
+             addressController: addressController,
             onTap: (){
               signUp(context);
             },
@@ -182,7 +186,8 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
   Future<void> signIn(BuildContext context) async {
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
-
+    String name = fullnameController.text.trim();
+    String address = addressController.text.trim();
     if (email.isEmpty || password.isEmpty) {
       Utils.showSnackBar(context,"Vui lòng nhập email và mật khẩu");
       return;

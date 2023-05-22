@@ -44,8 +44,12 @@ class _HomePageState extends State<HomePage> {
   List<SingleProductModel> necklaceDatas =
       new List<SingleProductModel>.empty(growable: true);
   List<CartModel> carts = new List<CartModel>.empty(growable: true);
+  List<SingleProductModel> allProduct =
+      new List<SingleProductModel>.empty(growable: true);
+  bool searchState = false;
+
+  final user = FirebaseAuth.instance.currentUser!;
   AppBar buildAppBar(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
     return AppBar(
       bottom: const TabBar(
         labelPadding: EdgeInsets.symmetric(horizontal: 20),
@@ -70,36 +74,65 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.transparent,
       elevation: 0.0,
       centerTitle: true,
-      title: Column(
-        children: const [
-          Text(
-            "WELCOME",
-            style: HomeScreenStylies.appBarUpperTitleStylies,
-          ),
-          Text(
-            "JEWELRY",
-            style: HomeScreenStylies.appBarBottomTitleStylies,
-          )
-        ],
-      ),
-      actions: [
-        IconButton(
-          icon: RotationTransition(
-            turns: AlwaysStoppedAnimation(90 / 360),
-            child: SvgPicture.asset(
-              SvgImages.filter,
-              width: 30,
+      title: !searchState
+          ? Column(children: const [
+              Text(
+                "WELCOME",
+                style: HomeScreenStylies.appBarUpperTitleStylies,
+              ),
+              Text(
+                "JEWELRY",
+                style: HomeScreenStylies.appBarBottomTitleStylies,
+              )
+            ])
+          : TextField(
+              decoration: InputDecoration(
+                  icon: Icon(Icons.search),
+                  hintText: "Tìm kiếm.........",
+                  hintStyle: TextStyle(color: Colors.black)),
+              onChanged: (text) {
+                SearchProduct(text);
+              },
             ),
-          ),
-          onPressed: () {
-            PageRouting.goToNextPage(
-              context: context,
-              navigateTo: FilterScreen(),
-            );
-          },
-        ),
+      actions: [
+        !searchState
+            ? IconButton(
+                onPressed: () {
+                  setState(() {
+                    searchState = !searchState;
+                  });
+                },
+                icon: Icon(
+                  Icons.search,
+                  color: Colors.black,
+                ))
+            : IconButton(
+                onPressed: () {
+                  setState(() {
+                    searchState = !searchState;
+                  });
+                },
+                icon: Icon(
+                  Icons.cancel,
+                  color: Colors.black,
+                )),
+        // IconButton(
+        //   icon: RotationTransition(
+        //     turns: AlwaysStoppedAnimation(90 / 360),
+        //     child: SvgPicture.asset(
+        //       SvgImages.filter,
+        //       width: 30,
+        //     ),
+        //   ),
+        //   onPressed: () {
+        //     PageRouting.goToNextPage(
+        //       context: context,
+        //       navigateTo: FilterScreen(),
+        //     );
+        //   },
+        // ),
         Padding(
-          padding: const EdgeInsets.only(top: 10, right: 20),
+          padding: const EdgeInsets.only(right: 20),
           child: StreamBuilder(
             stream: FirebaseDatabase.instance
                 .ref()
@@ -292,6 +325,67 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     GetArrivalData();
+   
+
+    if (allProduct.length > 0) {
+      return DefaultTabController(
+        length: 4,
+        child: Scaffold(
+          appBar: buildAppBar(context),
+          body: TabBarView(
+            children: [
+              ListView(
+                physics: BouncingScrollPhysics(),
+                children: [
+                  buildAdvertismentPlace(),
+                  //ShowAllWidget(leftText: "Hàng Mới Về"),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 12.0,
+                    ),
+                    child: GridView.builder(
+                      shrinkWrap: true,
+                      primary: true,
+                      itemCount: allProduct.length,
+                      physics: NeverScrollableScrollPhysics(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.7,
+                      ),
+                      itemBuilder: (context, index) {
+                        var arrivalDataStore = allProduct[index];
+                        return SingleProductWidget(
+                          productImage: arrivalDataStore.productImage,
+                          productName: arrivalDataStore.productName,
+                          productModel: arrivalDataStore.productModel,
+                          productPrice: arrivalDataStore.productPrice,
+                          productOldPrice: arrivalDataStore.productOldPrice,
+                          onTap: () => {
+                            PageRouting.goToNextPage(
+                                context: context,
+                                navigateTo:
+                                    DetailScreen(data: arrivalDataStore))
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              TabBarBar(
+                productData: ringDatas,
+              ),
+              TabBarBar(
+                productData: necklaceDatas,
+              ),
+              TabBarBar(
+                productData: accessoriesData,
+              ),
+            ],
+          ),
+        ),
+      );
+    }
     return DefaultTabController(
       length: 4,
       child: Scaffold(
@@ -448,7 +542,9 @@ class _HomePageState extends State<HomePage> {
             new SingleProductModel.fromJson(json.decode(json.encode(value)));
         colothSingleProductModel.key = key;
         tempData.add(colothSingleProductModel);
-        setState(() => ringDatas = tempData);
+        setState(() {
+          ringDatas = tempData;
+        });
       });
     });
   }
@@ -464,6 +560,7 @@ class _HomePageState extends State<HomePage> {
             new SingleProductModel.fromJson(json.decode(json.encode(value)));
         colothSingleProductModel.key = key;
         tempData.add(colothSingleProductModel);
+
         setState(() {
           accessoriesData = tempData;
         });
@@ -482,10 +579,69 @@ class _HomePageState extends State<HomePage> {
             new SingleProductModel.fromJson(json.decode(json.encode(value)));
         colothSingleProductModel.key = key;
         tempData.add(colothSingleProductModel);
+
         setState(() {
           necklaceDatas = tempData;
         });
       });
     });
   }
+
+  void SearchProduct(String text) {
+    DatabaseReference searchRef =
+        FirebaseDatabase.instance.ref().child('AllData');
+    List<SingleProductModel> tempData = [];
+    searchRef.once().then((value) {
+      allProduct.clear();
+      var map = value.snapshot.value as Map<dynamic, dynamic>;
+      // var keys = value.snapshot.key as Map<dynamic, dynamic>;
+      // ignore: unused_local_variable
+      map.forEach((key, value) {
+        var searchData =
+            new SingleProductModel.fromJson(json.decode(json.encode(value)));
+        
+        SingleProductModel data = SingleProductModel(
+            productName: searchData.productName,
+            productPrice: searchData.productPrice,
+            productModel: searchData.productModel,
+            productOldPrice: searchData.productOldPrice,
+            productFourImage: searchData.productFourImage,
+            productSecondImage: searchData.productSecondImage,
+            productThirdImage: searchData.productThirdImage,
+            productImage: searchData.productImage,
+            key: searchData.key
+            );
+        if (data.productName!.toLowerCase().contains(text.toLowerCase())) {
+          data.key = key;
+          tempData.add(data);
+          setState(() => allProduct = tempData);
+        }
+        Timer(Duration(seconds: 2), () {
+          setState(() {
+            
+          });
+        });
+      });
+    });
+  }
 }
+
+// class Data {
+//   String productName,
+//       productModel,
+//       productFourImage,
+//       productSecondImage,
+//       productThirdImage,
+//       productImage;
+//   int productPrice,productOldPrice;
+//   Data(
+//     this.productImage,
+//     this.productModel,
+//     this.productName,
+//     this.productOldPrice,
+//     this.productPrice,
+//     this.productFourImage,
+//     this.productSecondImage,
+//     this.productThirdImage,
+//   );
+// }

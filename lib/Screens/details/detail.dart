@@ -51,17 +51,17 @@ class _DetailScreenState extends State<DetailScreen> {
           ),
         ),
         actions: [
-          IconButton(
-            icon: SvgPicture.asset(
-              SvgImages.heart,
-              color: AppColors.baseBlackColor,
-              width: 35,
-              semanticsLabel: "Favo",
-            ),
-            onPressed: () {},
-          ),
+          // IconButton(
+          //   icon: SvgPicture.asset(
+          //     SvgImages.heart,
+          //     color: AppColors.baseBlackColor,
+          //     width: 35,
+          //     semanticsLabel: "Favo",
+          //   ),
+          //   onPressed: () {},
+          // ),
           Padding(
-            padding: const EdgeInsets.only(top: 10, right: 20),
+            padding: const EdgeInsets.only(right: 20),
             child: StreamBuilder(
               stream: FirebaseDatabase.instance
                   .ref()
