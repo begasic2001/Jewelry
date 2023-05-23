@@ -100,10 +100,11 @@ class ConfirmationSuccessPage extends StatelessWidget {
             margin: EdgeInsets.symmetric(horizontal: 20),
             child: RoundedButton(
               onTap: () {
-                PageRouting.goToNextPage(
-                  context: context,
-                  navigateTo: HomePage(),
-                );
+                // PageRouting.goToNextPage(
+                //   context: context,
+                //   navigateTo: HomePage(),
+                // );
+                Navigator.of(context).pop(context);
               },
               title: "Trở về trang chủ",
             ),

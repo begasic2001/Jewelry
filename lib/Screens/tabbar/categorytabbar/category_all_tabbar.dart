@@ -67,12 +67,12 @@ class _CategoryAllTabBarState extends State<CategoryAllTabBar> {
         ShowAllWidget(
           leftText: "Nhẫn",
         ),
-        builderRender(singleProduct: colothsData),
+        builderRender(singleProduct: ringDatas),
         ShowAllWidget(
           leftText: "Vòng Cổ",
         ),
         builderRender(
-          singleProduct: shoesData,
+          singleProduct: necklaceDatas,
         ),
         ShowAllWidget(
           leftText: "Hoa Tai",

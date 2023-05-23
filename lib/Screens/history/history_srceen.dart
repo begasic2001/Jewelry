@@ -128,7 +128,7 @@ class _HistoryPageState extends State<HistoryPage> {
       return Scaffold(
         appBar: buildAppbar(),
         body: Center(
-          child: Text('Giỏ hàng trống !!!!'),
+          child: Text('Còn trống !!!!'),
         ),
       );
 
