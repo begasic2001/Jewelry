@@ -213,7 +213,7 @@ class _HomePageState extends State<HomePage> {
                 image: DecorationImage(
                   fit: BoxFit.cover,
                   image: NetworkImage(
-                      "https://xuconcept.com/wp-content/uploads/2017/08/Ch%E1%BB%A5p-h%C3%ACnh-s%E1%BA%A3n-ph%E1%BA%A9m-trang-s%E1%BB%A9c.png"),
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_v7xztojsRlhEzFI-ForOHDk31N4JZX_cTw&usqp=CAU"),
                 ),
                 borderRadius: BorderRadius.circular(10.0),
               ),
@@ -325,7 +325,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     GetArrivalData();
-   
 
     if (allProduct.length > 0) {
       return DefaultTabController(
@@ -599,7 +598,7 @@ class _HomePageState extends State<HomePage> {
       map.forEach((key, value) {
         var searchData =
             new SingleProductModel.fromJson(json.decode(json.encode(value)));
-        
+
         SingleProductModel data = SingleProductModel(
             productName: searchData.productName,
             productPrice: searchData.productPrice,
@@ -609,21 +608,16 @@ class _HomePageState extends State<HomePage> {
             productSecondImage: searchData.productSecondImage,
             productThirdImage: searchData.productThirdImage,
             productImage: searchData.productImage,
-            key: searchData.key
-            );
+            key: searchData.key);
         if (data.productName!.toLowerCase().contains(text.toLowerCase())) {
           data.key = key;
           tempData.add(data);
           setState(() => allProduct = tempData);
         }
         Timer(Duration(seconds: 2), () {
-          setState(() {
-            
-          });
+          setState(() {});
         });
       });
     });
   }
 }
-
-
