@@ -7,8 +7,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_format_money_vietnam/flutter_format_money_vietnam.dart';
-import 'package:intl/intl.dart'; 
+import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
+
 class HistoryPage extends StatefulWidget {
   _HistoryPageState createState() => _HistoryPageState();
 }
@@ -25,7 +26,8 @@ class _HistoryPageState extends State<HistoryPage> {
         onPressed: () => Navigator.of(context).pop(context),
       ),
       centerTitle: true,
-      title: Text("Lịch sử đặt hàng",style: HomeScreenStylies.appBarUpperTitleStylies),
+      title: Text("Lịch sử đặt hàng",
+          style: HomeScreenStylies.appBarUpperTitleStylies),
     );
   }
 
@@ -74,35 +76,38 @@ class _HistoryPageState extends State<HistoryPage> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Text(
-                                historyDatas[index].productPrice.toString().toVND(unit: 'đ'),
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  color: AppColors.baseBlackColor,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children:  [
+                            children: [
                               Text(
-                                DateFormat('yyyy-MM-dd hh:mm:ss').format(parsedDate),
+                                DateFormat('yyyy-MM-dd hh:mm:ss')
+                                    .format(parsedDate),
                                 style: TextStyle(
                                   color: AppColors.baseDarkPinkColor,
                                 ),
                               ),
                             ],
                           ),
-                    
                           Text(
                             "Số Lượng: ${historyDatas[index].productQuantity}",
                             style: TextStyle(
                               fontSize: 16,
                               color: AppColors.baseGrey60Color,
                             ),
-                          )
+                          ),
+                          Text(
+                            historyDatas[index]
+                                .productPrice
+                                .toString()
+                                .toVND(unit: 'đ'),
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: AppColors.baseBlackColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -159,7 +164,11 @@ class _HistoryPageState extends State<HistoryPage> {
       map.forEach((key, value) {
         print("data history ::::::::::::");
         print("key" + key);
-        ref.child(key).orderByChild('date_order').onValue.listen((DatabaseEvent event2) {
+        ref
+            .child(key)
+            .orderByChild('date_order')
+            .onValue
+            .listen((DatabaseEvent event2) {
           final map2 = event2.snapshot.value as Map<dynamic, dynamic>;
           map2.forEach((key2, value2) {
             var historyValue =

@@ -154,7 +154,7 @@
     
   },
   "shoesData": {
-    "01":{
+    "09":{
       "productImage":
       "https://product.hstatic.net/1000112469/product/dcptb343_1_81669494f82b414584a9274ea535ae5b.png",
   "productModel": "Dây Chuyền",
@@ -168,7 +168,7 @@
   "productThirdImage":
       "https://product.hstatic.net/1000112469/product/dcptb343_2_670ca7b8ecd440839239ee68322dd22d.jpg"
     },
-    "02": {
+    "10": {
       "productImage":
           "https://product.hstatic.net/1000112469/product/dcbkc032_6_74f3f0e8cbc94a39b5460fc3d91b4ae0.png",
       "productModel": "Dây Chuyền",
@@ -182,7 +182,7 @@
       "productThirdImage":
           "https://product.hstatic.net/1000112469/product/dcbkc032_2_095cf6752dd2476a8e93d56504292662.jpg"
     },
-    "03": {
+    "11": {
       "productImage":
           "https://product.hstatic.net/1000112469/product/dcbtcc82_6_743334d3df9b41e0b31ff49dd2d3ddf7.png",
       "productModel": "Dây Chuyền",
@@ -196,7 +196,7 @@
       "productThirdImage":
           "https://product.hstatic.net/1000112469/product/dcbtcc82_6_ae1dd4a0e43f47afa590e60072c41130.png"
     },
-    "04": {
+    "12": {
       "productImage":
           "https://product.hstatic.net/1000112469/product/dcmamd568_1_296bc01b210548be9c2a406ac038ef95.png",
       "productModel": "Dây Chuyền",
@@ -213,7 +213,7 @@
   },
   
   "accessoriesData": {
-    "01": {
+    "13": {
       "productImage":
           "https://product.hstatic.net/1000112469/product/bt415_6_e5a0b2bf926c43a7b2e13e6f66541397.png",
       "productModel": "Bông Tai",
@@ -227,7 +227,7 @@
       "productThirdImage":
           "https://product.hstatic.net/1000112469/product/bt415_4_3ac8c69786db474b97d600b352935268.jpg"
     },
-    "02": {
+    "14": {
       "productImage":
           "https://product.hstatic.net/1000112469/product/btbkc032_6_21b8019e5d7c4ec493200a2d2e9fcfd2.png",
       "productModel": "Bông Tai",
@@ -241,7 +241,7 @@
       "productThirdImage":
           "https://product.hstatic.net/1000112469/product/btbkc032_4_7bf62b94b8ad431c99df6f5187f72c1a.jpg"
     },
-    "03": {
+    "15": {
       "productImage": "https://product.hstatic.net/1000112469/product/bt402_6_ec1d719e62294c4cacfe35aea9213323.png",
       "productModel": "Bông Tai",
       "productName": "BT 402",
@@ -251,7 +251,7 @@
       "productSecondImage": "https://product.hstatic.net/1000112469/product/bt402_3_719f9ac089b6490ba4ae3e6b9f15f699.jpg",
       "productThirdImage": "https://product.hstatic.net/1000112469/product/bt402_1_19f172e37ac74817ad39a124db801d20.jpg"
     },
-    "04": {
+    "16": {
       "productImage": "https://product.hstatic.net/1000112469/product/btptb334_6__1__cut_8dbaa6b8a4d44be9a9326256f33feb6e.png",
       "productModel": "Bông Tai",
       "productName": "BTPTB 334",
