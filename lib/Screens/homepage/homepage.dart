@@ -513,7 +513,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void GetArrivalData() {
-    DatabaseReference dbRef = FirebaseDatabase.instance.ref().child('arrivals');
+    DatabaseReference dbRef = FirebaseDatabase.instance.ref().child('accessoriesData');
     dbRef.onValue.listen((event) {
       setState(() {
         final map = event.snapshot.value as Map<dynamic, dynamic>;
