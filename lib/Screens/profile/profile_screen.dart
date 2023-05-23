@@ -134,7 +134,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void initState() {
-    GetProfileUser();
+    GetProfileUserName();
+    GetProfileUserAddress();
     super.initState();
   }
 
@@ -253,17 +254,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
     await FirebaseAuth.instance.signOut();
   }
 
-  void GetProfileUser() {
+  void GetProfileUserName() {
     var ref =
-        FirebaseDatabase.instance.ref().child('Users').child(user.uid).onValue;
+        FirebaseDatabase.instance.ref().child('Users').child(user.uid).child('name').onValue;
     ref.listen((event) {
-      var result = event.snapshot.value;
-      var a = new UserModel.fromJson(json.decode(json.encode(result)));
-      // var colothSingleProductModel =
-      //       new SingleProductModel.fromJson(json.decode(json.encode(value)));
-      // setState(() {
-      //   userVM = result;
-      // });
+      var result1 = event.snapshot.value;
+      print("name:::::::::::::");
+      print(result1);
+      setState(() {
+        name = result1;
+      });
+    });
+   
+  }
+
+   void GetProfileUserAddress() {
+    var ref =
+        FirebaseDatabase.instance.ref().child('Users').child(user.uid).child('address').onValue;
+    ref.listen((event) {
+      var result2 = event.snapshot.value;
+        print("address:::::::::::::");
+      print(result2);
+      setState(() {
+        address = result2;
+      });
     });
    
   }

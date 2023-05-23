@@ -159,7 +159,7 @@ class _HistoryPageState extends State<HistoryPage> {
       map.forEach((key, value) {
         print("data history ::::::::::::");
         print("key" + key);
-        ref.child(key).onValue.listen((DatabaseEvent event2) {
+        ref.child(key).orderByChild('date_order').onValue.listen((DatabaseEvent event2) {
           final map2 = event2.snapshot.value as Map<dynamic, dynamic>;
           map2.forEach((key2, value2) {
             var historyValue =
