@@ -18,8 +18,8 @@ class ProfileScreen extends StatefulWidget {
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-final user = FirebaseAuth.instance.currentUser!;
 class _ProfileScreenState extends State<ProfileScreen> {
+  final user = FirebaseAuth.instance.currentUser!;
   var name;
   var address;
   late UserModel userVM;
@@ -146,106 +146,104 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: buildAppBar(),
       body: ListView(
         physics: BouncingScrollPhysics(),
-      
-         children: [
-              Container(
-                height: 200,
-                margin: EdgeInsets.only(bottom: 10),
-                color: AppColors.baseWhiteColor,
-                child: Padding(
-                  padding: EdgeInsets.all(20.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      // Center(
-                      //   child: CircleAvatar(
-                      //     radius: 35,
-                      //     backgroundColor: Colors.transparent,
-                      //     backgroundImage:
-                      //         NetworkImage("https://i.pinimg.com/originals/7b/48/65/7b48654b92587f3df86c21d7071bad42.jpg"),
-                      //   ),
-                      // ),
-                      Text(
-                        //"ten",
-                        name.toString(),
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      // Text(
-                      //   "bio asp.net core",
-                      //   textAlign: TextAlign.center,
-                      // )
-                    ],
+        children: [
+          Container(
+            height: 200,
+            margin: EdgeInsets.only(bottom: 10),
+            color: AppColors.baseWhiteColor,
+            child: Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  // Center(
+                  //   child: CircleAvatar(
+                  //     radius: 35,
+                  //     backgroundColor: Colors.transparent,
+                  //     backgroundImage:
+                  //         NetworkImage("https://i.pinimg.com/originals/7b/48/65/7b48654b92587f3df86c21d7071bad42.jpg"),
+                  //   ),
+                  // ),
+                  Text(
+                    //"ten",
+                    name.toString(),
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
+                  // Text(
+                  //   "bio asp.net core",
+                  //   textAlign: TextAlign.center,
+                  // )
+                ],
               ),
-              Container(
-                margin: EdgeInsets.only(bottom: 20),
-                color: AppColors.baseWhiteColor,
-                child: Column(
-                  children: [
-                    //buildlistTileWidget(leading: "Họ & Tên", trailing: "Lương Minh Thành"),
-                    Divider(),
-                    buildlistTileWidget(
-                      leading: "Email",
-                      trailing: user.email!.toString(),
-                    ),
-                    Divider(),
-                    buildlistTileWidget(
-                      leading: "Địa Chỉ",
-                      trailing: address.toString(),//result.address!.toString()
-                    ),
-                    // Divider(),
-                    // buildlistTileWidget(
-                    //   leading: "Thanh Toán",
-                    //   trailing: "6011\t****\t****\t1117",
-                    // ),
-                  ],
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(bottom: 20),
+            color: AppColors.baseWhiteColor,
+            child: Column(
+              children: [
+                //buildlistTileWidget(leading: "Họ & Tên", trailing: "Lương Minh Thành"),
+                Divider(),
+                buildlistTileWidget(
+                  leading: "Email",
+                  trailing: user.email!.toString(),
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.only(bottom: 10),
-                color: AppColors.baseWhiteColor,
-                child: Column(
-                  children: [
-                    // buildBottomListTile(
-                    //   leading: "Yêu Thích",
-                    //   trailing: "5",
-                    // ),
-                    // Divider(),
-                    // buildBottomListTile(
-                    //   leading: "Giỏ Hàng",
-                    //   trailing: "",
-                    // ),
-                    Divider(),
-                    buildHistory(
-                        leading: "Lịch Sử",
-                        trailing: "",
-                        onTap: () {
-                          PageRouting.goToNextPage(
-                              context: context, navigateTo: HistoryPage());
-                        }),
-                  ],
+                Divider(),
+                buildlistTileWidget(
+                  leading: "Địa Chỉ",
+                  trailing: address.toString(), //result.address!.toString()
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.all(20.0),
-                child: RoundedButton(
-                  //color: AppColors.baseDarkPinkColor,
-                  title: "Đăng Xuất",
-                  onTap: signOut,
-                  // () {
-                  //   PageRouting.goToNextPage(
-                  //     context: context,
-                  //     navigateTo: Login(),
-                  //   );
-                  // }
-                ),
-              ),
-            ],
-         
+                // Divider(),
+                // buildlistTileWidget(
+                //   leading: "Thanh Toán",
+                //   trailing: "6011\t****\t****\t1117",
+                // ),
+              ],
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(bottom: 10),
+            color: AppColors.baseWhiteColor,
+            child: Column(
+              children: [
+                // buildBottomListTile(
+                //   leading: "Yêu Thích",
+                //   trailing: "5",
+                // ),
+                // Divider(),
+                // buildBottomListTile(
+                //   leading: "Giỏ Hàng",
+                //   trailing: "",
+                // ),
+                Divider(),
+                buildHistory(
+                    leading: "Lịch Sử",
+                    trailing: "",
+                    onTap: () {
+                      PageRouting.goToNextPage(
+                          context: context, navigateTo: HistoryPage());
+                    }),
+              ],
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.all(20.0),
+            child: RoundedButton(
+              //color: AppColors.baseDarkPinkColor,
+              title: "Đăng Xuất",
+              onTap: signOut,
+              // () {
+              //   PageRouting.goToNextPage(
+              //     context: context,
+              //     navigateTo: Login(),
+              //   );
+              // }
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -255,8 +253,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   void GetProfileUserName() {
-    var ref =
-        FirebaseDatabase.instance.ref().child('Users').child(user.uid).child('name').onValue;
+    var ref = FirebaseDatabase.instance
+        .ref()
+        .child('Users')
+        .child(user.uid)
+        .child('name')
+        .onValue;
     ref.listen((event) {
       var result1 = event.snapshot.value;
       print("name:::::::::::::");
@@ -265,20 +267,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
         name = result1;
       });
     });
-   
   }
 
-   void GetProfileUserAddress() {
-    var ref =
-        FirebaseDatabase.instance.ref().child('Users').child(user.uid).child('address').onValue;
+  void GetProfileUserAddress() {
+    var ref = FirebaseDatabase.instance
+        .ref()
+        .child('Users')
+        .child(user.uid)
+        .child('address')
+        .onValue;
     ref.listen((event) {
       var result2 = event.snapshot.value;
-        print("address:::::::::::::");
+      print("address:::::::::::::");
       print(result2);
       setState(() {
         address = result2;
       });
     });
-   
   }
 }
