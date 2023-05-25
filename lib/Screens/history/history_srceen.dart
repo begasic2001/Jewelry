@@ -82,7 +82,7 @@ class _HistoryPageState extends State<HistoryPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                DateFormat('yyyy-MM-dd hh:mm:ss')
+                                DateFormat('dd-MM-yyyy HH:mm:ss')
                                     .format(parsedDate),
                                 style: TextStyle(
                                   color: AppColors.baseDarkPinkColor,
